@@ -41,9 +41,8 @@ internal static class ProductQueries
         }
         if (!string.IsNullOrWhiteSpace(filter.Search))
         {
-            // Cột Name dùng collation không dấu (ProductConfiguration) nên "may rua bat" / "dien" vẫn khớp
-            var term = filter.Search.Trim();
-            query = query.Where(x => x.p.Name.Contains(term) || x.t.Name.Contains(term));
+            var term = SearchText.Normalize(filter.Search);
+            query = query.Where(x => SearchText.Fold(x.p.Name).Contains(term) || SearchText.Fold(x.t.Name).Contains(term));
         }
 
         var ordered = query.OrderBy(x => x.c.SortOrder).ThenBy(x => x.t.SortOrder).ThenBy(x => x.p.Name);

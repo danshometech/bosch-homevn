@@ -4,6 +4,7 @@ using BoschHomeVn.Domain.Home;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace BoschHomeVn.Infrastructure.Persistence;
 
@@ -20,5 +21,16 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : Ident
         base.OnModelCreating(modelBuilder);
         // Mỗi entity một IEntityTypeConfiguration<T> trong Persistence/Configurations/
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+
+        // Tìm không dấu: SearchText.Fold(x) → lower(unaccent(x)) (extension unaccent của PostgreSQL)
+        modelBuilder.HasPostgresExtension("unaccent");
+        modelBuilder.HasDbFunction(typeof(SearchText).GetMethod(nameof(SearchText.Fold))!)
+            .HasTranslation(args => new SqlFunctionExpression(
+                "lower",
+                [new SqlFunctionExpression("unaccent", args, nullable: true, argumentsPropagateNullability: [true], typeof(string), args[0].TypeMapping)],
+                nullable: true,
+                argumentsPropagateNullability: [true],
+                typeof(string),
+                args[0].TypeMapping));
     }
 }

@@ -14,8 +14,7 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Id).HasMaxLength(64);
         builder.Property(p => p.Model).HasMaxLength(32);
         builder.HasIndex(p => p.Model).IsUnique();
-        // Collation không phân biệt dấu (kể cả đ/d) để tìm "may rua bat" ra "Máy rửa bát"
-        builder.Property(p => p.Name).HasMaxLength(300).UseCollation(Collations.AccentInsensitive);
+        builder.Property(p => p.Name).HasMaxLength(300);
 
         builder.Property(p => p.ProductTypeId).HasMaxLength(64);
         builder.HasOne<ProductType>()

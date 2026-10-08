@@ -13,7 +13,7 @@ internal sealed class ProductTypeConfiguration : IEntityTypeConfiguration<Produc
 
         builder.Property(t => t.Id).HasMaxLength(64);
         builder.Property(t => t.CategoryId).HasMaxLength(64);
-        builder.Property(t => t.Name).HasMaxLength(200).UseCollation(Collations.AccentInsensitive);
+        builder.Property(t => t.Name).HasMaxLength(200);
         builder.Property(t => t.GroupName).HasMaxLength(200);
     }
 }

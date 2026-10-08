@@ -23,7 +23,7 @@ public static class DependencyInjection
         }
 
         services.AddDbContext<AppDbContext>(options => options
-            .UseSqlServer(connectionString)
+            .UseNpgsql(connectionString)
             // Seed khi bảng còn trống (chạy trong `dotnet ef database update` / Database.Migrate()):
             // danh mục + sản phẩm trước, rồi khoảnh khắc trang chủ (trỏ tới sản phẩm)
             .UseSeeding((context, _) =>
