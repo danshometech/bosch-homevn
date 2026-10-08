@@ -1,0 +1,222 @@
+{
+  "moments": [
+    {
+      "id": "ca-phe",
+      "time": "06:45",
+      "name": "Cà phê",
+      "tone": "dawn",
+      "title": "Ly đầu tiên, trước khi cả nhà thức giấc.",
+      "lead": "Hạt cà phê xay tươi cho từng ly. Bạn chỉ cần bấm nút, rồi đứng bên cửa sổ đón chút nắng sớm.",
+      "imageUrl": "/images/scene-0745-ca-phe.jpg",
+      "imagePosition": "50% 55%",
+      "stillImageUrl": null,
+      "imageAlt": "Máy pha cà phê Bosch VeroCup 300 trên bàn ăn sáng",
+      "fact": {
+        "productId": null,
+        "specKey": "Áp suất",
+        "note": "Áp suất chiết xuất cho lớp crema dày, thơm."
+      },
+      "links": [
+        {
+          "label": "Xem tất cả máy pha cà phê",
+          "url": "/san-pham/gia-dung?loai=may-pha-ca-phe"
+        }
+      ],
+      "products": [],
+      "extras": {
+        "title": "Mua kèm cho góc cà phê",
+        "productIds": [],
+        "moreLabel": "Xem tất cả gia dụng",
+        "moreUrl": "/san-pham/gia-dung"
+      }
+    },
+    {
+      "id": "bua-sang",
+      "time": "07:10",
+      "name": "Bữa sáng",
+      "tone": "morning",
+      "title": "Bánh mì vừa giòn, trứng vừa chín tới.",
+      "lead": "Lò nướng AutoPilot tự chọn chế độ theo món, bếp từ PowerBoost làm nóng chảo trong chốc lát. Bữa sáng xong kịp giờ đưa con đến lớp.",
+      "imageUrl": "/images/scene-0810-bua-sang.jpg",
+      "imagePosition": "50% 30%",
+      "stillImageUrl": null,
+      "imageAlt": "Khay bánh trong lò nướng Bosch",
+      "fact": {
+        "productId": "hbg536eb3",
+        "specKey": "Dung tích",
+        "note": "Khoang lò rộng cho bữa sáng của cả nhà."
+      },
+      "links": [
+        {
+          "label": "Thiết bị đun nấu",
+          "url": "/san-pham/thiet-bi-bep?nhom=thiet-bi-dun-nau"
+        }
+      ],
+      "products": [
+        "hbg536eb3",
+        "hbg7361b1",
+        "puj631bb5e",
+        "pid775dc1e"
+      ],
+      "extras": {
+        "title": "Mua kèm cho bữa sáng",
+        "productIds": [
+          "fel053ms1m",
+          "bel554mb2",
+          "hez9se030"
+        ],
+        "moreLabel": "Xem tất cả thiết bị đun nấu",
+        "moreUrl": "/san-pham/thiet-bi-bep?nhom=thiet-bi-dun-nau"
+      }
+    },
+    {
+      "id": "ra-khoi-nha",
+      "time": "07:45",
+      "name": "Ra khỏi nhà",
+      "tone": "day",
+      "title": "Đi làm thôi, không cần tìm chìa khóa.",
+      "lead": "Chạm vân tay là cửa mở, đóng lại là khóa tự chốt. Quên điện thoại hay chìa cơ cũng không sao — mật mã và thẻ từ vẫn mở được.",
+      "imageUrl": null,
+      "imagePosition": null,
+      "stillImageUrl": "/images/lock-el600kb.png",
+      "imageAlt": "Khóa cửa vân tay Bosch EL 600KB",
+      "fact": {
+        "productId": null,
+        "specKey": "Phản hồi",
+        "note": "Chạm vân tay là cửa mở, không phải dừng lại tìm chìa."
+      },
+      "links": [
+        {
+          "label": "Xem tất cả khóa cửa vân tay",
+          "url": "/san-pham/khoa-cua"
+        }
+      ],
+      "products": [],
+      "extras": {
+        "title": "Thêm lựa chọn khóa cửa",
+        "productIds": [],
+        "moreLabel": "Xem tất cả khóa cửa vân tay",
+        "moreUrl": "/san-pham/khoa-cua"
+      }
+    },
+    {
+      "id": "bua-trua",
+      "time": "12:30",
+      "name": "Bữa trưa",
+      "tone": "noon",
+      "title": "Bát đĩa để máy lo, bạn cứ nghỉ trưa.",
+      "lead": "Mười ba bộ bát đĩa xếp gọn trong máy rửa bát âm tủ. Máy chạy êm đến mức cả nhà vẫn chợp mắt được ở phòng bên.",
+      "imageUrl": "/images/scene-1230-may-rua-bat.jpg",
+      "imagePosition": "65% 25%",
+      "stillImageUrl": null,
+      "imageAlt": "Máy rửa bát âm tủ Bosch mở cửa, giá bát đầy chén đĩa sạch",
+      "fact": {
+        "productId": "smv4hcx19e",
+        "specKey": "Độ ồn",
+        "note": "Vận hành êm, không làm phiền giấc ngủ trưa."
+      },
+      "links": [
+        {
+          "label": "Xem tất cả máy rửa bát",
+          "url": "/san-pham/thiet-bi-bep?loai=may-rua-bat"
+        }
+      ],
+      "products": [
+        "smv4hcx19e",
+        "smv6zcx16e",
+        "sms6zci00p",
+        "sms8yci01e"
+      ],
+      "extras": {
+        "title": "Mua kèm cho bữa trưa",
+        "productIds": [
+          "bfl524mb2",
+          "bel524mb2",
+          "sms4hti16e"
+        ],
+        "moreLabel": "Xem tất cả thiết bị làm sạch",
+        "moreUrl": "/san-pham/thiet-bi-bep?nhom=thiet-bi-lam-sach"
+      }
+    },
+    {
+      "id": "bua-toi",
+      "time": "18:40",
+      "name": "Bữa tối",
+      "tone": "dusk",
+      "title": "Rau vẫn tươi như vừa đi chợ về.",
+      "lead": "Tủ lạnh NoFrost giữ thực phẩm tươi lâu, không đóng tuyết. Bếp từ FlexInduction đủ chỗ cho nồi lẩu lẫn chảo lớn, để cả nhà quây quần.",
+      "imageUrl": "/images/scene-1840-tu-lanh.jpg",
+      "imagePosition": "55% 55%",
+      "stillImageUrl": null,
+      "imageAlt": "Tủ lạnh Bosch mở ngăn VitaFresh đầy rau củ tươi",
+      "fact": {
+        "productId": "kfn96axea",
+        "specKey": "Dung tích",
+        "note": "Đủ chỗ cho thực phẩm cả tuần."
+      },
+      "links": [
+        {
+          "label": "Thiết bị bảo quản",
+          "url": "/san-pham/thiet-bi-bep?nhom=thiet-bi-bao-quan"
+        }
+      ],
+      "products": [
+        "kfn96axea",
+        "kmc85lbea",
+        "pxe875dc1e",
+        "dwb98ij60i"
+      ],
+      "extras": {
+        "title": "Mua kèm cho bữa tối",
+        "productIds": [
+          "dwk98ij60i",
+          "dfs097a51b"
+        ],
+        "moreLabel": "Xem tất cả thiết bị bếp",
+        "moreUrl": "/san-pham/thiet-bi-bep"
+      }
+    },
+    {
+      "id": "ngu-ngon",
+      "time": "23:15",
+      "name": "Chúc ngủ ngon",
+      "tone": "night",
+      "title": "Cả nhà đã ngủ. Máy giặt vẫn làm việc.",
+      "lead": "Bỏ đồ vào, hẹn giờ cho mẻ giặt xong vào sáng mai. Máy sấy bơm nhiệt lo nốt phần còn lại, rồi tắt đèn.",
+      "imageUrl": "/images/scene-2315-dem.jpg",
+      "imagePosition": "50% 62%",
+      "stillImageUrl": null,
+      "imageAlt": "Máy giặt Bosch trong phòng giặt",
+      "fact": {
+        "productId": "wgg24400sg",
+        "specKey": "Tốc độ vắt",
+        "note": "Vắt kiệt nước, sáng mai phơi là khô."
+      },
+      "links": [
+        {
+          "label": "Xem tất cả máy giặt",
+          "url": "/san-pham/gia-dung?loai=may-giat"
+        },
+        {
+          "label": "Xem tất cả máy sấy",
+          "url": "/san-pham/gia-dung?loai=may-say-quan-ao"
+        }
+      ],
+      "products": [
+        "wgg24400sg",
+        "wqb245b0sg",
+        "wgg25400sg",
+        "wqg24200sg"
+      ],
+      "extras": {
+        "title": "Mua kèm cho việc nhà buổi tối",
+        "productIds": [
+          "wgb254a0sg",
+          "wqg24570sg"
+        ],
+        "moreLabel": "Xem tất cả gia dụng",
+        "moreUrl": "/san-pham/gia-dung"
+      }
+    }
+  ]
+}

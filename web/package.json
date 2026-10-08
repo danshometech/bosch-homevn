@@ -1,0 +1,15 @@
+{
+  "name": "bosch-homevn-web",
+  "private": true,
+  "workspaces": [
+    "webstore",
+    "admin"
+  ],
+  "scripts": {
+    "dev:store": "npm run dev -w webstore",
+    "dev:admin": "npm run dev -w admin",
+    "build": "npm run build -w webstore && npm run build -w admin",
+    "build:store": "npm run build -w webstore",
+    "build:admin": "npm run build -w admin"
+  }
+}

@@ -1,0 +1,37 @@
+using BoschHomeVn.Contracts.Catalog;
+using BoschHomeVn.Contracts.Home;
+using Microsoft.AspNetCore.Mvc;
+
+namespace BoschHomeVn.WebStore.Infrastructure;
+
+public sealed class StoreApiClient(HttpClient http, ILogger<StoreApiClient> logger)
+{
+    public Task<ActionResult<MenuResponse>> GetMenuAsync(CancellationToken cancellationToken) =>
+        GetAsync<MenuResponse>("api/menu", cancellationToken);
+
+    public Task<ActionResult<HomePageResponse>> GetHomeAsync(CancellationToken cancellationToken) =>
+        GetAsync<HomePageResponse>("api/home", cancellationToken);
+
+    public Task<ActionResult<IReadOnlyList<ProductResponse>>> GetProductsAsync(
+        string? category, string? q, bool flash, string? ids, int? take, CancellationToken cancellationToken)
+    {
+        var query = QueryString.Create(new Dictionary<string, string?>
+        {
+            ["category"] = category,
+            ["q"] = q,
+            ["flash"] = flash ? "true" : null,
+            ["ids"] = ids,
+            ["take"] = take?.ToString(),
+        }.Where(p => !string.IsNullOrEmpty(p.Value)));
+        return GetAsync<IReadOnlyList<ProductResponse>>("api/products" + query, cancellationToken);
+    }
+
+    public Task<ActionResult<ProductResponse>> GetProductAsync(string id, CancellationToken cancellationToken) =>
+        GetAsync<ProductResponse>("api/products/" + Uri.EscapeDataString(id), cancellationToken);
+
+    public Task<HttpResponseMessage?> SendMediaAsync(Func<HttpRequestMessage> create, CancellationToken cancellationToken) =>
+        ApiCall.SendMediaAsync(http, create, logger, cancellationToken);
+
+    private Task<ActionResult<T>> GetAsync<T>(string path, CancellationToken cancellationToken) =>
+        ApiCall.SendAsync<T>(http, () => new HttpRequestMessage(HttpMethod.Get, path), logger, cancellationToken);
+}

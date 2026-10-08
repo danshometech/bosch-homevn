@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <!-- dotnet user-secrets: Admin:Password cho môi trường dev (không nằm trong repo) -->
+    <UserSecretsId>b9a451a9-7271-47d0-8ecd-1c7a5a80079b</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BoschHomeVn.Application\BoschHomeVn.Application.csproj" />
+    <ProjectReference Include="..\BoschHomeVn.Infrastructure\BoschHomeVn.Infrastructure.csproj" />
+    <ProjectReference Include="..\BoschHomeVn.Contracts\BoschHomeVn.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Scalar.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Ảnh gốc của dữ liệu seed, chép sang thư mục media lúc khởi động (MediaSeeder) — cần có trong bản publish -->
+    <None Update="SeedMedia\**" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

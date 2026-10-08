@@ -1,0 +1,55 @@
+# Node / Vite
+node_modules/
+dist/
+.vite/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# .NET
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.rsuser
+*.DotSettings.user
+_ReSharper*/
+*.binlog
+TestResults/
+publish/
+artifacts/
+
+# wwwroot của WebStore/Admin là output build của web/ (npm run build) — không commit
+src/BoschHomeVn.WebStore/wwwroot/
+src/BoschHomeVn.Admin/wwwroot/
+
+# Ảnh / video admin tải lên và khóa đăng nhập (Api: App_Data/media, App_Data/keys)
+src/BoschHomeVn.Api/App_Data/
+
+# Biến môi trường khi chạy docker compose (mật khẩu DB, admin); file mẫu vẫn commit
+.env
+.env.*
+!.env.example
+
+# Prototype: bản "Save page as" của trình duyệt (trùng các file .jsx/.css ở prototype/, kèm React/Babel tải về)
+# và ảnh chụp màn hình demo — chụp lại được
+prototype/*_files/
+prototype/bosch-homevn.com*.html
+prototype/Inline Babel script
+prototype/a-day-with-bosch/screens/
+*.download
+
+# IDE / hệ điều hành
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Log
+*.log
+logs/

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>@ViewData["Title"] — Quản trị bosch-homevn</title>
+    @* Không dùng file trong wwwroot: thư mục đó bị vite xoá và ghi lại mỗi lần build *@
+    <style>
+        body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #17181a; }
+        main { max-width: 720px; margin: 64px auto; padding: 0 16px; }
+        a { color: #dc3a2a; }
+    </style>
+</head>
+<body>
+    <main>
+        @RenderBody()
+    </main>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

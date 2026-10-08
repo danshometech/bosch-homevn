@@ -1,0 +1,53 @@
+# Chạy: cp .env.example .env (điền giá trị) → docker compose up -d --build
+# SQL Server dùng container có sẵn trên server: Api tham gia network DB_NETWORK của container đó.
+# Reverse proxy có sẵn (nginx/Traefik/Caddy) trỏ tên miền site → WEBSTORE_PORT, tên miền admin → ADMIN_PORT (HTTPS).
+# Admin tải video tới 50 MB: proxy của tên miền admin phải cho request lớn (nginx: client_max_body_size 60m;).
+# Backup: volume appdata (ảnh / video tải lên, khóa đăng nhập) + database.
+name: bosch-homevn
+
+services:
+  api:
+    build: { context: ., target: api }
+    image: bosch-homevn-api
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__Default: ${DB_CONNECTION:?Thiếu DB_CONNECTION trong .env}
+      Database__MigrateOnStartup: "true"
+      Admin__UserName: ${ADMIN_USERNAME:-admin}
+      Admin__Email: ${ADMIN_EMAIL:?Thiếu ADMIN_EMAIL trong .env}
+      Admin__Password: ${ADMIN_PASSWORD:?Thiếu ADMIN_PASSWORD trong .env}
+    volumes:
+      - appdata:/app/App_Data
+    networks: [app, db]
+
+  webstore:
+    build: { context: ., target: webstore }
+    image: bosch-homevn-webstore
+    restart: unless-stopped
+    environment:
+      Api__BaseUrl: http://api:8080/
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${WEBSTORE_PORT:-8081}:8080"
+    depends_on: [api]
+    networks: [app]
+
+  admin:
+    build: { context: ., target: admin }
+    image: bosch-homevn-admin
+    restart: unless-stopped
+    environment:
+      Api__BaseUrl: http://api:8080/
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${ADMIN_PORT:-8082}:8080"
+    depends_on: [api]
+    networks: [app]
+
+volumes:
+  appdata:
+
+networks:
+  app: {}
+  db:
+    external: true
+    name: ${DB_NETWORK:?Thiếu DB_NETWORK trong .env}
