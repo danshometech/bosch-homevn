@@ -5,3 +5,5 @@ export const toGroup = (cat, title) => ({ name: 'list', params: { cat }, query: 
 export const toSub = (cat, sub) => ({ name: 'list', params: { cat }, query: { loai: slugify(sub) } })
 export const toFlash = { name: 'list', query: { flash: '1' } }
 export const toDetail = id => ({ name: 'detail', params: { id } })
+export const toNews = cat => (cat ? { name: 'news', params: { cat } } : { name: 'news' })
+export const toNewsPost = slug => ({ name: 'news-post', params: { slug } })

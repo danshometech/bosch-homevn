@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useCatalogStore } from '@/stores/catalog'
+import { useSettingsStore } from '@/stores/settings'
 import { pct } from '@/utils/format'
 import { toList, toGroup } from '@/router/links'
 import { useDrawer } from '@/composables/useDrawer'
@@ -9,6 +10,7 @@ import Tree from 'primevue/tree'
 import AppIcon from '@/components/AppIcon.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import ProductCardSkeleton from '@/components/ProductCardSkeleton.vue'
+const settings = useSettingsStore()
 
 const props = defineProps({
   cat: { type: String, default: null },
@@ -277,20 +279,20 @@ const title = computed(() => props.flash ? 'Flash sale' : props.q ? `Kết quả
         </div>
         <div v-else-if="failed" class="box empty">
           <h3>Không tải được sản phẩm</h3>
-          <p class="muted" style="margin-top:8px">Vui lòng thử lại sau ít phút hoặc gọi hotline 1900 6868.</p>
+          <p class="muted" style="margin-top:8px">Vui lòng thử lại sau ít phút hoặc gọi hotline {{ settings.hotline }}.</p>
         </div>
         <div v-else-if="items.length" class="grid">
           <ProductCard v-for="p in items" :key="p.id" :p="p" :flash="flash" />
         </div>
         <div v-else-if="cat && !q && !base.length" class="box empty">
           <h3>Danh mục đang cập nhật sản phẩm</h3>
-          <p class="muted" style="margin:8px 0 20px">Gọi hotline 1900 6868 để được tư vấn và báo giá {{ sub || group?.title || c.name }}.</p>
-          <RouterLink class="btn btn-dark" :to="toList()">Xem tất cả sản phẩm</RouterLink>
+          <p class="muted" style="margin:8px 0 20px">Gọi hotline {{ settings.hotline }} để được tư vấn và báo giá {{ sub || group?.title || c.name }}.</p>
+          <RouterLink class="btn btn-primary" :to="toList()">Xem tất cả sản phẩm</RouterLink>
         </div>
         <div v-else class="box empty">
           <h3>Không tìm thấy sản phẩm phù hợp</h3>
           <p class="muted" style="margin:8px 0 20px">Thử bỏ bớt bộ lọc hoặc tìm với từ khóa khác.</p>
-          <RouterLink class="btn btn-dark" :to="toList()">Xem tất cả sản phẩm</RouterLink>
+          <RouterLink class="btn btn-primary" :to="toList()">Xem tất cả sản phẩm</RouterLink>
         </div>
       </div>
     </div>

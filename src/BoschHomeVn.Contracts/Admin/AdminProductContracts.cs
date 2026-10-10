@@ -36,7 +36,6 @@ public sealed record AdminProductResponse(
     IReadOnlyList<int> InstallmentMonths,
     int? InstallmentDisplayMonths);
 
-// Model chỉ dùng khi thêm mới. StockStatus: InStock | LowStock | OutOfStock
 public sealed record SaveProductRequest(
     [StringLength(32)] string Model,
     [StringLength(300)] string Name,
@@ -63,6 +62,8 @@ public sealed record SaveProductRequest(
     bool AllowInstallment,
     IReadOnlyList<int>? InstallmentMonths,
     int? InstallmentDisplayMonths);
+
+public sealed record SaveProductArticleRequest([StringLength(200_000)] string? Html);
 
 public sealed record ProductSpecRequest([StringLength(100)] string Name, [StringLength(300)] string Value);
 

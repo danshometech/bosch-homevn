@@ -2,8 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useCatalogStore } from '@/stores/catalog'
 import HomeView from '@/views/HomeView.vue'
 
-const SITE = 'bosch-homevn.com'
-export const setTitle = title => (document.title = title ? `${title} | ${SITE}` : `${SITE} — Đại lý Bosch chính hãng`)
+export const setTitle = title => (document.title = `BoschHomeVn - ${title || 'Trang chủ'}`)
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,12 +25,21 @@ const router = createRouter({
     // Link cũ /chi-tiet/:id
     { path: '/chi-tiet/:id', redirect: to => ({ name: 'detail', params: to.params }) },
     { path: '/gio-hang', name: 'cart', component: () => import('@/views/CartView.vue'), meta: { title: 'Giỏ hàng' } },
+    { path: '/yeu-thich', name: 'wish', component: () => import('@/views/WishlistView.vue'), meta: { title: 'Sản phẩm đã thích' } },
     {
       path: '/thanh-toan',
       name: 'checkout',
       component: () => import('@/views/CheckoutView.vue'),
       props: r => ({ inst: r.query.inst === '1' }),
       meta: { title: 'Thanh toán' },
+    },
+    { path: '/tin-tuc/bai-viet/:slug', name: 'news-post', component: () => import('@/views/NewsPostView.vue'), props: true, meta: { title: 'Tin tức' } },
+    {
+      path: '/tin-tuc/:cat?',
+      name: 'news',
+      component: () => import('@/views/NewsView.vue'),
+      props: r => ({ cat: r.params.cat || null }),
+      meta: { title: 'Tin tức' },
     },
     { path: '/:pathMatch(.*)*', redirect: '/' },
   ],

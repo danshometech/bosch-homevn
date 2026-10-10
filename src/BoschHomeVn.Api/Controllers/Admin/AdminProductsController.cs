@@ -3,6 +3,7 @@ using BoschHomeVn.Api.Mappings;
 using BoschHomeVn.Application.Abstractions.Media;
 using BoschHomeVn.Application.Catalog.Admin;
 using BoschHomeVn.Contracts.Admin;
+using BoschHomeVn.Contracts.Catalog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,6 @@ public sealed class AdminProductsController(ProductAdminHandler handler) : Contr
     private const long MaxImageBytes = 5 * 1024 * 1024;
     private const long MaxVideoBytes = 50 * 1024 * 1024;
 
-    // Tất cả sản phẩm (kể cả chưa có giá / đang ẩn) — trang quản trị lọc, phân trang trên trình duyệt
     [HttpGet]
     public async Task<IReadOnlyList<AdminProductResponse>> List(CancellationToken cancellationToken) =>
         [.. (await handler.ListAsync(cancellationToken)).Select(p => p.ToAdminResponse())];
@@ -50,7 +50,21 @@ public sealed class AdminProductsController(ProductAdminHandler handler) : Contr
     public async Task<IActionResult> Delete(string id, CancellationToken cancellationToken) =>
         await handler.DeleteAsync(id, cancellationToken) ? NoContent() : NotFound();
 
-    // Tải ảnh lên (multipart, trường "file"): JPG / PNG / WebP, tối đa 5 MB. folder: products | moments
+    [HttpGet("{id}/article")]
+    public async Task<ActionResult<ProductArticleResponse>> GetArticle(string id, CancellationToken cancellationToken)
+    {
+        var html = await handler.GetArticleAsync(id, cancellationToken);
+        return html is null ? NotFound() : new ProductArticleResponse(html);
+    }
+
+    [HttpPut("{id}/article")]
+    public async Task<ActionResult<ProductArticleResponse>> SaveArticle(
+        string id, SaveProductArticleRequest request, CancellationToken cancellationToken)
+    {
+        var html = await handler.SaveArticleAsync(id, request.Html, cancellationToken);
+        return html is null ? NotFound() : new ProductArticleResponse(html);
+    }
+
     [HttpPost("/api/admin/media")]
     [RequestSizeLimit(MaxImageBytes + 64 * 1024)]
     public async Task<ActionResult<MediaResponse>> Upload(
@@ -65,7 +79,6 @@ public sealed class AdminProductsController(ProductAdminHandler handler) : Contr
         return new MediaResponse(await storage.SaveImageAsync(stream, folder ?? "products", cancellationToken));
     }
 
-    // Tải video lên (multipart, trường "file"): MP4 / WebM, tối đa 50 MB
     [HttpPost("/api/admin/media/video")]
     [RequestSizeLimit(MaxVideoBytes + 64 * 1024)]
     [RequestFormLimits(MultipartBodyLengthLimit = MaxVideoBytes + 64 * 1024)]

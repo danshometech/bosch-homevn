@@ -10,8 +10,10 @@ const menu = [
   { label: 'Sản phẩm', icon: 'pi pi-box', to: { name: 'products' }, pages: ['products', 'product-new', 'product-edit'] },
   { label: 'Khoảnh khắc trang chủ', icon: 'pi pi-clock', to: { name: 'moments' }, pages: ['moments', 'moment-edit'] },
   { label: 'Danh mục', icon: 'pi pi-sitemap', to: { name: 'categories' }, pages: ['categories'] },
+  { label: 'Tin tức', icon: 'pi pi-book', to: { name: 'news' }, pages: ['news', 'news-new', 'news-edit'] },
   { label: 'Đơn hàng', icon: 'pi pi-shopping-cart', to: null },
   { label: 'Mã giảm giá', icon: 'pi pi-ticket', to: null },
+  { label: 'Cập nhật liên hệ', icon: 'pi pi-phone', to: { name: 'settings' }, pages: ['settings'] },
 ]
 
 const auth = useAuthStore()

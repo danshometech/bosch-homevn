@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, watch, onUnmounted } from 'vue'
+import { ref, reactive, computed, watch, nextTick, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { fmt, pct, monthly, warrantyOf } from '@/utils/format'
 import { replay } from '@/utils/motion'
@@ -8,18 +8,22 @@ import { setTitle } from '@/router'
 import { useCartStore } from '@/stores/cart'
 import { useCatalogStore } from '@/stores/catalog'
 import { useCompareStore } from '@/stores/compare'
+import { useViewedStore } from '@/stores/viewed'
+import { useSettingsStore } from '@/stores/settings'
 import AppIcon from '@/components/AppIcon.vue'
 import ImageBox from '@/components/ImageBox.vue'
 import StarRating from '@/components/StarRating.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import ProductCardSkeleton from '@/components/ProductCardSkeleton.vue'
 import ProductDetailSkeleton from '@/components/ProductDetailSkeleton.vue'
+const settings = useSettingsStore()
 
 const props = defineProps({ id: { type: String, required: true } })
 const router = useRouter()
 const catalog = useCatalogStore()
 const cart = useCartStore()
 const compare = useCompareStore()
+const viewed = useViewedStore()
 
 const PERKS = [
   ['GH', 'Giao hàng & lắp đặt miễn phí', 'Nội thành Hà Nội, TP. HCM, Đà Nẵng trong 24h'],
@@ -74,6 +78,31 @@ const loadedThumbs = reactive(new Set())
 const related = ref([])
 const relLoading = ref(true)
 const failed = ref(false)
+// Tab "Thông số kỹ thuật" / "Thông tin sản phẩm" (bài giới thiệu, chỉ có khi admin đã soạn).
+// Bài dài thì thu gọn, bấm "Xem thêm" để mở hết
+const ARTICLE_MAX = 560
+const tab = ref('spec')
+const article = ref(null)
+const articleOpen = ref(false)
+const articleLong = ref(false)
+const articleEl = ref(null)
+const infoSec = ref(null)
+function measureArticle() {
+  articleLong.value = !!articleEl.value && articleEl.value.scrollHeight > ARTICLE_MAX + 120
+}
+function toggleArticle() {
+  articleOpen.value = !articleOpen.value
+  if (!articleOpen.value && infoSec.value.getBoundingClientRect().top < 0) infoSec.value.scrollIntoView()
+}
+watch([article, tab], () => nextTick(measureArticle))
+// "Sản phẩm đã xem": 4 sản phẩm xem gần nhất (trừ sản phẩm đang xem); hiện ngay bản có trong store rồi lấy phần
+// còn thiếu qua GET /api/products?ids=…, mã không còn bán thì bỏ khỏi danh sách
+const seen = ref([])
+async function loadSeen(id, req) {
+  seen.value = viewed.ids.filter(x => x !== id).map(x => catalog.prodOf(x)).filter(Boolean).slice(0, 4)
+  const list = await viewed.recent([id])
+  if (req === request) seen.value = list
+}
 let request = 0
 watch(() => props.id, async id => {
   const req = ++request
@@ -86,12 +115,24 @@ watch(() => props.id, async id => {
   p.value = catalog.prodOf(id) || null
   related.value = []
   relLoading.value = true
+  tab.value = 'spec'
+  article.value = null
+  articleOpen.value = false
+  catalog.fetchArticle(id)
+    .then(html => {
+      if (req !== request || !html) return
+      article.value = html
+      tab.value = 'info'
+    })
+    .catch(err => console.error(err))
   try {
     const fresh = await catalog.fetchProduct(id)
     if (req !== request) return
     if (!fresh) return router.replace('/')
     p.value = fresh
     setTitle(fresh.name)
+    loadSeen(id, req).catch(err => console.error(err))
+    viewed.add(id)
     const list = await catalog.fetchProducts({ category: fresh.cat, take: 5 })
     if (req === request) related.value = list.filter(x => x.id !== id).slice(0, 4)
   } catch (err) {
@@ -137,7 +178,7 @@ function addToCart() {
   timer = setTimeout(() => (added.value = false), 1600)
 }
 function buyNow() {
-  cart.add(p.value.id, qty.value, { silent: true })
+  cart.add(p.value.id, qty.value)
   router.push({ name: 'cart' })
 }
 function buyInstallment() {
@@ -150,7 +191,7 @@ function buyInstallment() {
   <div v-if="!p && failed" class="wrap">
     <div class="box empty" style="margin-top:32px">
       <h3>Không tải được sản phẩm</h3>
-      <p class="muted" style="margin-top:8px">Vui lòng thử lại sau ít phút hoặc gọi hotline 1900 6868.</p>
+      <p class="muted" style="margin-top:8px">Vui lòng thử lại sau ít phút hoặc gọi hotline {{ settings.hotline }}.</p>
     </div>
   </div>
   <ProductDetailSkeleton v-else-if="!p" />
@@ -247,13 +288,33 @@ function buyInstallment() {
       </div>
     </div>
 
-    <section class="sec">
-      <div class="sec-h"><h2>Thông số kỹ thuật</h2></div>
-      <table class="spec">
-        <tbody>
-          <tr v-for="[k, v] in specRows" :key="k"><td>{{ k }}</td><td>{{ v }}</td></tr>
-        </tbody>
-      </table>
+    <section ref="infoSec" class="sec">
+      <div class="pd-info">
+        <div class="pd-tabs" role="tablist" aria-label="Thông tin chi tiết">
+          <button id="tab-spec" class="pd-tab" :class="{ on: tab === 'spec' }" type="button" role="tab" :aria-selected="tab === 'spec'" aria-controls="panel-info" @click="tab = 'spec'">
+            Thông số kỹ thuật
+          </button>
+          <button v-if="article" id="tab-info" class="pd-tab" :class="{ on: tab === 'info' }" type="button" role="tab" :aria-selected="tab === 'info'" aria-controls="panel-info" @click="tab = 'info'">
+            Thông tin sản phẩm
+          </button>
+        </div>
+        <div id="panel-info" role="tabpanel" :aria-labelledby="tab === 'info' ? 'tab-info' : 'tab-spec'">
+          <template v-if="tab === 'info' && article">
+            <div class="article-box" :class="{ clip: articleLong && !articleOpen }" :style="{ '--clip': ARTICLE_MAX + 'px' }">
+              <!-- HTML đã lọc ở Api (HtmlSanitizer) khi admin lưu -->
+              <div ref="articleEl" class="article" @load.capture="measureArticle" v-html="article" />
+            </div>
+            <button v-if="articleLong" class="btn btn-ghost article-more" type="button" :aria-expanded="articleOpen" @click="toggleArticle">
+              {{ articleOpen ? 'Thu gọn' : 'Xem thêm' }}<AppIcon name="chevron" :size="16" />
+            </button>
+          </template>
+          <table v-else class="spec">
+            <tbody>
+              <tr v-for="[k, v] in specRows" :key="k"><td>{{ k }}</td><td>{{ v }}</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
 
     <section v-if="relLoading || related.length" style="padding-bottom:24px">
@@ -263,6 +324,13 @@ function buyInstallment() {
       </div>
       <div v-else class="grid">
         <ProductCard v-for="x in related" :key="x.id" :p="x" />
+      </div>
+    </section>
+
+    <section v-if="seen.length" style="padding-bottom:24px">
+      <div class="sec-h"><h2>Sản phẩm đã xem</h2></div>
+      <div class="grid">
+        <ProductCard v-for="x in seen" :key="x.id" :p="x" />
       </div>
     </section>
   </div>

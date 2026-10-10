@@ -1,5 +1,6 @@
 using BoschHomeVn.Admin.Infrastructure;
 using BoschHomeVn.Contracts.Admin;
+using BoschHomeVn.Contracts.Catalog;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BoschHomeVn.Admin.Controllers;
@@ -34,13 +35,19 @@ public sealed class AdminProductsController(AdminApiClient api) : ControllerBase
     public Task<IActionResult> Delete(string id, CancellationToken cancellationToken) =>
         api.SendAsync(HttpMethod.Delete, ProductPath(id), null, cancellationToken);
 
-    // Tải ảnh lên (multipart, trường "file"), Api kiểm tra định dạng / dung lượng. folder: products | moments
+    [HttpGet("{id}/article")]
+    public Task<ActionResult<ProductArticleResponse>> GetArticle(string id, CancellationToken cancellationToken) =>
+        api.GetAsync<ProductArticleResponse>(ProductPath(id) + "/article", cancellationToken);
+
+    [HttpPut("{id}/article")]
+    public Task<ActionResult<ProductArticleResponse>> SaveArticle(string id, SaveProductArticleRequest request, CancellationToken cancellationToken) =>
+        api.PutAsync<ProductArticleResponse>(ProductPath(id) + "/article", request, cancellationToken);
+
     [HttpPost("/api/admin/media")]
     [RequestSizeLimit(MaxImageBytes + 64 * 1024)]
     public Task<ActionResult<MediaResponse>> Upload(IFormFile file, [FromForm] string? folder, CancellationToken cancellationToken) =>
         api.UploadAsync("api/admin/media", file, folder, cancellationToken);
 
-    // Tải video lên: MP4 / WebM, tối đa 50 MB
     [HttpPost("/api/admin/media/video")]
     [RequestSizeLimit(MaxVideoBytes + 64 * 1024)]
     [RequestFormLimits(MultipartBodyLengthLimit = MaxVideoBytes + 64 * 1024)]

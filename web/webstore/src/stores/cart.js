@@ -4,7 +4,6 @@ import { useCatalogStore } from './catalog'
 import { useToastStore } from './toast'
 
 const KEY = 'bh_cart'
-const COUPON = { code: 'BOSCH10', rate: 0.1, max: 500000 }
 
 function load() {
   try {
@@ -19,15 +18,13 @@ export const useCartStore = defineStore('cart', () => {
   const catalog = useCatalogStore()
   const { prodOf } = catalog
   const items = ref(load())
-  const coupon = ref('')
 
   // Dòng nào chưa có dữ liệu sản phẩm (chưa sync) thì chưa hiện; số lượng trên header đếm thẳng từ giỏ
   const lines = computed(() => Object.entries(items.value).map(([id, q]) => ({ p: prodOf(id), q })).filter(l => l.p))
   const count = computed(() => Object.values(items.value).reduce((s, q) => s + q, 0))
   const subtotal = computed(() => lines.value.reduce((s, l) => s + l.p.price * l.q, 0))
   const savings = computed(() => lines.value.reduce((s, l) => s + (l.p.old ? l.p.old - l.p.price : 0) * l.q, 0))
-  const discount = computed(() => (coupon.value ? Math.min(COUPON.max, Math.round(subtotal.value * COUPON.rate)) : 0))
-  const total = computed(() => subtotal.value - discount.value)
+  const total = subtotal
   // Trả góp cả giỏ: mọi sản phẩm đều có trả góp, kỳ hạn = các kỳ hạn chung của mọi sản phẩm. Kỳ hạn tính
   // "X/tháng": kỳ hạn hiển thị nếu mọi sản phẩm cùng một kỳ hạn hiển thị, không thì kỳ hạn chung dài nhất
   const installMonths = computed(() => {
@@ -44,7 +41,7 @@ export const useCartStore = defineStore('cart', () => {
 
   function add(id, q = 1, { silent = false } = {}) {
     items.value[id] = (items.value[id] || 0) + q
-    if (!silent) useToastStore().show(prodOf(id)?.name ?? 'Sản phẩm')
+    if (!silent) useToastStore().added(prodOf(id), q)
   }
   function setQty(id, q) {
     if (q <= 0) delete items.value[id]
@@ -55,7 +52,6 @@ export const useCartStore = defineStore('cart', () => {
   }
   function clear() {
     items.value = {}
-    coupon.value = ''
   }
   // Trang giỏ hàng / thanh toán gọi: tải thông tin các mã trong giỏ (GET /api/products?ids=…),
   // mã không còn bán thì bỏ khỏi giỏ. Lỗi mạng thì giữ nguyên giỏ.
@@ -69,15 +65,10 @@ export const useCartStore = defineStore('cart', () => {
       console.error(err)
     }
   }
-  function applyCoupon(code) {
-    const ok = code.trim().toUpperCase() === COUPON.code
-    coupon.value = ok ? COUPON.code : ''
-    return ok
-  }
 
   watch(items, v => {
     try { localStorage.setItem(KEY, JSON.stringify(v)) } catch { /* private mode / storage đầy */ }
   }, { deep: true })
 
-  return { items, coupon, lines, count, subtotal, savings, discount, total, installMonths, installable, installShow, add, setQty, remove, clear, sync, applyCoupon }
+  return { items, lines, count, subtotal, savings, total, installMonths, installable, installShow, add, setQty, remove, clear, sync }
 })

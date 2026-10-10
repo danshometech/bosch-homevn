@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BoschHomeVn.WebStore.Controllers;
 
-// Trang lỗi phía server (ngoài môi trường Development). Lỗi bên trong app Vue do Vue tự hiển thị.
 public sealed class ErrorController : Controller
 {
     [Route("error")]

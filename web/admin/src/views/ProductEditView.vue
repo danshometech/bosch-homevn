@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, defineAsyncComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
 import { useConfirm } from 'primevue/useconfirm'
@@ -16,6 +16,8 @@ import VideoField from '@/components/VideoField.vue'
 import { get, post, put, del } from '@/services/api'
 import { fmt, STOCK, onSale, discountOf, INSTALLMENT_MONTHS, monthly } from '@/utils/format'
 
+const RichEditor = defineAsyncComponent(() => import('@/components/RichEditor.vue'))
+
 // Không có id = thêm mới
 const props = defineProps({ id: { type: String, default: null } })
 const router = useRouter()
@@ -31,7 +33,6 @@ const blank = () => ({
   imageUrl: null, galleryImages: [], videoUrl: null, videoPosterUrl: null, highlights: [], specs: [],
   allowInstallment: false, installmentMonths: [3, 6, 9, 12], installmentDisplayMonths: 12,
 })
-// Sản phẩm chưa từng cấu hình trả góp thì điền sẵn kỳ hạn mặc định để bật là dùng được ngay
 const toForm = p => {
   const f = { ...blank(), ...p }
   f.galleryImages ??= []
@@ -39,6 +40,8 @@ const toForm = p => {
   return f
 }
 const form = ref(blank())
+const article = ref('')
+let savedArticle = ''
 const categories = ref([])
 const loading = ref(true)
 const saving = ref(false)
@@ -46,9 +49,14 @@ const saving = ref(false)
 watch(() => props.id, async id => {
   loading.value = true
   try {
-    const [cats, product] = await Promise.all([get('/admin/categories'), id ? get(`/admin/products/${id}`) : null])
+    const [cats, product, art] = await Promise.all([
+      get('/admin/categories'),
+      id ? get(`/admin/products/${id}`) : null,
+      id ? get(`/admin/products/${id}/article`) : null,
+    ])
     categories.value = cats
     form.value = product ? toForm(product) : blank()
+    article.value = savedArticle = art?.html ?? ''
   } catch (err) {
     toast.add({ severity: 'error', summary: 'Không tải được sản phẩm', detail: err.message, life: 5000 })
     if (err.status === 404) router.replace({ name: 'products' })
@@ -57,13 +65,10 @@ watch(() => props.id, async id => {
   }
 }, { immediate: true })
 
-// Loại sản phẩm gom theo danh mục cho ô chọn
 const typeGroups = computed(() => categories.value.map(c => ({
   label: c.name,
   items: c.types.map(t => ({ value: t.id, label: t.group ? `${t.name} · ${t.group}` : t.name })),
 })))
-// Nhãn "Giảm X%" trên site tính từ giá gạch và giá bán. Nhập % thì giữ giá bán, tự tính giá gạch (làm tròn nghìn);
-// xóa ô % thì bỏ giá gạch (hết nhãn giảm giá)
 const discount = computed({
   get: () => discountOf(form.value),
   set: pct => {
@@ -72,7 +77,6 @@ const discount = computed({
     else if (f.price) f.oldPrice = Math.round(f.price / (1 - pct / 100) / 1000) * 1000
   },
 })
-// Bỏ tick kỳ hạn đang dùng để hiển thị thì chuyển sang kỳ hạn dài nhất còn lại
 const instMonths = computed(() => [...form.value.installmentMonths].sort((a, b) => a - b))
 const instOptions = computed(() => instMonths.value.map(n => ({ value: n, label: `${n} tháng` })))
 watch(instMonths, list => {
@@ -85,8 +89,6 @@ const margin = computed(() => {
   return price != null && dealerPrice ? Math.round(((price - dealerPrice) / dealerPrice) * 1000) / 10 : null
 })
 
-// Dòng trang chi tiết tự thêm vào cuối bảng thông số (giống DetailView của site): màu / xuất xứ / bảo hành ở mục
-// Thông tin nếu bảng chưa có dòng cùng tên, và thương hiệu
 const autoSpecs = computed(() => {
   const names = new Set(form.value.specs.map(s => s.name.trim()))
   const f = form.value
@@ -107,9 +109,11 @@ async function save() {
     const body = { ...form.value, highlights: form.value.highlights.filter(h => h && h.trim()), installmentMonths: instMonths.value }
     if (props.id) {
       form.value = toForm(await put(`/admin/products/${props.id}`, body))
+      await saveArticle(props.id)
       toast.add({ severity: 'success', summary: 'Đã lưu', detail: form.value.model, life: 2500 })
     } else {
       const created = await post('/admin/products', body)
+      await saveArticle(created.id)
       toast.add({ severity: 'success', summary: 'Đã thêm sản phẩm', detail: created.model, life: 2500 })
       router.replace({ name: 'product-edit', params: { id: created.id } })
     }
@@ -118,6 +122,11 @@ async function save() {
   } finally {
     saving.value = false
   }
+}
+
+async function saveArticle(id) {
+  if (article.value === savedArticle) return
+  article.value = savedArticle = (await put(`/admin/products/${id}/article`, { html: article.value })).html
 }
 
 function remove() {
@@ -280,6 +289,12 @@ function remove() {
               <small class="muted auto-from">{{ from }}</small>
             </div>
           </div>
+        </section>
+
+        <section class="box">
+          <h2>Bài giới thiệu</h2>
+          <RichEditor v-model="article" />
+          <small class="muted">Hiện ở mục "Giới thiệu sản phẩm" trên trang chi tiết; để trống thì ẩn mục này. Ảnh chèn vào được tải lên tự động.</small>
         </section>
       </div>
 

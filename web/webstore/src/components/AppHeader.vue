@@ -2,15 +2,19 @@
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
+import { useWishlistStore } from '@/stores/wishlist'
+import { useSettingsStore } from '@/stores/settings'
 import { replay } from '@/utils/motion'
 import AppIcon from './AppIcon.vue'
 import AppLogo from './AppLogo.vue'
 import MainNav from './MainNav.vue'
 import NavDrawer from './NavDrawer.vue'
+const settings = useSettingsStore()
 
 const route = useRoute()
 const router = useRouter()
 const cart = useCartStore()
+const wish = useWishlistStore()
 
 const q = ref('')
 watch(() => route.query.q, v => (q.value = v || ''), { immediate: true })
@@ -20,7 +24,6 @@ function submit() {
   router.push({ name: 'list', query: term ? { q: term } : {} })
 }
 
-// Màn ≤1080: nút ☰ mở menu danh mục dạng ngăn kéo thay cho thanh menu ngang
 const navOpen = ref(false)
 
 const cartIcon = ref(null)
@@ -28,8 +31,6 @@ watch(() => cart.count, (now, before) => {
   if (now > before) replay(cartIcon.value, 'wiggle')
 })
 
-// Toast và các phần bám theo khi cuộn (thanh đồng hồ trang chủ) đặt ngay dưới header nên cần biết đáy header
-// đang ở đâu (header sticky, topbar cuộn mất)
 const headerEl = ref(null)
 let raf = 0
 function syncBottom() {
@@ -55,7 +56,7 @@ onUnmounted(() => {
   <div class="topbar">
     <div class="wrap">
       <span>Đại lý phân phối <b>chính hãng Bosch</b> · Bảo hành toàn quốc</span>
-      <span class="hide-m">Hotline <b>1900 6868</b> · Miễn phí giao lắp nội thành</span>
+      <span class="hide-m">Hotline <b>{{ settings.hotline }}</b> · Miễn phí giao lắp nội thành</span>
     </div>
   </div>
   <header ref="headerEl" class="header">
@@ -74,7 +75,11 @@ onUnmounted(() => {
           <span v-if="cart.count > 0" :key="cart.count" class="badge pop">{{ cart.count }}</span>
           <span class="lbl"><small>Giỏ hàng</small>{{ cart.count }} sản phẩm</span>
         </RouterLink>
-        <button class="h-act hide-m"><span class="ic"><AppIcon name="user" /></span><span class="lbl"><small>Xin chào</small>Đăng nhập</span></button>
+        <RouterLink :to="{ name: 'wish' }" class="h-act" :aria-label="`Sản phẩm đã thích, ${wish.ids.length} sản phẩm`">
+          <span class="ic"><AppIcon name="heart" /></span>
+          <span v-if="wish.ids.length" :key="wish.ids.length" class="badge pop">{{ wish.ids.length }}</span>
+          <span class="lbl"><small>Đã thích</small>{{ wish.ids.length }} sản phẩm</span>
+        </RouterLink>
       </div>
     </div>
     <div class="wrap nav-wrap">

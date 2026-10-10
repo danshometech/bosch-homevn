@@ -74,7 +74,6 @@ async function submit() {
     const order = await createOrder({
       customer: { ...f, phone: f.phone.replace(/\s/g, '') },
       items: cart.lines.map(({ p, q }) => ({ id: p.id, qty: q, price: p.price })),
-      coupon: cart.coupon || null,
       shipping: ship.value,
       payment: pay.value,
       months: pay.value === 'inst' ? months.value : null,
@@ -197,7 +196,6 @@ async function submit() {
         </div>
         <div style="border-top:1px solid var(--line);margin-top:10px;padding-top:10px">
           <div class="sum-row"><span>Tạm tính</span><span class="tn">{{ fmt(cart.subtotal) }}</span></div>
-          <div v-if="cart.discount > 0" class="sum-row"><span>Mã giảm giá</span><span class="tn" style="color:var(--ok-ink)">−{{ fmt(cart.discount) }}</span></div>
           <div class="sum-row"><span>Phí giao hàng</span><span :key="shipFee" class="swap tn">{{ shipFee ? fmt(shipFee) : 'Miễn phí' }}</span></div>
           <div class="sum-row tot"><span>Tổng cộng</span><b><TweenNumber :value="grand" /></b></div>
           <div class="reveal" :class="{ open: pay === 'inst' }">

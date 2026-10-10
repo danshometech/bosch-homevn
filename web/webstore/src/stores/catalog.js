@@ -135,6 +135,16 @@ export const useCatalogStore = defineStore('catalog', () => {
     }
   }
 
+  // GET /api/products/{id}/article — HTML bài giới thiệu (đã lọc ở server); null nếu chưa có bài
+  async function fetchArticle(id) {
+    try {
+      return (await api('/products/' + encodeURIComponent(id) + '/article')).html
+    } catch (err) {
+      if (err.status === 404) return null
+      throw err
+    }
+  }
+
   // Bảo đảm đã có dữ liệu các mã (giỏ hàng): chỉ gọi API cho mã chưa có, trả về những mã còn đang bán
   async function ensure(ids) {
     const missing = ids.filter(id => !cache.has(id))
@@ -154,7 +164,7 @@ export const useCatalogStore = defineStore('catalog', () => {
 
   return {
     cats, flashCount, failed, home,
-    loadMenu, loadHome, fetchProducts, fetchProduct, ensure,
+    loadMenu, loadHome, fetchProducts, fetchProduct, fetchArticle, ensure,
     prodOf, catOf, subOf, groupOf, groupOfSub,
   }
 })

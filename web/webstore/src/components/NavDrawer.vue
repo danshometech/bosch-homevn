@@ -3,10 +3,12 @@ import { ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { slugify } from '@/utils/format'
 import { useCatalogStore } from '@/stores/catalog'
-import { toList, toGroup, toSub, toFlash } from '@/router/links'
+import { useSettingsStore } from '@/stores/settings'
+import { toList, toGroup, toSub, toFlash, toNews } from '@/router/links'
 import { useDrawer } from '@/composables/useDrawer'
 import AppIcon from './AppIcon.vue'
 import AppLogo from './AppLogo.vue'
+const settings = useSettingsStore()
 
 // Menu danh mục dạng ngăn kéo trượt từ trái, thay thanh menu ngang ở màn ≤1080 (nơi menu con không dùng được).
 // Danh mục mở ra xem nhóm / loại con, mỗi lúc một danh mục; mở ngăn kéo thì bung sẵn danh mục đang xem.
@@ -25,17 +27,16 @@ watch(open, v => {
   expanded.value = c && hasKids(c) ? c.id : null
 })
 watch(() => route.fullPath, () => (open.value = false))
-// bấm link trùng trang đang xem thì route không đổi, vẫn phải đóng
 const onNavClick = e => e.target.closest('a') && (open.value = false)
 
 const toggle = id => (expanded.value = expanded.value === id ? null : id)
 const inCat = c => route.name === 'list' && route.params.cat === c.id
-// Không có sản phẩm flash sale nào thì ẩn link
 const hasFlash = computed(() => catalog.flashCount > 0)
 const isFlash = () => route.name === 'list' && route.query.flash === '1'
 const isCat = c => inCat(c) && !route.query.loai && !route.query.nhom
 const isGroup = (c, g) => inCat(c) && route.query.nhom === slugify(g.title)
 const isSub = (c, s) => inCat(c) && route.query.loai === slugify(s)
+const isNews = () => route.name === 'news' || route.name === 'news-post'
 </script>
 
 <template>
@@ -74,12 +75,11 @@ const isSub = (c, s) => inCat(c) && route.query.loai === slugify(s)
                 </template>
               </div>
             </div>
-            <button class="dn-link" type="button">Khuyến mại</button>
-            <button class="dn-link" type="button">Tin tức</button>
+            <RouterLink class="dn-link" :class="{ on: isNews() }" :to="toNews()">Tin tức</RouterLink>
           </nav>
           <div class="drawer-f">
-            <a class="btn btn-primary btn-block" href="tel:19006868"><AppIcon name="phone" :size="18" />Gọi 1900 6868</a>
-            <button class="btn btn-ghost btn-block" type="button"><AppIcon name="user" :size="18" />Đăng nhập</button>
+            <a class="btn btn-primary btn-block" :href="settings.tel"><AppIcon name="phone" :size="18" />Gọi {{ settings.hotline }}</a>
+            <RouterLink class="btn btn-ghost btn-block" :to="{ name: 'wish' }"><AppIcon name="heart" :size="18" />Sản phẩm đã thích</RouterLink>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
 import { useCatalogStore } from '@/stores/catalog'
+import { useSettingsStore } from '@/stores/settings'
 import { DAWN, FLASH_AFTER, TONES, VIA, CAT_SHOTS } from '@/data/day'
 import { reducedMotion } from '@/utils/motion'
 import { toList, toFlash } from '@/router/links'
@@ -11,6 +12,7 @@ import SceneShot from '@/components/SceneShot.vue'
 
 const [hh, mm] = DAWN.time.split(':')
 const catalog = useCatalogStore()
+const settings = useSettingsStore()
 // Dữ liệu trang chủ đã tải trước khi vào trang (router: GET /api/home) — chỉ gồm khoảnh khắc còn sản phẩm đang bán.
 // `flash`: { count, maxOff, subs } hoặc null khi không có sản phẩm flash sale.
 const { moments, flash } = catalog.home
@@ -230,9 +232,8 @@ onUnmounted(() => {
           <p class="consult-k"><i />Tư vấn miễn phí</p>
           <p class="consult-h">Cần tư vấn chọn thiết bị?</p>
           <p class="consult-p">Gửi kích thước căn bếp, chuyên viên sẽ gợi ý thiết bị Bosch phù hợp.</p>
-          <button class="consult-btn zalo" type="button">Chat Zalo</button>
-          <a class="consult-btn call" href="tel:19006868">Gọi 1900 6868</a>
-          <button class="consult-link" type="button">12 showroom · tìm gần bạn →</button>
+          <a v-if="settings.zaloUrl" class="consult-btn zalo" :href="settings.zaloUrl" target="_blank" rel="noopener">Chat Zalo</a>
+          <a class="consult-btn call" :href="settings.tel">Gọi {{ settings.hotline }}</a>
         </div>
       </aside>
       <div class="day-flow">
@@ -241,7 +242,6 @@ onUnmounted(() => {
             <DayMoment :m="m" :index="i" :total="moments.length" :next="moments[i + 1] || END" @step="(d, align) => step(i, d, align)" />
             <DayFlash v-if="!small && flash && m.id === FLASH_AFTER" :tone="m.tone" :count="flash.count" :max-off="flash.maxOff" :subs="flash.subs" />
           </template>
-          <!-- màn rộng: đoạn kết cuối dòng chảy dọc · màn nhỏ: trang cuối của dải trượt, ngay sau 23:15 -->
           <section class="epilogue" :data-tone="last.tone" aria-labelledby="epi-h">
             <div class="night-sky" aria-hidden="true">
               <i v-for="([x, y, d, s], n) in STARS" :key="n" :style="{ left: x + '%', top: y + '%', '--d': d + 's', '--s': s + 'px' }" />

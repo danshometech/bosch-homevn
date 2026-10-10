@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BoschHomeVn.WebStore.Infrastructure;
 
-// Gọi Api không ném exception (debug không bị dừng): Api trả lỗi → giữ nguyên mã + ProblemDetails, không gọi được Api
-// → 502. GET thử lại khi chưa kết nối được (Api đang khởi động, container vừa restart).
 internal static class ApiCall
 {
     private static readonly TimeSpan[] RetryDelays = [TimeSpan.FromMilliseconds(500), TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(2)];
@@ -31,7 +29,6 @@ internal static class ApiCall
         }
     }
 
-    // Ảnh / video: trả response đọc dần để stream; null = không gọi được Api
     public static async Task<HttpResponseMessage?> SendMediaAsync(
         HttpClient http, Func<HttpRequestMessage> create, ILogger logger, CancellationToken cancellationToken)
     {
@@ -64,7 +61,6 @@ internal static class ApiCall
         }
     }
 
-    // Không kết nối được, hoặc quá thời gian chờ (không phải do trình duyệt bỏ request)
     private static bool IsUnavailable(Exception e, CancellationToken cancellationToken) =>
         !cancellationToken.IsCancellationRequested && e is HttpRequestException or TaskCanceledException;
 

@@ -6,17 +6,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- ASP.NET Core Identity (SignInManager) cho tài khoản trang quản trị -->
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlSanitizer" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Dữ liệu seed lần đầu: catalog (từ data.xlsx) + khoảnh khắc trang chủ -->
     <EmbeddedResource Include="Persistence\Seed\*.seed.json" />
   </ItemGroup>
 

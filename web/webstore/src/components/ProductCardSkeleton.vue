@@ -14,7 +14,9 @@
     </div>
     <div class="pc-foot">
       <span class="sk sk-line" style="width:36px" />
-      <span class="sk sk-fav" />
+    </div>
+    <div class="pc-actions">
+      <div class="pc-actions-in"><span class="sk" style="height:40px" /><span class="sk" style="height:40px" /><span class="sk" style="height:40px" /></div>
     </div>
   </div>
 </template>

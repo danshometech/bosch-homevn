@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BoschHomeVn.WebStore.Controllers;
 
-// Vue gọi host này; dữ liệu lấy từ BoschHomeVn.Api qua StoreApiClient
 [ApiController]
 [Route("api")]
 public sealed class CatalogController(StoreApiClient api) : ControllerBase
@@ -25,4 +24,8 @@ public sealed class CatalogController(StoreApiClient api) : ControllerBase
     [HttpGet("products/{id}")]
     public Task<ActionResult<ProductResponse>> GetProduct(string id, CancellationToken cancellationToken) =>
         api.GetProductAsync(id, cancellationToken);
+
+    [HttpGet("products/{id}/article")]
+    public Task<ActionResult<ProductArticleResponse>> GetArticle(string id, CancellationToken cancellationToken) =>
+        api.GetProductArticleAsync(id, cancellationToken);
 }

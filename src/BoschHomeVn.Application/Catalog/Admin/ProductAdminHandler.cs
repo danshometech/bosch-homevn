@@ -1,3 +1,4 @@
+using BoschHomeVn.Application.Abstractions.Content;
 using BoschHomeVn.Application.Abstractions.Persistence;
 using BoschHomeVn.Domain.Catalog;
 using BoschHomeVn.Domain.Common;
@@ -5,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BoschHomeVn.Application.Catalog.Admin;
 
-// Model chỉ dùng khi thêm mới (Id = model viết thường, không đổi được); Rating / ReviewCount không sửa ở đây
 public sealed record SaveProductCommand(
     string Model,
     string Name,
@@ -33,8 +33,7 @@ public sealed record SaveProductCommand(
     IReadOnlyList<int> InstallmentMonths,
     int? InstallmentDisplayMonths);
 
-// Quản trị sản phẩm: xem tất cả (kể cả chưa có giá / đang ẩn, có giá nhập), thêm, sửa, xóa
-public sealed class ProductAdminHandler(IAppDbContext db)
+public sealed class ProductAdminHandler(IAppDbContext db, IArticleSanitizer sanitizer)
 {
     public async Task<IReadOnlyList<ProductListItem>> ListAsync(CancellationToken cancellationToken) =>
         await (
@@ -84,7 +83,6 @@ public sealed class ProductAdminHandler(IAppDbContext db)
         return true;
     }
 
-    // Xóa hẳn; sản phẩm tự gỡ khỏi các khoảnh khắc trang chủ (khóa ngoại cascade)
     public async Task<bool> DeleteAsync(string id, CancellationToken cancellationToken)
     {
         var product = await db.Products.FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
@@ -96,6 +94,48 @@ public sealed class ProductAdminHandler(IAppDbContext db)
         db.Products.Remove(product);
         await db.SaveChangesAsync(cancellationToken);
         return true;
+    }
+
+    public async Task<string?> GetArticleAsync(string id, CancellationToken cancellationToken)
+    {
+        if (!await db.Products.AnyAsync(p => p.Id == id, cancellationToken))
+        {
+            return null;
+        }
+
+        return await db.ProductArticles
+            .Where(a => a.ProductId == id)
+            .Select(a => a.Html)
+            .FirstOrDefaultAsync(cancellationToken) ?? "";
+    }
+
+    public async Task<string?> SaveArticleAsync(string id, string? html, CancellationToken cancellationToken)
+    {
+        if (!await db.Products.AnyAsync(p => p.Id == id, cancellationToken))
+        {
+            return null;
+        }
+
+        var clean = sanitizer.Sanitize(html ?? "");
+        var article = await db.ProductArticles.FirstOrDefaultAsync(a => a.ProductId == id, cancellationToken);
+        if (clean.Length == 0)
+        {
+            if (article is not null)
+            {
+                db.ProductArticles.Remove(article);
+            }
+        }
+        else if (article is null)
+        {
+            db.ProductArticles.Add(new ProductArticle(id, clean));
+        }
+        else
+        {
+            article.Update(clean);
+        }
+
+        await db.SaveChangesAsync(cancellationToken);
+        return clean;
     }
 
     private async Task EnsureTypeAsync(string typeId, CancellationToken cancellationToken)
@@ -113,7 +153,6 @@ public sealed class ProductAdminHandler(IAppDbContext db)
         product.SetDealerPrice(c.DealerPrice);
         product.SetStock(c.StockStatus, c.StockQuantity, c.StockNote);
         product.SetPublished(c.IsPublished);
-        // Request không gửi ảnh thêm (null) thì giữ nguyên, tránh xóa nhầm
         if (c.GalleryImages is not null)
         {
             product.SetGallery(c.GalleryImages);

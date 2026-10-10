@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BoschHomeVn.WebStore.Controllers;
 
-// Ảnh / video /media/... lấy từ Api rồi stream về trình duyệt. Chuyển tiếp Range (tua video, Safari bắt buộc) và
-// If-None-Match / If-Modified-Since (304) sang Api, trả nguyên mã 200 / 206 / 304 / 416 cùng các header liên quan.
 public sealed partial class MediaController(StoreApiClient api) : ControllerBase
 {
     private static readonly string[] ForwardHeaders = ["Range", "If-Range", "If-None-Match", "If-Modified-Since"];
@@ -70,8 +68,6 @@ public sealed partial class MediaController(StoreApiClient api) : ControllerBase
             Response.ContentLength = response.Content.Headers.ContentLength;
             await response.Content.CopyToAsync(Response.Body, cancellationToken);
         }
-        // Trình duyệt ngắt request giữa chừng — vd. video chỉ đọc phần đầu để lấy thời lượng rồi ngắt, trang render lại
-        // bỏ ảnh/video đang tải: không phải lỗi, không cần ghi gì thêm
         catch (Exception) when (cancellationToken.IsCancellationRequested)
         {
         }

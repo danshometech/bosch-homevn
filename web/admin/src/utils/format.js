@@ -1,6 +1,8 @@
 // 18990000 → "18.990.000₫"; không có giá → "—"
 export const fmt = n => (n == null ? '—' : n.toLocaleString('vi-VN') + '₫')
 
+export const fmtDate = d => (d ? new Date(d).toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short' }) : '—')
+
 // Bỏ dấu tiếng Việt để tìm "may rua bat" vẫn ra "Máy rửa bát"
 export const fold = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase()
 

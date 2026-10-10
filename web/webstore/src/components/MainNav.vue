@@ -3,7 +3,7 @@ import { ref, computed, watch, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { slugify } from '@/utils/format'
 import { useCatalogStore } from '@/stores/catalog'
-import { toList, toSub, toFlash } from '@/router/links'
+import { toList, toSub, toFlash, toNews } from '@/router/links'
 import AppIcon from './AppIcon.vue'
 
 const route = useRoute()
@@ -41,6 +41,7 @@ const hasFlash = computed(() => catalog.flashCount > 0)
 const isFlash = computed(() => route.name === 'list' && route.query.flash === '1')
 const isCat = c => route.name === 'list' && route.params.cat === c.id
 const isSub = (c, s) => isCat(c) && route.query.loai === slugify(s)
+const isNews = computed(() => route.name === 'news' || route.name === 'news-post')
 </script>
 
 <template>
@@ -78,7 +79,6 @@ const isSub = (c, s) => isCat(c) && route.query.loai === slugify(s)
         </ul>
       </Transition>
     </div>
-    <button class="nav-link">Khuyến mại</button>
-    <button class="nav-link">Tin tức</button>
+    <RouterLink class="nav-link" :class="{ on: isNews }" :to="toNews()" :aria-current="isNews ? 'page' : undefined">Tin tức</RouterLink>
   </nav>
 </template>

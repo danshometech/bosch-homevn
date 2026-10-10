@@ -56,14 +56,17 @@
         "hbg536eb3",
         "hbg7361b1",
         "puj631bb5e",
-        "pid775dc1e"
+        "pid775dc1e",
+        "bel7321b1"
       ],
       "extras": {
         "title": "Mua kèm cho bữa sáng",
         "productIds": [
           "fel053ms1m",
           "bel554mb2",
-          "hez9se030"
+          "hez9se030",
+          "hbf011ba1t",
+          "puc61kaa5e"
         ],
         "moreLabel": "Xem tất cả thiết bị đun nấu",
         "moreUrl": "/san-pham/thiet-bi-bep?nhom=thiet-bi-dun-nau"
@@ -125,14 +128,17 @@
         "smv4hcx19e",
         "smv6zcx16e",
         "sms6zci00p",
-        "sms8yci01e"
+        "sms8yci01e",
+        "smi6zcs16e"
       ],
       "extras": {
         "title": "Mua kèm cho bữa trưa",
         "productIds": [
           "bfl524mb2",
           "bel524mb2",
-          "sms4hti16e"
+          "sms4hti16e",
+          "sms4eci01p",
+          "dwa98ij60i"
         ],
         "moreLabel": "Xem tất cả thiết bị làm sạch",
         "moreUrl": "/san-pham/thiet-bi-bep?nhom=thiet-bi-lam-sach"
@@ -164,13 +170,17 @@
         "kfn96axea",
         "kmc85lbea",
         "pxe875dc1e",
-        "dwb98ij60i"
+        "dwb98ij60i",
+        "kfn96apeag"
       ],
       "extras": {
         "title": "Mua kèm cho bữa tối",
         "productIds": [
           "dwk98ij60i",
-          "dfs097a51b"
+          "dfs097a51b",
+          "hbg536es3",
+          "pid675dc1e",
+          "sms4hmc25m"
         ],
         "moreLabel": "Xem tất cả thiết bị bếp",
         "moreUrl": "/san-pham/thiet-bi-bep"
@@ -206,13 +216,17 @@
         "wgg24400sg",
         "wqb245b0sg",
         "wgg25400sg",
-        "wqg24200sg"
+        "wqg24200sg",
+        "wqg25303sg"
       ],
       "extras": {
         "title": "Mua kèm cho việc nhà buổi tối",
         "productIds": [
           "wgb254a0sg",
-          "wqg24570sg"
+          "wqg24570sg",
+          "wgg25401sg",
+          "wqg25302sg",
+          "wgg24401sg"
         ],
         "moreLabel": "Xem tất cả gia dụng",
         "moreUrl": "/san-pham/gia-dung"

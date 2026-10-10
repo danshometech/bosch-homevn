@@ -1,6 +1,7 @@
 using BoschHomeVn.Api.Mappings;
 using BoschHomeVn.Application.Catalog;
 using BoschHomeVn.Application.Catalog.GetMenu;
+using BoschHomeVn.Application.Catalog.GetProductArticle;
 using BoschHomeVn.Application.Catalog.GetProductById;
 using BoschHomeVn.Application.Catalog.GetProducts;
 using BoschHomeVn.Contracts.Catalog;
@@ -52,5 +53,13 @@ public sealed class CatalogController : ControllerBase
     {
         var product = await handler.Handle(id, cancellationToken);
         return product is null ? NotFound() : product.ToResponse();
+    }
+
+    [HttpGet("products/{id}/article")]
+    public async Task<ActionResult<ProductArticleResponse>> GetArticle(
+        string id, [FromServices] GetProductArticleHandler handler, CancellationToken cancellationToken)
+    {
+        var html = await handler.Handle(id, cancellationToken);
+        return html is null ? NotFound() : new ProductArticleResponse(html);
     }
 }
