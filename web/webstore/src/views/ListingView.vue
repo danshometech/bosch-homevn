@@ -1,13 +1,14 @@
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useCatalogStore } from '@/stores/catalog'
 import { useSettingsStore } from '@/stores/settings'
-import { pct } from '@/utils/format'
 import { toList, toGroup } from '@/router/links'
 import { useDrawer } from '@/composables/useDrawer'
 import Select from 'primevue/select'
 import Tree from 'primevue/tree'
 import AppIcon from '@/components/AppIcon.vue'
+import AppPager from '@/components/AppPager.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import ProductCardSkeleton from '@/components/ProductCardSkeleton.vue'
 const settings = useSettingsStore()
@@ -18,8 +19,12 @@ const props = defineProps({
   loai: { type: String, default: '' },
   q: { type: String, default: '' },
   flash: { type: Boolean, default: false },
+  page: { type: Number, default: 1 },
 })
 const catalog = useCatalogStore()
+const route = useRoute()
+const router = useRouter()
+const PAGE_SIZE = 9
 
 const PRICES = [
   { k: 'all', label: 'Tất cả', min: 0, max: Infinity },
@@ -29,12 +34,6 @@ const PRICES = [
   { k: 'd', label: 'Trên 20 triệu', min: 20e6, max: Infinity },
 ]
 const RATINGS = [[0, 'Tất cả'], [4.7, 'Từ 4.7 ★'], [4.8, 'Từ 4.8 ★']]
-const SORTS = {
-  pop: (a, b) => b.reviews - a.reviews,
-  off: (a, b) => pct(b) - pct(a),
-  asc: (a, b) => a.price - b.price,
-  desc: (a, b) => b.price - a.price,
-}
 const SORT_OPTS = [
   { value: 'pop', label: 'Phổ biến nhất' },
   { value: 'off', label: 'Giảm nhiều nhất' },
@@ -108,37 +107,19 @@ const c = computed(() => props.cat && catalog.catOf(props.cat))
 const sub = computed(() => catalog.subOf(props.cat, props.loai))
 // Trang loại: nhóm chứa loại đó (để hiện trên breadcrumb); trang nhóm: nhóm theo ?nhom=
 const group = computed(() => (sub.value ? catalog.groupOfSub(props.cat, sub.value) : catalog.groupOf(props.cat, props.nhom)))
-// Sản phẩm của phạm vi đang xem (danh mục / từ khóa / flash sale) lấy từ GET /api/products mỗi khi phạm vi đổi
-// (tìm không dấu làm ở server); loại / nhóm trên URL, bộ lọc giá, đánh giá và sắp xếp làm ngay trên trình duyệt
-const products = ref([])
-const loading = ref(true)
-const failed = ref(false)
-let request = 0
-watch([() => props.cat, () => props.q, () => props.flash], async ([cat, q, flash]) => {
-  const id = ++request // bỏ kết quả của lần gọi cũ nếu người dùng đã chuyển trang khác
-  loading.value = true
-  failed.value = false
-  try {
-    const list = await catalog.fetchProducts({ category: cat, q, flash })
-    if (id === request) products.value = list
-  } catch (err) {
-    console.error(err)
-    if (id === request) {
-      products.value = []
-      failed.value = true
-    }
-  } finally {
-    if (id === request) loading.value = false
-  }
-}, { immediate: true })
-const base = computed(() => products.value.filter(p => (sub.value ? p.sub === sub.value : !group.value || group.value.subs.includes(p.sub))))
+// Loại / nhóm trên URL (?loai= / ?nhom=) giới hạn phạm vi. Số sản phẩm mỗi loại (typeCounts) server trả kèm mỗi trang,
+// tính trên cả phạm vi đang xem (danh mục / từ khóa / flash sale), không tính bộ lọc giá / đánh giá
+const urlSubs = computed(() => (sub.value ? [sub.value] : group.value ? group.value.subs : null))
+const typeCounts = ref({})
+const counts = computed(() => urlSubs.value
+  ? Object.fromEntries(Object.entries(typeCounts.value).filter(([s]) => urlSubs.value.includes(s)))
+  : typeCounts.value)
+const baseCount = computed(() => Object.values(counts.value).reduce((a, n) => a + n, 0))
 // Bộ lọc "Loại sản phẩm" dạng cây: theo nhóm con của danh mục (Thiết bị đun nấu…),
 // hoặc theo danh mục khi đang xem tất cả / tìm kiếm / flash sale. Chỉ hiện loại đang có sản phẩm.
 const tree = computed(() => {
-  const counts = {}
-  base.value.forEach(p => (counts[p.sub] = (counts[p.sub] || 0) + 1))
   const node = (key, label, list) => {
-    const opts = list.filter(s => counts[s]).map(s => ({ s, n: counts[s] }))
+    const opts = list.filter(s => counts.value[s]).map(s => ({ s, n: counts.value[s] }))
     return { key, label, opts, n: opts.reduce((a, x) => a + x.n, 0) }
   }
   const nodes = c.value?.groups ? c.value.groups.map(g => node(g.title, g.title, g.subs))
@@ -156,7 +137,7 @@ const nodes = computed(() => {
       ? { ...leaf('g:' + g.key, g.label, g.n, true), children: g.opts.map(x => leaf('s:' + x.s, x.s, x.n)) }
       : leaf('g:' + g.key, g.label, g.n, true))
     : (tree.value[0]?.opts || []).map(x => leaf('s:' + x.s, x.s, x.n))
-  return [leaf('all', 'Tất cả', base.value.length), ...rest]
+  return [leaf('all', 'Tất cả', baseCount.value), ...rest]
 })
 // Chọn một như radio: bấm lại mục đang chọn thì Tree gửi {} (bỏ chọn) — bỏ qua để giữ nguyên lựa chọn
 const selection = computed({
@@ -189,12 +170,58 @@ const kindSubs = computed(() => {
   return type === 's:' ? [key] : null
 })
 
-const items = computed(() => {
-  const r = PRICES.find(x => x.k === price.value)
-  return base.value
-    .filter(p => (!kindSubs.value || kindSubs.value.includes(p.sub)) && p.price >= r.min && p.price < r.max && (p.rating ?? 0) >= minR.value)
-    .sort(SORTS[sort.value])
+// Mỗi trang PAGE_SIZE sản phẩm, lọc + sắp xếp + phân trang ở server (GET /api/products/listing); số trang ở ?trang=
+const items = ref([])
+const total = ref(0)
+const loading = ref(true)
+const failed = ref(false)
+const page = ref(props.page)
+const pages = computed(() => Math.ceil(total.value / PAGE_SIZE))
+watch(() => props.page, p => (page.value = p))
+// Đổi bộ lọc / sắp xếp thì về trang 1
+watch([kind, price, minR, sort], () => {
+  if (page.value === 1) return
+  page.value = 1
+  router.replace({ query: { ...route.query, trang: undefined } })
 })
+let request = 0
+async function load() {
+  const id = ++request // bỏ kết quả của lần gọi cũ nếu người dùng đã đổi trang / bộ lọc
+  loading.value = true
+  failed.value = false
+  const r = PRICES.find(x => x.k === price.value)
+  try {
+    const res = await catalog.fetchListing({
+      category: props.cat,
+      q: props.q,
+      flash: props.flash,
+      type: kindSubs.value ?? urlSubs.value,
+      minPrice: r.min || null,
+      maxPrice: Number.isFinite(r.max) ? r.max : null,
+      minRating: minR.value || null,
+      sort: sort.value === 'pop' ? null : sort.value,
+      page: page.value,
+      pageSize: PAGE_SIZE,
+    })
+    if (id !== request) return
+    items.value = res.items
+    total.value = res.total
+    typeCounts.value = Object.fromEntries(res.typeCounts.map(t => [t.name, t.count]))
+    // ?trang= vượt quá số trang: server trả trang cuối
+    if (res.page !== page.value) router.replace({ query: { ...route.query, trang: res.page > 1 ? res.page : undefined } })
+  } catch (err) {
+    console.error(err)
+    if (id === request) {
+      items.value = []
+      total.value = 0
+      failed.value = true
+    }
+  } finally {
+    if (id === request) loading.value = false
+  }
+}
+const key = list => (list ?? []).join('|')
+watch([() => props.cat, () => props.q, () => props.flash, () => key(urlSubs.value), () => key(kindSubs.value), price, minR, sort, page], load, { immediate: true })
 const title = computed(() => props.flash ? 'Flash sale' : props.q ? `Kết quả cho "${props.q}"`
   : sub.value || group.value?.title || (c.value ? c.value.name : 'Tất cả sản phẩm'))
 </script>
@@ -258,12 +285,12 @@ const title = computed(() => props.flash ? 'Flash sale' : props.q ? `Kết quả
         </div>
         <div class="drawer-f filters-f">
           <button class="btn btn-ghost" type="button" :disabled="!activeCount" @click="resetFilters">Xóa lọc</button>
-          <button class="btn btn-primary" type="button" @click="open = false">Xem {{ items.length }} sản phẩm</button>
+          <button class="btn btn-primary" type="button" @click="open = false">Xem {{ total }} sản phẩm</button>
         </div>
       </aside>
       <div>
         <div class="toolbar">
-          <div><h1>{{ title }}</h1><span class="muted" :style="{ visibility: loading ? 'hidden' : null }">{{ items.length }} sản phẩm</span></div>
+          <div><h1>{{ title }}</h1><span class="muted" :style="{ visibility: loading && !total ? 'hidden' : null }">{{ total }} sản phẩm</span></div>
           <div style="display:flex;gap:8px">
             <button class="btn btn-ghost btn-sm f-btn" type="button" aria-haspopup="dialog" :aria-expanded="open" @click="open = true">
               <AppIcon name="filter" :size="16" />Bộ lọc<span v-if="activeCount" class="f-count">{{ activeCount }}</span>
@@ -275,16 +302,19 @@ const title = computed(() => props.flash ? 'Flash sale' : props.q ? `Kết quả
           </div>
         </div>
         <div v-if="loading" class="grid" aria-busy="true" aria-label="Đang tải sản phẩm">
-          <ProductCardSkeleton v-for="i in 8" :key="i" />
+          <ProductCardSkeleton v-for="i in (items.length || PAGE_SIZE)" :key="i" />
         </div>
         <div v-else-if="failed" class="box empty">
           <h3>Không tải được sản phẩm</h3>
           <p class="muted" style="margin-top:8px">Vui lòng thử lại sau ít phút hoặc gọi hotline {{ settings.hotline }}.</p>
         </div>
-        <div v-else-if="items.length" class="grid">
-          <ProductCard v-for="p in items" :key="p.id" :p="p" :flash="flash" />
-        </div>
-        <div v-else-if="cat && !q && !base.length" class="box empty">
+        <template v-else-if="items.length">
+          <div class="grid">
+            <ProductCard v-for="p in items" :key="p.id" :p="p" :flash="flash" />
+          </div>
+          <AppPager :page="page" :pages="pages" />
+        </template>
+        <div v-else-if="cat && !q && !baseCount" class="box empty">
           <h3>Danh mục đang cập nhật sản phẩm</h3>
           <p class="muted" style="margin:8px 0 20px">Gọi hotline {{ settings.hotline }} để được tư vấn và báo giá {{ sub || group?.title || c.name }}.</p>
           <RouterLink class="btn btn-primary" :to="toList()">Xem tất cả sản phẩm</RouterLink>

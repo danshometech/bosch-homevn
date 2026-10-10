@@ -3,6 +3,7 @@
 # Reverse proxy có sẵn (nginx/Traefik/Caddy) trỏ tên miền site → WEBSTORE_PORT, tên miền admin → ADMIN_PORT (HTTPS).
 # Admin tải video tới 50 MB: proxy của tên miền admin phải cho request lớn (nginx: client_max_body_size 60m;).
 # Backup: volume appdata (ảnh / video tải lên, khóa đăng nhập) + database.
+# Container api cần ra được internet (HTTPS) để lấy danh mục tỉnh / phường cho trang thanh toán (VIETNAM_ADDRESS_API_URL).
 name: bosch-homevn
 
 services:
@@ -17,6 +18,7 @@ services:
       Admin__UserName: ${ADMIN_USERNAME:-admin}
       Admin__Email: ${ADMIN_EMAIL:?Thiếu ADMIN_EMAIL trong .env}
       Admin__Password: ${ADMIN_PASSWORD:?Thiếu ADMIN_PASSWORD trong .env}
+      VietnamAddressApi__BaseUrl: ${VIETNAM_ADDRESS_API_URL:-https://provinces.open-api.vn/api/v2/}
     volumes:
       - appdata:/app/App_Data
     networks: [app, db]

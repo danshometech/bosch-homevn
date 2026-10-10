@@ -125,6 +125,12 @@ export const useCatalogStore = defineStore('catalog', () => {
     return remember(await api('/products', params))
   }
 
+  // Trang danh sách: GET /api/products/listing (lọc + sắp xếp + phân trang ở server)
+  async function fetchListing(params) {
+    const r = await api('/products/listing', params)
+    return { ...r, items: remember(r.items) }
+  }
+
   // GET /api/products/{id}; null nếu không có / chưa bán
   async function fetchProduct(id) {
     try {
@@ -164,7 +170,7 @@ export const useCatalogStore = defineStore('catalog', () => {
 
   return {
     cats, flashCount, failed, home,
-    loadMenu, loadHome, fetchProducts, fetchProduct, fetchArticle, ensure,
+    loadMenu, loadHome, fetchProducts, fetchListing, fetchProduct, fetchArticle, ensure,
     prodOf, catOf, subOf, groupOf, groupOfSub,
   }
 })

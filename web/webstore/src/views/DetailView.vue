@@ -83,6 +83,7 @@ const failed = ref(false)
 const ARTICLE_MAX = 560
 const tab = ref('spec')
 const article = ref(null)
+const articleLoading = ref(true)
 const articleOpen = ref(false)
 const articleLong = ref(false)
 const articleEl = ref(null)
@@ -118,6 +119,7 @@ watch(() => props.id, async id => {
   tab.value = 'spec'
   article.value = null
   articleOpen.value = false
+  articleLoading.value = true
   catalog.fetchArticle(id)
     .then(html => {
       if (req !== request || !html) return
@@ -125,6 +127,7 @@ watch(() => props.id, async id => {
       tab.value = 'info'
     })
     .catch(err => console.error(err))
+    .finally(() => req === request && (articleLoading.value = false))
   try {
     const fresh = await catalog.fetchProduct(id)
     if (req !== request) return
@@ -294,12 +297,16 @@ function buyInstallment() {
           <button id="tab-spec" class="pd-tab" :class="{ on: tab === 'spec' }" type="button" role="tab" :aria-selected="tab === 'spec'" aria-controls="panel-info" @click="tab = 'spec'">
             Thông số kỹ thuật
           </button>
-          <button v-if="article" id="tab-info" class="pd-tab" :class="{ on: tab === 'info' }" type="button" role="tab" :aria-selected="tab === 'info'" aria-controls="panel-info" @click="tab = 'info'">
+          <span v-if="articleLoading" class="sk sk-tab" aria-hidden="true" />
+          <button v-else-if="article" id="tab-info" class="pd-tab" :class="{ on: tab === 'info' }" type="button" role="tab" :aria-selected="tab === 'info'" aria-controls="panel-info" @click="tab = 'info'">
             Thông tin sản phẩm
           </button>
         </div>
         <div id="panel-info" role="tabpanel" :aria-labelledby="tab === 'info' ? 'tab-info' : 'tab-spec'">
-          <template v-if="tab === 'info' && article">
+          <div v-if="articleLoading" class="sk-stack" style="gap:12px" aria-busy="true">
+            <span v-for="w in [92, 100, 86, 97, 64]" :key="w" class="sk sk-line" :style="{ width: w + '%' }" />
+          </div>
+          <template v-else-if="tab === 'info' && article">
             <div class="article-box" :class="{ clip: articleLong && !articleOpen }" :style="{ '--clip': ARTICLE_MAX + 'px' }">
               <!-- HTML đã lọc ở Api (HtmlSanitizer) khi admin lưu -->
               <div ref="articleEl" class="article" @load.capture="measureArticle" v-html="article" />

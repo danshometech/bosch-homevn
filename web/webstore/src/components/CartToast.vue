@@ -21,8 +21,9 @@ const target = computed(() => (t.value.kind === 'cart' ? 'cart' : 'wish'))
 const showActions = computed(() => off.value || route.name !== target.value)
 
 function go() {
+  const name = target.value
   toast.hide()
-  router.push({ name: target.value })
+  router.push({ name })
 }
 const undo = () => wish.toggle(t.value.product.id)
 </script>

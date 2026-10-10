@@ -1,4 +1,5 @@
 using BoschHomeVn.Domain.Catalog;
+using BoschHomeVn.Domain.Checkout;
 using BoschHomeVn.Domain.Home;
 using BoschHomeVn.Domain.News;
 using BoschHomeVn.Domain.Settings;
@@ -16,6 +17,8 @@ public interface IAppDbContext
     DbSet<NewsCategory> NewsCategories { get; }
     DbSet<NewsPost> NewsPosts { get; }
     DbSet<SiteSetting> SiteSettings { get; }
+    DbSet<ShippingMethod> ShippingMethods { get; }
+    DbSet<PaymentMethod> PaymentMethods { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

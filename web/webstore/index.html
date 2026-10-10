@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>BoschHomeVn - Trang chủ</title>
+  <title>BoschHomeVN - Trang chủ</title>
   <meta name="description" content="Đại lý phân phối thiết bị bếp, gia dụng và khóa cửa vân tay Bosch chính hãng. Hóa đơn VAT, bảo hành điện tử toàn quốc, trả góp 0%.">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +11,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <!-- Khung tạm lúc chờ JS + menu, Vue mount sẽ thay -->
+    <div class="topbar"><div class="wrap"><span>Đại lý phân phối <b>chính hãng Bosch</b> · Bảo hành toàn quốc</span></div></div>
+    <header class="header">
+      <div class="wrap header-main">
+        <span class="h-burger"><span class="sk" style="width:22px;height:16px"></span></span>
+        <a href="/" class="logo"><b>bosch<i>-</i>home<i>vn</i></b><small>Đại lý ủy quyền</small></a>
+        <div class="search"><input placeholder="Tìm bếp từ, máy rửa bát, máy giặt…" aria-label="Tìm sản phẩm" disabled><button type="button" disabled>Tìm</button></div>
+        <div class="h-actions">
+          <span class="h-act"><span class="sk sk-dot" style="width:22px;height:22px"></span></span>
+          <span class="h-act"><span class="sk sk-dot" style="width:22px;height:22px"></span></span>
+        </div>
+      </div>
+      <div class="wrap nav-wrap"><div class="nav shell-nav"><span class="sk sk-line"></span><span class="sk sk-line"></span><span class="sk sk-line"></span><span class="sk sk-line"></span></div></div>
+    </header>
+    <main class="wrap shell-main" aria-busy="true">
+      <span class="sk shell-hero"></span>
+      <div class="grid"><span class="sk shell-card"></span><span class="sk shell-card"></span><span class="sk shell-card"></span><span class="sk shell-card"></span></div>
+    </main>
+  </div>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

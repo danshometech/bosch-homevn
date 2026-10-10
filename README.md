@@ -11,11 +11,11 @@ Website bán hàng đại lý Bosch — .NET 10 + PostgreSQL, frontend Vue 3.
 cd web && npm install && npm run build && cd ..
 dotnet tool restore
 dotnet user-secrets set "ConnectionStrings:Default" "Host=localhost;Database=boschhomevn;Username=postgres;Password=<mật khẩu>" --project src/BoschHomeVn.Api
-dotnet ef database update -p src/BoschHomeVn.Infrastructure -s src/BoschHomeVn.Api
 dotnet user-secrets set "Admin:Password" "<mật khẩu>" --project src/BoschHomeVn.Api
 ```
 
-Sau đó chạy 3 project Api, WebStore, Admin.
+Sau đó chạy 3 project Api, WebStore, Admin. Api (môi trường Development) tự áp migration còn thiếu khi khởi động
+(`Database:MigrateOnStartup` trong `appsettings.Development.json`).
 
 ## Triển khai
 

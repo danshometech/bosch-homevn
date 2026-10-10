@@ -1,4 +1,6 @@
+using BoschHomeVn.Application.Abstractions.Address;
 using BoschHomeVn.Application.Abstractions.Content;
+using BoschHomeVn.Infrastructure.Address;
 using BoschHomeVn.Application.Abstractions.Media;
 using BoschHomeVn.Application.Abstractions.Persistence;
 using BoschHomeVn.Infrastructure.Content;
@@ -52,6 +54,13 @@ public static class DependencyInjection
 
         services.AddSingleton<IMediaStorage>(new LocalMediaStorage(mediaRoot, mediaRequestPath));
         services.AddSingleton<IArticleSanitizer, ArticleSanitizer>();
+
+        services.AddMemoryCache();
+        services.AddHttpClient<IAddressDirectory, OpenApiAddressDirectory>(client =>
+        {
+            client.BaseAddress = new Uri(configuration["VietnamAddressApi:BaseUrl"] ?? "https://provinces.open-api.vn/api/v2/");
+            client.Timeout = TimeSpan.FromSeconds(10);
+        });
 
         return services;
     }

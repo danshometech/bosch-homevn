@@ -6,8 +6,10 @@ import { toDetail } from '@/router/links'
 import { useCartStore } from '@/stores/cart'
 import { useCatalogStore } from '@/stores/catalog'
 import { useViewedStore } from '@/stores/viewed'
+import { prefetchCheckout } from '@/services/checkout'
 import ImageBox from '@/components/ImageBox.vue'
 import ProductCard from '@/components/ProductCard.vue'
+import ProductCardSkeleton from '@/components/ProductCardSkeleton.vue'
 import TweenNumber from '@/components/TweenNumber.vue'
 
 const cart = useCartStore()
@@ -15,7 +17,11 @@ const catalog = useCatalogStore()
 const viewed = useViewedStore()
 // Lấy thông tin các mã trong giỏ (GET /api/products?ids=…) trước khi hiện
 const ready = ref(false)
-cart.sync().finally(() => (ready.value = true))
+cart.sync().finally(() => {
+  ready.value = true
+  if (cart.lines.length) prefetchCheckout()
+})
+const lineCount = computed(() => Object.keys(cart.items).length)
 
 const dirs = reactive({})
 const qtyEls = {}
@@ -33,11 +39,13 @@ function step(p, q, d) {
 // ưu tiên loại khác (giỏ có bếp từ thì gợi ý hút mùi, lò…), không lặp hàng trong giỏ / đã xem. Giỏ đổi thì tính lại
 const seen = ref([])
 const related = ref([])
+const relLoading = ref(true)
 const inCart = computed(() => cart.lines.map(l => l.p.id))
 let request = 0
 watch([ready, () => inCart.value.join()], async ([ok]) => {
   if (!ok) return
   const req = ++request
+  if (!related.value.length) relLoading.value = true
   try {
     const ids = inCart.value
     const recent = await viewed.recent(ids)
@@ -64,14 +72,33 @@ watch([ready, () => inCart.value.join()], async ([ok]) => {
     related.value = picked
   } catch (err) {
     console.error(err)
+  } finally {
+    if (req === request) relLoading.value = false
   }
 }, { immediate: true })
 </script>
 
 <template>
   <div class="wrap">
-    <div v-if="!ready" class="box empty" style="margin-top:32px"><p class="muted">Đang tải giỏ hàng…</p></div>
-    <div v-else-if="!cart.lines.length" class="box empty rise" style="margin-top:32px">
+    <div v-if="!ready && lineCount" aria-busy="true" aria-label="Đang tải giỏ hàng">
+      <div class="crumb"><span class="sk sk-line" style="width:160px" /></div>
+      <span class="sk" style="width:220px;height:30px;margin-bottom:20px" />
+      <div class="cart">
+        <div class="box" style="padding:6px 24px">
+          <div v-for="i in Math.min(lineCount, 4)" :key="i" class="ci">
+            <span class="sk" style="aspect-ratio:1" />
+            <span class="sk-stack"><span class="sk sk-line" style="width:80%" /><span class="sk sk-line sk-sm" style="width:40%" /></span>
+            <span class="sk-stack" style="align-items:flex-end;flex:none"><span class="sk sk-line" style="width:110px" /><span class="sk" style="width:104px;height:36px" /></span>
+          </div>
+        </div>
+        <div class="box">
+          <span class="sk sk-line" style="width:55%;height:18px;margin-bottom:18px" />
+          <div v-for="w in [30, 26, 44, 34]" :key="w" class="sum-row"><span class="sk sk-line" :style="{ width: w + '%' }" /><span class="sk sk-line" style="width:28%" /></div>
+          <span class="sk" style="height:48px;margin-top:16px" />
+        </div>
+      </div>
+    </div>
+    <div v-else-if="ready ? !cart.lines.length : !lineCount" class="box empty rise" style="margin-top:32px">
       <h2>Giỏ hàng đang trống</h2>
       <p class="muted" style="margin:8px 0 24px">Khám phá các ưu đãi flash sale hôm nay.</p>
       <RouterLink class="btn btn-primary" to="/">Tiếp tục mua sắm</RouterLink>
@@ -120,9 +147,12 @@ watch([ready, () => inCart.value.join()], async ([ok]) => {
       </div>
     </template>
 
-    <section v-if="ready && related.length" class="sec" style="padding-bottom:0">
+    <section v-if="ready && cart.lines.length && (relLoading || related.length)" class="sec" style="padding-bottom:0">
       <div class="sec-h"><h2>Sản phẩm liên quan</h2></div>
-      <div class="grid">
+      <div v-if="relLoading" class="grid" aria-busy="true" aria-label="Đang tải sản phẩm liên quan">
+        <ProductCardSkeleton v-for="i in 4" :key="i" />
+      </div>
+      <div v-else class="grid">
         <ProductCard v-for="x in related" :key="x.id" :p="x" />
       </div>
     </section>

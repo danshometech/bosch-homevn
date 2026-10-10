@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useCatalogStore } from '@/stores/catalog'
 import HomeView from '@/views/HomeView.vue'
 
-export const setTitle = title => (document.title = `BoschHomeVn - ${title || 'Trang chủ'}`)
+export const setTitle = title => (document.title = `BoschHomeVN - ${title || 'Trang chủ'}`)
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,6 +19,7 @@ const router = createRouter({
         loai: String(r.query.loai || ''),
         q: String(r.query.q || ''),
         flash: r.query.flash === '1',
+        page: Math.max(1, parseInt(r.query.trang, 10) || 1),
       }),
     },
     { path: '/san-pham/chi-tiet/:id', name: 'detail', component: () => import('@/views/DetailView.vue'), props: true },

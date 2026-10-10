@@ -21,6 +21,10 @@ public sealed class CatalogController(StoreApiClient api) : ControllerBase
         CancellationToken cancellationToken) =>
         api.GetProductsAsync(category, q, flash, ids, take, cancellationToken);
 
+    [HttpGet("products/listing")]
+    public Task<ActionResult<ProductListingResponse>> GetListing(CancellationToken cancellationToken) =>
+        api.GetProductListingAsync(Request.QueryString, cancellationToken);
+
     [HttpGet("products/{id}")]
     public Task<ActionResult<ProductResponse>> GetProduct(string id, CancellationToken cancellationToken) =>
         api.GetProductAsync(id, cancellationToken);

@@ -127,8 +127,14 @@ async function loadMore() {
     <template v-else>
       <NewsBento :posts="bento" />
       <template v-if="cat">
-        <div v-if="posts.length" class="news-grid">
+        <div v-if="posts.length || loadingMore" class="news-grid">
           <NewsCard v-for="p in posts" :key="p.slug" :post="p" />
+          <template v-if="loadingMore">
+            <div v-for="i in 3" :key="'sk' + i" class="nc" aria-hidden="true">
+              <span class="sk" style="aspect-ratio:16/9;border-radius:0" />
+              <div class="nc-body"><span class="sk sk-line sk-sm" style="width:40%" /><span class="sk sk-line" /><span class="sk sk-line" style="width:70%" /></div>
+            </div>
+          </template>
         </div>
         <div v-if="bento.length + posts.length < total" class="news-more">
           <button class="btn btn-ghost" type="button" :disabled="loadingMore" @click="loadMore">{{ loadingMore ? 'Đang tải…' : 'Xem thêm bài viết' }}</button>

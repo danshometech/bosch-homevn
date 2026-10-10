@@ -1,5 +1,6 @@
 using BoschHomeVn.Application.Abstractions.Persistence;
 using BoschHomeVn.Domain.Catalog;
+using BoschHomeVn.Domain.Checkout;
 using BoschHomeVn.Domain.Home;
 using BoschHomeVn.Domain.News;
 using BoschHomeVn.Domain.Settings;
@@ -20,6 +21,8 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : Ident
     public DbSet<NewsCategory> NewsCategories => Set<NewsCategory>();
     public DbSet<NewsPost> NewsPosts => Set<NewsPost>();
     public DbSet<SiteSetting> SiteSettings => Set<SiteSetting>();
+    public DbSet<ShippingMethod> ShippingMethods => Set<ShippingMethod>();
+    public DbSet<PaymentMethod> PaymentMethods => Set<PaymentMethod>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

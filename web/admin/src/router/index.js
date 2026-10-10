@@ -20,6 +20,7 @@ const routes = [
       { path: 'tin-tuc/moi', name: 'news-new', component: () => import('@/views/NewsEditView.vue'), meta: { title: 'Viết bài' } },
       { path: 'tin-tuc/:id', name: 'news-edit', component: () => import('@/views/NewsEditView.vue'), props: true, meta: { title: 'Sửa bài viết' } },
       { path: 'chuyen-muc-tin', redirect: { name: 'news', query: { tab: 'chuyen-muc' } } },
+      { path: 'giao-hang-thanh-toan', name: 'checkout', component: () => import('@/views/CheckoutSettingsView.vue'), meta: { title: 'Giao hàng & thanh toán' } },
       { path: 'lien-he', name: 'settings', component: () => import('@/views/SettingsView.vue'), meta: { title: 'Cập nhật liên hệ' } },
       { path: 'cai-dat', redirect: { name: 'settings' } },
     ],

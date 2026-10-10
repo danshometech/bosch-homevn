@@ -14,6 +14,9 @@ html,body{background:var(--bg);color:var(--ink);font-family:var(--font);font-siz
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 input,select,textarea{font:inherit;color:inherit}
 a{color:inherit;text-decoration:none}
+/* mobile: bỏ khung tô mặc định khi chạm (không theo bo góc), thay bằng nhấn lún nhẹ ở các nút chưa có :active */
+html{-webkit-tap-highlight-color:transparent}
+.pill:active,.pd-tab:active,.h-act:active,.h-burger:active,.drawer-x:active,.cat:active{transform:scale(.97)}
 h1,h2,h3,h4{font-weight:600;letter-spacing:-0.015em;text-wrap:balance}
 p{text-wrap:pretty}
 :focus-visible{outline:2px solid var(--ink);outline-offset:2px}
@@ -195,6 +198,30 @@ p{text-wrap:pretty}
 .pc-sk .pc-img{border-radius:var(--r-sm)}
 .pc-sk .pc-name{display:flex;flex-direction:column;justify-content:center;gap:8px}
 .sk-line{height:14px}
+.sk-sm{height:11px}
+.sk-dot{width:16px;height:16px;border-radius:50%;flex-shrink:0}
+.sk-mini{width:56px;height:56px;flex-shrink:0;border-radius:var(--r-sm)}
+.sk-stack{display:flex;flex-direction:column;gap:8px;flex:1;min-width:0}
+.sk-opt{pointer-events:none;align-items:center}
+.sk-tab{width:190px;height:42px;border-radius:10px}
+@media (max-width:640px){.sk-tab{width:auto;flex:1}}
+/* phân trang */
+.pager{display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap;margin:28px 0 8px}
+.pg{min-width:40px;height:40px;padding:0 8px;display:grid;place-items:center;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface);font-weight:600;font-size:14px;font-variant-numeric:tabular-nums;transition:border-color var(--dur-fast),background-color var(--dur-fast),color var(--dur-fast),transform var(--dur-press) var(--ease-out)}
+.pg:active{transform:scale(.96)}
+.pg.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.pg.off{opacity:.35}
+.pg-prev{transform:rotate(90deg)}
+.pg-next{transform:rotate(-90deg)}
+.pg-gap{min-width:20px;text-align:center;color:var(--ink-3)}
+@media (hover:hover){.pg:not(.on):not(.off):hover{border-color:var(--ink)}}
+@media (max-width:640px){.pager{gap:4px}.pg{min-width:36px;height:36px}}
+/* khung tạm trong index.html lúc chờ JS + menu */
+.shell-nav{gap:28px;padding:0 14px}
+.shell-nav .sk{width:110px;flex-shrink:0}
+.shell-main{padding-bottom:48px}
+.shell-hero{height:clamp(320px,52vh,560px);border-radius:16px;margin:24px 0}
+.shell-card{aspect-ratio:3/4;border-radius:var(--r-sm)}
 .sk-price{width:46%;height:20px}
 .pc-sk .pc-chips{flex-wrap:nowrap}
 .sk-chip{flex:0 0 56px;height:24px}
@@ -830,6 +857,25 @@ html.drawer-open{overflow:hidden}
 .err-leave-to{opacity:0}
 .form-g{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .form-g .full{grid-column:1/-1}
+/* ô chọn có tìm kiếm trong form (PrimeVue Select unstyled, vd. tỉnh / phường ở trang thanh toán): cùng khung với .fld input */
+.asel{position:relative;display:flex;align-items:center;gap:8px;min-width:0;height:44px;padding:0 12px 0 14px;border:1px solid var(--line);border-radius:var(--r-sm);background:#fff;font-size:14px;font-weight:400;cursor:pointer;transition:border-color 150ms,box-shadow var(--dur-fast)}
+.asel.open,.asel:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px rgba(23,24,26,.06)}
+.asel.disabled{background:var(--soft);color:var(--ink-3);cursor:not-allowed}
+.asel-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;outline:none}
+.asel-label.is-ph{color:var(--ink-3)}
+.asel-icon{display:grid;place-items:center;color:var(--ink-3)}
+.asel-icon svg{transition:transform 240ms var(--ease-out)}
+.asel.open .asel-icon svg{transform:rotate(180deg)}
+.fld.err .asel{border-color:var(--accent)}
+.asel-panel{max-width:calc(100vw - 24px)}
+.asel-head{padding:2px 2px 6px}
+.asel-search{position:relative}
+.asel-filter{width:100%;height:40px;padding:0 12px 0 36px;border:1px solid var(--line);border-radius:var(--r-sm);font-size:14px;outline:none;transition:border-color 150ms}
+.asel-filter:focus{border-color:var(--ink)}
+.asel-search-ic{position:absolute;left:12px;top:50%;transform:translateY(-50%);display:grid;color:var(--ink-3);pointer-events:none}
+.asel-scroll{max-height:min(280px,45vh);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.asel-panel .sel-opt{white-space:normal}
+.asel-empty{padding:10px;font-size:13px;color:var(--ink-3)}
 .box h3{font-size:18px;margin-bottom:18px}
 .opt{display:flex;gap:14px;align-items:flex-start;border:1.5px solid var(--line);border-radius:var(--r-sm);padding:14px 16px;cursor:pointer;margin-bottom:10px;background:#fff;transition:border-color var(--dur-fast),background-color var(--dur-fast),transform var(--dur-press) var(--ease-out)}
 .opt:hover{border-color:#c9c8c4}

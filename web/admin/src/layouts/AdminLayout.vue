@@ -13,6 +13,7 @@ const menu = [
   { label: 'Tin tức', icon: 'pi pi-book', to: { name: 'news' }, pages: ['news', 'news-new', 'news-edit'] },
   { label: 'Đơn hàng', icon: 'pi pi-shopping-cart', to: null },
   { label: 'Mã giảm giá', icon: 'pi pi-ticket', to: null },
+  { label: 'Giao hàng & thanh toán', icon: 'pi pi-truck', to: { name: 'checkout' }, pages: ['checkout'] },
   { label: 'Cập nhật liên hệ', icon: 'pi pi-phone', to: { name: 'settings' }, pages: ['settings'] },
 ]
 

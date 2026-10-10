@@ -1,4 +1,6 @@
+using BoschHomeVn.Contracts.Address;
 using BoschHomeVn.Contracts.Catalog;
+using BoschHomeVn.Contracts.Checkout;
 using BoschHomeVn.Contracts.Home;
 using BoschHomeVn.Contracts.News;
 using BoschHomeVn.Contracts.Settings;
@@ -28,6 +30,10 @@ public sealed class StoreApiClient(HttpClient http, ILogger<StoreApiClient> logg
         return GetAsync<IReadOnlyList<ProductResponse>>("api/products" + query, cancellationToken);
     }
 
+    // Chuyển nguyên query string (category, q, type…, page…) — Api kiểm tra giá trị
+    public Task<ActionResult<ProductListingResponse>> GetProductListingAsync(QueryString query, CancellationToken cancellationToken) =>
+        GetAsync<ProductListingResponse>("api/products/listing" + query, cancellationToken);
+
     public Task<ActionResult<ProductResponse>> GetProductAsync(string id, CancellationToken cancellationToken) =>
         GetAsync<ProductResponse>("api/products/" + Uri.EscapeDataString(id), cancellationToken);
 
@@ -53,6 +59,15 @@ public sealed class StoreApiClient(HttpClient http, ILogger<StoreApiClient> logg
 
     public Task<ActionResult<ContactSettingsResponse>> GetContactSettingsAsync(CancellationToken cancellationToken) =>
         GetAsync<ContactSettingsResponse>("api/settings/contact", cancellationToken);
+
+    public Task<ActionResult<CheckoutOptionsResponse>> GetCheckoutOptionsAsync(CancellationToken cancellationToken) =>
+        GetAsync<CheckoutOptionsResponse>("api/checkout/options", cancellationToken);
+
+    public Task<ActionResult<IReadOnlyList<AdministrativeUnitResponse>>> GetProvincesAsync(CancellationToken cancellationToken) =>
+        GetAsync<IReadOnlyList<AdministrativeUnitResponse>>("api/address/provinces", cancellationToken);
+
+    public Task<ActionResult<IReadOnlyList<AdministrativeUnitResponse>>> GetWardsAsync(int provinceCode, CancellationToken cancellationToken) =>
+        GetAsync<IReadOnlyList<AdministrativeUnitResponse>>($"api/address/provinces/{provinceCode}/wards", cancellationToken);
 
     public Task<HttpResponseMessage?> SendMediaAsync(Func<HttpRequestMessage> create, CancellationToken cancellationToken) =>
         ApiCall.SendMediaAsync(http, create, logger, cancellationToken);
