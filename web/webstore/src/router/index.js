@@ -26,7 +26,6 @@ const router = createRouter({
     // Link cũ /chi-tiet/:id
     { path: '/chi-tiet/:id', redirect: to => ({ name: 'detail', params: to.params }) },
     { path: '/gio-hang', name: 'cart', component: () => import('@/views/CartView.vue'), meta: { title: 'Giỏ hàng' } },
-    { path: '/yeu-thich', name: 'wish', component: () => import('@/views/WishlistView.vue'), meta: { title: 'Sản phẩm đã thích' } },
     {
       path: '/thanh-toan',
       name: 'checkout',

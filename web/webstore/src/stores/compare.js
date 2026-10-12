@@ -23,6 +23,10 @@ export const useCompareStore = defineStore('compare', () => {
     ids.value = []
     open.value = false
   }
+  function view() {
+    if (ids.value.length >= 2) open.value = true
+    else useToastStore().show('Chọn ít nhất 2 sản phẩm để so sánh', 'info')
+  }
 
-  return { ids, open, products, has, toggle, clear }
+  return { ids, open, products, has, toggle, clear, view }
 })

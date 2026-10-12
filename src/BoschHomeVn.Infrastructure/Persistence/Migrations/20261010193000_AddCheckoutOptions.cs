@@ -47,7 +47,7 @@ namespace BoschHomeVn.Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Name", "Description", "Fee", "IsActive", "SortOrder" },
                 values: new object[,]
                 {
-                    { "giao-tieu-chuan", "Giao tiêu chuẩn + lắp đặt", "2–3 ngày · Kỹ thuật viên lắp đặt tận nơi", 0m, true, 0 },
+                    { "giao-tieu-chuan", "Giao tiêu chuẩn", "2–3 ngày · Giao tận nơi", 0m, true, 0 },
                     { "giao-nhanh-24h", "Giao nhanh trong 24h", "Áp dụng nội thành HN, HCM, ĐN", 50000m, true, 1 },
                     { "nhan-tai-showroom", "Nhận tại showroom", "12 showroom toàn quốc", 0m, true, 2 },
                 });

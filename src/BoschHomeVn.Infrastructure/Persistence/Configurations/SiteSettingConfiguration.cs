@@ -12,6 +12,6 @@ internal sealed class SiteSettingConfiguration : IEntityTypeConfiguration<SiteSe
         builder.HasKey(s => s.Key);
 
         builder.Property(s => s.Key).HasMaxLength(100);
-        builder.Property(s => s.Value).HasMaxLength(2000);
+        builder.Property(s => s.Value).HasMaxLength(SiteSetting.MaxValueLength);
     }
 }

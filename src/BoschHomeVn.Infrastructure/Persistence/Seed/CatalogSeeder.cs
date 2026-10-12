@@ -90,7 +90,7 @@ internal static class CatalogSeeder
             product.SetDealerPrice(s.DealerPrice);
             product.SetStock(s.StockStatus, s.StockQuantity, s.StockNote);
             product.SetRating(s.Rating, s.ReviewCount);
-            product.SetDisplay(s.IsNew, s.IsFlashSale, s.ImageUrl, s.Highlights,
+            product.SetDisplay(s.IsNew, false, s.IsFlashSale, s.ImageUrl, s.Highlights,
                 s.Specs.Select(x => new ProductSpec(x.Name, x.Value)));
             return product;
         });

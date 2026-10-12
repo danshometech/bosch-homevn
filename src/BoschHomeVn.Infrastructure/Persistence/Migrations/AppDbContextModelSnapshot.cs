@@ -84,6 +84,9 @@ namespace BoschHomeVn.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("integer[]");
 
+                    b.Property<bool>("IsBestSeller")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsFlashSale")
                         .HasColumnType("boolean");
 

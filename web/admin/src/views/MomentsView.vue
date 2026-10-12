@@ -10,13 +10,15 @@ import { TONES, onSale } from '@/utils/format'
 
 const router = useRouter()
 const toast = useToast()
+const hero = ref(null)
 const moments = ref([])
 const products = ref(new Map())
 const loading = ref(true)
 
 onMounted(async () => {
   try {
-    const [m, p] = await Promise.all([get('/admin/moments'), get('/admin/products')])
+    const [h, m, p] = await Promise.all([get('/admin/hero'), get('/admin/moments'), get('/admin/products')])
+    hero.value = h
     moments.value = m
     products.value = new Map(p.map(x => [x.id, x]))
   } catch (err) {
@@ -37,6 +39,15 @@ const shown = m => m.productIds.some(id => products.value.get(id) && onSale(prod
       <p class="muted" style="margin:4px 0 0">"A Day with Bosch" — mỗi khoảnh khắc một ảnh bối cảnh, lời dẫn và một hàng sản phẩm.</p>
     </div>
   </div>
+  <RouterLink v-if="hero" class="box hero-card" :to="{ name: 'hero-edit' }">
+    <img v-if="hero.imageUrl" :src="hero.imageUrl" alt="">
+    <div>
+      <div class="muted" style="font-size:13px">Banner đầu trang · {{ hero.time || '—' }}</div>
+      <b>{{ hero.title ? hero.title.replaceAll('\n', ' ') : 'Chưa có banner — bấm để tạo' }}</b>
+      <div v-if="hero.lead" class="muted hero-card-lead">{{ hero.lead }}</div>
+    </div>
+    <i class="pi pi-angle-right" />
+  </RouterLink>
   <div class="box">
     <DataTable :value="moments" :loading="loading" data-key="id" size="small" row-hover
                @row-click="e => router.push({ name: 'moment-edit', params: { id: e.data.id } })" style="cursor:pointer">

@@ -1,10 +1,13 @@
 using System.Text.Json;
+using BoschHomeVn.Application.Home.Hero;
 using BoschHomeVn.Domain.Home;
+using BoschHomeVn.Domain.Settings;
 using Microsoft.EntityFrameworkCore;
 
 namespace BoschHomeVn.Infrastructure.Persistence.Seed;
 
-// Seed 1 lần khi bảng HomeMoments trống: các khoảnh khắc trang chủ từ home.seed.json (chuyển từ day.js của webstore).
+// Seed từ home.seed.json: banner đầu trang khi chưa có khóa home.hero trong SiteSettings, các khoảnh khắc
+// khi bảng HomeMoments trống (chuyển từ day.js của webstore).
 // Chạy sau CatalogSeeder vì khoảnh khắc trỏ tới sản phẩm; mã sản phẩm không có trong DB thì bỏ qua.
 internal static class HomeSeeder
 {
@@ -15,26 +18,46 @@ internal static class HomeSeeder
     public static void Seed(DbContext context)
     {
         var db = (AppDbContext)context;
-        if (db.HomeMoments.Any())
+        var needHero = !db.SiteSettings.Any(s => s.Key == SiteSetting.HomeHero);
+        var needMoments = !db.HomeMoments.Any();
+        if (!needHero && !needMoments)
         {
             return;
         }
 
-        var productIds = db.Products.Select(p => p.Id).ToHashSet();
-        db.HomeMoments.AddRange(Build(Load(), productIds));
+        var seed = Load();
+        if (needHero)
+        {
+            db.SiteSettings.Add(new SiteSetting(SiteSetting.HomeHero, seed.Hero.ToJson()));
+        }
+        if (needMoments)
+        {
+            var productIds = db.Products.Select(p => p.Id).ToHashSet();
+            db.HomeMoments.AddRange(Build(seed, productIds));
+        }
         db.SaveChanges();
     }
 
     public static async Task SeedAsync(DbContext context, CancellationToken cancellationToken)
     {
         var db = (AppDbContext)context;
-        if (await db.HomeMoments.AnyAsync(cancellationToken))
+        var needHero = !await db.SiteSettings.AnyAsync(s => s.Key == SiteSetting.HomeHero, cancellationToken);
+        var needMoments = !await db.HomeMoments.AnyAsync(cancellationToken);
+        if (!needHero && !needMoments)
         {
             return;
         }
 
-        var productIds = (await db.Products.Select(p => p.Id).ToListAsync(cancellationToken)).ToHashSet();
-        db.HomeMoments.AddRange(Build(Load(), productIds));
+        var seed = Load();
+        if (needHero)
+        {
+            db.SiteSettings.Add(new SiteSetting(SiteSetting.HomeHero, seed.Hero.ToJson()));
+        }
+        if (needMoments)
+        {
+            var productIds = (await db.Products.Select(p => p.Id).ToListAsync(cancellationToken)).ToHashSet();
+            db.HomeMoments.AddRange(Build(seed, productIds));
+        }
         await db.SaveChangesAsync(cancellationToken);
     }
 
@@ -65,7 +88,7 @@ internal static class HomeSeeder
             return moment;
         });
 
-    private sealed record HomeSeed(List<MomentSeed> Moments);
+    private sealed record HomeSeed(HomeHero Hero, List<MomentSeed> Moments);
 
     private sealed record MomentSeed(
         string Id,

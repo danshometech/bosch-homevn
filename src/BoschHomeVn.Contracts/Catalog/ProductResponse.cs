@@ -18,6 +18,7 @@ public sealed record ProductResponse(
     string? Origin,
     string? Warranty,
     bool IsNew,
+    bool IsBestSeller,
     bool IsFlashSale,
     decimal? Rating,
     int ReviewCount,

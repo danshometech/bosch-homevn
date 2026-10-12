@@ -132,7 +132,7 @@ watch([ready, () => inCart.value.join()], async ([ok]) => {
           <h3>Tóm tắt đơn hàng</h3>
           <div class="sum-row"><span>Tạm tính</span><TweenNumber :value="cart.subtotal" /></div>
           <div class="sum-row"><span>Tiết kiệm</span><span style="color:var(--ok-ink)">−<TweenNumber :value="cart.savings" /></span></div>
-          <div class="sum-row"><span>Giao hàng &amp; lắp đặt</span><span>Miễn phí</span></div>
+          <div class="sum-row"><span>Giao hàng</span><span>Miễn phí</span></div>
           <div class="sum-row tot"><span>Tổng cộng</span><b><TweenNumber :value="cart.total" /></b></div>
           <div class="muted" style="font-size:12px;text-align:right;margin-bottom:16px">Đã bao gồm VAT</div>
           <RouterLink class="btn btn-primary btn-block" :to="{ name: 'checkout' }">Tiến hành thanh toán</RouterLink>

@@ -1,12 +1,6 @@
-// Trang chủ "A Day with Bosch" — phần trình bày nằm ở frontend: ảnh hero, bảng màu nền theo giờ, ảnh các ô danh mục.
-// Nội dung từng khoảnh khắc (giờ, lời dẫn, ảnh, sản phẩm) nằm trong DB (bảng HomeMoments), lấy qua GET /api/home.
+// Trang chủ "A Day with Bosch" — phần trình bày nằm ở frontend: bảng màu nền theo giờ, ảnh các ô danh mục.
+// Banner đầu trang (SiteSettings home.hero) và từng khoảnh khắc (bảng HomeMoments) nằm trong DB, lấy qua GET /api/home.
 // Ảnh nằm trong public/images/.
-
-export const DAWN = {
-  time: '06:32',
-  img: '/images/scene-0732-bep.jpg',
-  alt: 'Căn bếp với tủ lạnh, máy rửa bát và lò nướng Bosch',
-}
 
 // Dải "Ưu đãi chỉ trong hôm nay" nằm ngay sau khoảnh khắc này
 export const FLASH_AFTER = 'bua-trua'

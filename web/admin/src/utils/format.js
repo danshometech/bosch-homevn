@@ -45,6 +45,7 @@ export const toProductRequest = p => ({
   origin: p.origin,
   warranty: p.warranty,
   isNew: p.isNew,
+  isBestSeller: p.isBestSeller,
   isFlashSale: p.isFlashSale,
   isPublished: p.isPublished,
   imageUrl: p.imageUrl,

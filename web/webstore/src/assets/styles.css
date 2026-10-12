@@ -57,11 +57,16 @@ p{text-wrap:pretty}
 
 /* topbar + header */
 .topbar{background:var(--ink);color:#d8d8d8;font-size:12.5px}
+.topbar::before{content:'';display:block;height:6px;background:url(./supergraphic.svg) 50%/cover no-repeat}
 .topbar .wrap{display:flex;justify-content:space-between;height:34px;align-items:center;gap:16px}
 .topbar b{color:#fff;font-weight:600}
 .header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
 .header-main{display:flex;align-items:center;gap:28px;height:72px}
-.logo{display:flex;flex-direction:column;line-height:1;cursor:pointer;flex-shrink:0}
+.logo{display:flex;align-items:center;gap:14px;line-height:1;cursor:pointer;flex-shrink:0}
+.logo-bosch{height:28px;width:auto;flex-shrink:0}
+.logo-t{display:flex;flex-direction:column;padding-left:14px;border-left:1px solid var(--line)}
+/* chỗ hẹp: chỉ giữ biểu tượng tròn của logo Bosch */
+.drawer-h .logo-bosch{width:24px;height:24px;object-fit:cover;object-position:0 50%}
 .logo b{font-size:21px;font-weight:700;letter-spacing:-.03em}
 .logo b i{font-style:normal;color:var(--accent)}
 .logo small{font-size:10.5px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;margin-top:5px}
@@ -144,12 +149,14 @@ p{text-wrap:pretty}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .pc{position:relative;min-width:0;display:flex;flex-direction:column;gap:10px;background:var(--surface);border-radius:14px;padding:14px 14px 10px;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.06),0 8px 24px -12px rgba(0,0,0,.18);transition:transform 240ms var(--ease-out),box-shadow 240ms}
 .pc:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(0,0,0,.06),0 18px 36px -16px rgba(0,0,0,.3)}
-.pc-off{position:absolute;z-index:2;top:12px;left:-6px;padding:4px 10px;border-radius:4px 4px 4px 0;background:var(--accent);color:#fff;font-size:12.5px;font-weight:700;line-height:1.3}
+/* ruy băng góc trái: giảm giá, "Mới", "Best seller" (admin bật) xếp chồng theo thứ tự đó */
+.pc-tags{position:absolute;z-index:2;top:12px;left:-6px;display:flex;flex-direction:column;align-items:flex-start;gap:10px;pointer-events:none}
+.pc-off{position:relative;padding:4px 10px;border-radius:4px 4px 4px 0;background:var(--accent);color:#fff;font-size:12.5px;font-weight:700;line-height:1.3}
 .pc-off::after{content:'';position:absolute;left:0;top:100%;border-top:6px solid oklch(0.36 0.14 25);border-left:6px solid transparent}
-/* nhãn "Mới" (admin bật) — cùng kiểu ruy băng, màu xanh Bosch; có cả nhãn giảm giá thì nằm ngay dưới */
 .pc-new{background:var(--new)}
 .pc-new::after{border-top-color:oklch(0.38 0.12 245)}
-.pc-off + .pc-new{top:44px}
+.pc-best{background:oklch(0.52 0.13 60)}
+.pc-best::after{border-top-color:oklch(0.36 0.09 55)}
 .pc-inst{position:absolute;z-index:2;top:12px;right:12px;padding:3px 9px;border:1px solid oklch(0.8 0.07 250);border-radius:8px;background:oklch(0.97 0.015 250);color:oklch(0.48 0.14 255);font-size:12px;line-height:1.3;overflow:hidden}
 .pc-inst::after{content:'';position:absolute;top:0;right:0;border-top:7px solid oklch(0.55 0.15 255);border-left:7px solid transparent}
 /* ảnh nằm tuyệt đối trong khung để khung luôn giữ đúng tỉ lệ, không bị ảnh cao đẩy giãn */
@@ -177,21 +184,20 @@ p{text-wrap:pretty}
 .pc-actions{position:relative;z-index:2;container-type:inline-size;margin-top:auto;margin-bottom:4px}
 .pc-foot + .pc-actions{margin-top:0}
 .pc-actions-in{display:grid;grid-template-columns:40px 40px 1fr;gap:8px}
-.pc-fav,.pc-add,.pc-buy{display:inline-flex;align-items:center;justify-content:center;height:40px;border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap;transition:background-color var(--dur-fast),border-color var(--dur-fast),color var(--dur-fast),filter var(--dur-fast),transform var(--dur-press) var(--ease-out)}
-.pc-fav{border:1px solid var(--line);background:var(--surface);color:oklch(0.55 0.15 255)}
-.pc-fav[aria-pressed=true]{border-color:var(--accent-soft);background:var(--accent-soft);color:var(--accent)}
-.pc-fav[aria-pressed=true] path{fill:currentColor}
+.pc-cmp,.pc-add,.pc-buy{display:inline-flex;align-items:center;justify-content:center;height:40px;border-radius:8px;font-size:13.5px;font-weight:600;white-space:nowrap;transition:background-color var(--dur-fast),border-color var(--dur-fast),color var(--dur-fast),filter var(--dur-fast),transform var(--dur-press) var(--ease-out)}
+.pc-cmp{border:1px solid var(--line);background:var(--surface);color:oklch(0.55 0.15 255)}
+.pc-cmp[aria-pressed=true]{border-color:oklch(0.55 0.15 255);background:oklch(0.55 0.15 255);color:#fff}
 .pc-add{border:1px solid var(--accent);color:var(--accent);background:var(--surface)}
 .pc-buy{padding:0 8px;background:var(--accent);color:#fff}
-.pc-fav:active,.pc-add:active:not(:disabled),.pc-buy:active:not(:disabled){transform:scale(.95)}
+.pc-cmp:active,.pc-add:active:not(:disabled),.pc-buy:active:not(:disabled){transform:scale(.95)}
 .pc-add:disabled,.pc-buy:disabled{opacity:.45;cursor:not-allowed}
 @media (hover:hover){
-  .pc-fav:hover{border-color:oklch(0.8 0.07 250);background:oklch(0.96 0.02 250)}
-  .pc-fav[aria-pressed=true]:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .pc-cmp:hover{border-color:oklch(0.8 0.07 250);background:oklch(0.96 0.02 250)}
+  .pc-cmp[aria-pressed=true]:hover{border-color:oklch(0.48 0.15 255);background:oklch(0.48 0.15 255)}
   .pc-add:hover:not(:disabled){background:var(--accent-soft)}
   .pc-buy:hover:not(:disabled){filter:brightness(.92)}
 }
-@container (max-width:199px){.pc-actions-in{grid-template-columns:36px 36px 1fr;gap:6px}.pc-fav,.pc-add,.pc-buy{height:36px}.pc-buy{padding:0 4px;font-size:12.5px}}
+@container (max-width:199px){.pc-actions-in{grid-template-columns:36px 36px 1fr;gap:6px}.pc-cmp,.pc-add,.pc-buy{height:36px}.pc-buy{padding:0 4px;font-size:12.5px}}
 /* skeleton khi đang tải sản phẩm */
 .sk{display:block;border-radius:6px;background:linear-gradient(90deg,#efeeeb 30%,#f8f7f5 50%,#efeeeb 70%) 100% 0/300% 100%;animation:sk-shine 1.4s linear infinite}
 .pc-sk{pointer-events:none}
@@ -243,6 +249,7 @@ p{text-wrap:pretty}
 .sk-spec > div{display:grid;grid-template-columns:40% 1fr;padding:15px 16px;border-bottom:1px solid var(--line)}
 .tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;background:var(--accent);color:#fff}
 .tag.new{background:var(--new)}
+.tag.best{background:oklch(0.52 0.13 60)}
 .tag.ok{background:var(--ok-ink)}
 .stars{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-3)}
 .stars .s{color:var(--star);letter-spacing:1px;font-size:13px}
@@ -578,15 +585,6 @@ html.drawer-open{overflow:hidden}
 .toast-info > svg{flex-shrink:0;color:var(--new)}
 .toast-ring{position:absolute;inset:-1px;padding:2.5px;border-radius:inherit;pointer-events:none;background:conic-gradient(from -90deg,var(--ring-color,var(--new)) var(--ring),transparent 0);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;animation:toast-ring var(--toast-hold) linear forwards}
 .toast.is-cart .toast-ring{--ring-color:var(--ok)}
-.toast.is-wish .toast-h{color:var(--accent)}
-.toast.is-wish .toast-ok{background:var(--accent)}
-.toast.is-wish .toast-ok path{fill:currentColor}
-.toast.is-wish .toast-ring{--ring-color:var(--accent)}
-.toast.is-wish.off .toast-h{color:var(--ink-2)}
-.toast.is-wish.off .toast-ok{background:var(--ink-3)}
-.toast.is-wish.off .toast-ok path{fill:none}
-.toast.is-wish.off .toast-ring{--ring-color:var(--ink-3)}
-.toast-actions.single{grid-template-columns:1fr}
 .toast.paused .toast-ring{animation-play-state:paused}
 @keyframes toast-ring{to{--ring:360deg}}
 .toast-enter-active{animation:toast-in var(--dur-move) var(--ease-out)}
@@ -729,6 +727,10 @@ html.drawer-open{overflow:hidden}
 .pd-tab:hover{border-color:#b9d4f5}
 .pd-tab.on{background:#eaf3fe;border-color:#b9d4f5;color:#1f6fd1}
 .pd-info .spec{max-width:none}
+.spec-box{position:relative}
+.spec-box.clip{overflow:hidden}
+.spec-box.clip .spec{margin-bottom:-22px}
+.spec-box.clip::after{content:"";position:absolute;left:0;right:0;bottom:0;height:72px;background:linear-gradient(rgb(255 255 255 / 0),var(--surface));pointer-events:none}
 .article-box{position:relative}
 .article-box.clip{max-height:var(--clip);overflow:hidden}
 .article-box.clip::after{content:"";position:absolute;left:0;right:0;bottom:0;height:160px;background:linear-gradient(rgb(255 255 255 / 0),var(--surface));pointer-events:none}
@@ -1116,6 +1118,9 @@ html.drawer-open{overflow:hidden}
   .header-main{flex-wrap:wrap;height:auto;padding-top:12px;padding-bottom:12px;gap:12px}
   .search{order:3;flex-basis:100%;height:42px}
   .h-actions{margin-left:auto}
+  .logo{gap:10px}
+  .logo-t{padding-left:10px}
+  .header .logo-bosch{width:24px;height:24px;object-fit:cover;object-position:0 50%}
   .grid,.list .grid{grid-template-columns:repeat(2,1fr);gap:10px}
   .toast{--toast-from:translateY(-14px);left:12px;right:12px;width:auto;transform:none}
   .news-grid{grid-template-columns:minmax(0,1fr);gap:14px}
@@ -1133,8 +1138,8 @@ html.drawer-open{overflow:hidden}
   .pd-tabs{gap:8px;margin-bottom:16px}
   .pd-tab{flex:1;padding:0 8px;font-size:14px}
   .pc{padding:10px 10px 6px;gap:8px;border-radius:12px}
-  .pc-off{top:10px;font-size:11px;padding:3px 8px}
-  .pc-off + .pc-new{top:38px}
+  .pc-tags{top:10px;gap:8px}
+  .pc-off{font-size:11px;padding:3px 8px}
   .pc-inst{top:10px;right:8px;font-size:11px;padding:2px 7px}
   .pc-img{margin-top:26px}
   .pc-name{font-size:13.5px;min-height:38px}

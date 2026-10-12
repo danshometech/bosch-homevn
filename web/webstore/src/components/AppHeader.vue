@@ -2,7 +2,7 @@
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
-import { useWishlistStore } from '@/stores/wishlist'
+import { useCompareStore } from '@/stores/compare'
 import { useSettingsStore } from '@/stores/settings'
 import { replay } from '@/utils/motion'
 import AppIcon from './AppIcon.vue'
@@ -14,7 +14,7 @@ const settings = useSettingsStore()
 const route = useRoute()
 const router = useRouter()
 const cart = useCartStore()
-const wish = useWishlistStore()
+const compare = useCompareStore()
 
 const q = ref('')
 watch(() => route.query.q, v => (q.value = v || ''), { immediate: true })
@@ -55,8 +55,8 @@ onUnmounted(() => {
 <template>
   <div class="topbar">
     <div class="wrap">
-      <span>Đại lý phân phối <b>chính hãng Bosch</b> · Bảo hành toàn quốc</span>
-      <span class="hide-m">Hotline <b>{{ settings.hotline }}</b> · Miễn phí giao lắp nội thành</span>
+      <span>Cửa hàng Online <b>chính hãng Bosch</b> · Bảo hành toàn quốc</span>
+      <span class="hide-m">Hotline <b>{{ settings.hotline }}</b> · Miễn phí giao hàng nội thành</span>
     </div>
   </div>
   <header ref="headerEl" class="header">
@@ -75,11 +75,11 @@ onUnmounted(() => {
           <span v-if="cart.count > 0" :key="cart.count" class="badge pop">{{ cart.count }}</span>
           <span class="lbl"><small>Giỏ hàng</small>{{ cart.count }} sản phẩm</span>
         </RouterLink>
-        <RouterLink :to="{ name: 'wish' }" class="h-act" :aria-label="`Sản phẩm đã thích, ${wish.ids.length} sản phẩm`">
-          <span class="ic"><AppIcon name="heart" /></span>
-          <span v-if="wish.ids.length" :key="wish.ids.length" class="badge pop">{{ wish.ids.length }}</span>
-          <span class="lbl"><small>Đã thích</small>{{ wish.ids.length }} sản phẩm</span>
-        </RouterLink>
+        <button type="button" class="h-act" :aria-label="`So sánh sản phẩm, ${compare.ids.length} sản phẩm`" @click="compare.view()">
+          <span class="ic"><AppIcon name="cmp" /></span>
+          <span v-if="compare.ids.length" :key="compare.ids.length" class="badge pop">{{ compare.ids.length }}</span>
+          <span class="lbl"><small>So sánh</small>{{ compare.ids.length }} sản phẩm</span>
+        </button>
       </div>
     </div>
     <div class="wrap nav-wrap">

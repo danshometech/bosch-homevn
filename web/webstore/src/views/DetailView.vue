@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive, computed, watch, nextTick, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { fmt, pct, monthly, warrantyOf } from '@/utils/format'
+import { fmt, pct, monthly, warrantyOf, STOCK, specsOf } from '@/utils/format'
 import { replay } from '@/utils/motion'
 import { toList } from '@/router/links'
 import { setTitle } from '@/router'
@@ -26,15 +26,10 @@ const compare = useCompareStore()
 const viewed = useViewedStore()
 
 const PERKS = [
-  ['GH', 'Giao hàng & lắp đặt miễn phí', 'Nội thành Hà Nội, TP. HCM, Đà Nẵng trong 24h'],
+  ['GH', 'Miễn phí giao hàng', 'Nội thành Hà Nội, TP. HCM, Đà Nẵng trong 24h'],
   ['ĐT', 'Đổi trả trong 30 ngày', 'Đổi mới nếu lỗi do nhà sản xuất'],
   ['VAT', 'Xuất hóa đơn VAT', 'Theo yêu cầu cho cá nhân & doanh nghiệp'],
 ]
-const STOCK = {
-  InStock: ['Còn hàng', 'var(--ok-ink)'],
-  LowStock: ['Sắp hết hàng', 'var(--accent)'],
-  OutOfStock: ['Hết hàng', 'var(--ink-3)'],
-}
 
 const qty = ref(1)
 const qtyDir = ref(0)
@@ -79,21 +74,31 @@ const related = ref([])
 const relLoading = ref(true)
 const failed = ref(false)
 // Tab "Thông số kỹ thuật" / "Thông tin sản phẩm" (bài giới thiệu, chỉ có khi admin đã soạn).
-// Bài dài thì thu gọn, bấm "Xem thêm" để mở hết
+// Bài dài / bảng thông số quá SPEC_MAX dòng thì thu gọn, bấm "Xem thêm" để mở hết
 const ARTICLE_MAX = 560
+const SPEC_MAX = 4
 const tab = ref('spec')
 const article = ref(null)
 const articleLoading = ref(true)
 const articleOpen = ref(false)
 const articleLong = ref(false)
+const specOpen = ref(false)
 const articleEl = ref(null)
 const infoSec = ref(null)
 function measureArticle() {
   articleLong.value = !!articleEl.value && articleEl.value.scrollHeight > ARTICLE_MAX + 120
 }
+// Thu gọn khi đã cuộn quá đầu mục thì kéo về đầu mục
+function keepInView() {
+  if (infoSec.value.getBoundingClientRect().top < 0) infoSec.value.scrollIntoView()
+}
 function toggleArticle() {
   articleOpen.value = !articleOpen.value
-  if (!articleOpen.value && infoSec.value.getBoundingClientRect().top < 0) infoSec.value.scrollIntoView()
+  if (!articleOpen.value) keepInView()
+}
+function toggleSpecs() {
+  specOpen.value = !specOpen.value
+  if (!specOpen.value) keepInView()
 }
 watch([article, tab], () => nextTick(measureArticle))
 // "Sản phẩm đã xem": 4 sản phẩm xem gần nhất (trừ sản phẩm đang xem); hiện ngay bản có trong store rồi lấy phần
@@ -119,6 +124,7 @@ watch(() => props.id, async id => {
   tab.value = 'spec'
   article.value = null
   articleOpen.value = false
+  specOpen.value = false
   articleLoading.value = true
   catalog.fetchArticle(id)
     .then(html => {
@@ -157,14 +163,10 @@ const stock = computed(() => {
   const note = p.value.stockNote ? ` · ${p.value.stockNote}` : ''
   return { text: label + qty + note, color }
 })
-// Bảng thông số: specs của sản phẩm, thêm màu / xuất xứ / bảo hành nếu có mà specs chưa ghi
-const specRows = computed(() => {
-  const rows = Object.entries(p.value.specs)
-  for (const [k, v] of [['Màu sắc', p.value.color], ['Xuất xứ', p.value.origin], ['Bảo hành', p.value.warranty]]) {
-    if (v && !(k in p.value.specs)) rows.push([k, v])
-  }
-  return [...rows, ['Thương hiệu', 'Bosch']]
-})
+const specRows = computed(() => [...specsOf(p.value), ['Thương hiệu', 'Bosch']])
+// Thu gọn: SPEC_MAX dòng + nửa dòng kế tiếp mờ dần (giống bài giới thiệu)
+const specLong = computed(() => specRows.value.length > SPEC_MAX)
+const specShown = computed(() => (specOpen.value ? specRows.value : specRows.value.slice(0, SPEC_MAX + 1)))
 
 
 function step(d) {
@@ -241,6 +243,7 @@ function buyInstallment() {
         <div style="display:flex;gap:6px">
           <span v-if="off" class="tag">-{{ off }}%</span>
           <span v-if="p.isNew" class="tag new">Mới</span>
+          <span v-if="p.isBest" class="tag best">Best seller</span>
           <span class="tag ok">Chính hãng</span>
         </div>
         <h1>{{ p.name }}</h1>
@@ -315,11 +318,18 @@ function buyInstallment() {
               {{ articleOpen ? 'Thu gọn' : 'Xem thêm' }}<AppIcon name="chevron" :size="16" />
             </button>
           </template>
-          <table v-else class="spec">
-            <tbody>
-              <tr v-for="[k, v] in specRows" :key="k"><td>{{ k }}</td><td>{{ v }}</td></tr>
-            </tbody>
-          </table>
+          <template v-else>
+            <div class="spec-box" :class="{ clip: specLong && !specOpen }">
+              <table class="spec">
+                <tbody>
+                  <tr v-for="[k, v] in specShown" :key="k"><td>{{ k }}</td><td>{{ v }}</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <button v-if="specLong" class="btn btn-ghost article-more" type="button" :aria-expanded="specOpen" @click="toggleSpecs">
+              {{ specOpen ? 'Thu gọn' : 'Xem thêm' }}<AppIcon name="chevron" :size="16" />
+            </button>
+          </template>
         </div>
       </div>
     </section>

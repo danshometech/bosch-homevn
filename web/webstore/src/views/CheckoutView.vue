@@ -54,7 +54,7 @@ const CONTACT = [
 ]
 const DETAIL = [
   { k: 'addr', label: 'Số nhà, tên đường *', placeholder: 'VD: 12 Nguyễn Huệ, tòa nhà ABC', autocomplete: 'address-line1', full: true },
-  { k: 'note', label: 'Ghi chú', placeholder: 'VD: giao giờ hành chính, cần lắp đặt âm tủ…', full: true, textarea: true },
+  { k: 'note', label: 'Ghi chú', placeholder: 'VD: giao giờ hành chính, gọi trước khi giao…', full: true, textarea: true },
 ]
 // Ô chọn tỉnh / phường có tìm kiếm (PrimeVue Select unstyled, CSS .asel trong styles.css)
 const SELECT_PT = {

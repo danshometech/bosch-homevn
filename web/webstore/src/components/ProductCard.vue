@@ -4,22 +4,22 @@ import { useRouter } from 'vue-router'
 import { fmt, pct, monthly, warrantyOf } from '@/utils/format'
 import { toDetail } from '@/router/links'
 import { useCartStore } from '@/stores/cart'
-import { useWishlistStore } from '@/stores/wishlist'
+import { useCompareStore } from '@/stores/compare'
 import AppIcon from './AppIcon.vue'
 import ImageBox from './ImageBox.vue'
 
-// Bấm cả thẻ để xem chi tiết (link phủ kín thẻ); nút tim, thêm vào giỏ, mua ngay nằm trên lớp link
+// Bấm cả thẻ để xem chi tiết (link phủ kín thẻ); nút so sánh, thêm vào giỏ, mua ngay nằm trên lớp link
 const props = defineProps({
   p: { type: Object, required: true },
   flash: { type: Boolean, default: false },
 })
 const router = useRouter()
 const cart = useCartStore()
-const wish = useWishlistStore()
+const compare = useCompareStore()
 
 const to = computed(() => toDetail(props.p.id))
 const inst = computed(() => props.p.inst)
-const fav = computed(() => wish.has(props.p.id))
+const inCmp = computed(() => compare.has(props.p.id))
 const off = computed(() => pct(props.p))
 const soldOut = computed(() => props.p.stockStatus === 'OutOfStock')
 
@@ -31,8 +31,11 @@ function buyNow() {
 
 <template>
   <article class="pc">
-    <span v-if="off" class="pc-off">Giảm {{ off }}%</span>
-    <span v-if="p.isNew" class="pc-off pc-new">Mới</span>
+    <div v-if="off || p.isNew || p.isBest" class="pc-tags">
+      <span v-if="off" class="pc-off">Giảm {{ off }}%</span>
+      <span v-if="p.isNew" class="pc-off pc-new">Mới</span>
+      <span v-if="p.isBest" class="pc-off pc-best">Best seller</span>
+    </div>
     <span v-if="inst" class="pc-inst">Trả góp <b>0%</b></span>
     <div class="pc-img">
       <img v-if="p.img" :src="p.img" alt="" loading="lazy">
@@ -43,7 +46,7 @@ function buyNow() {
     <p v-if="flash && p.stock != null" class="stock"><small>Còn {{ p.stock }} sản phẩm</small></p>
     <ul v-if="p.chips.length" class="pc-chips"><li v-for="c in p.chips" :key="c">{{ c }}</li></ul>
     <div class="pc-perks">
-      <p class="pc-perk blue">Miễn phí giao &amp; lắp đặt nội thành</p>
+      <p class="pc-perk blue">Miễn phí giao hàng nội thành</p>
       <p class="pc-perk violet">Bảo hành chính hãng {{ warrantyOf(p) }}</p>
     </div>
     <p v-if="inst" class="pc-pay">Trả góp 0% - 0đ trả trước - chỉ <b>{{ fmt(monthly(p.price, inst.displayMonths)) }}</b>/tháng</p>
@@ -52,8 +55,8 @@ function buyNow() {
     </div>
     <div class="pc-actions">
       <div class="pc-actions-in">
-        <button class="pc-fav" type="button" :aria-pressed="fav" :title="fav ? 'Bỏ thích' : 'Yêu thích'" :aria-label="`Yêu thích ${p.name}`" @click="wish.toggle(p.id)">
-          <AppIcon name="heart" :size="20" />
+        <button class="pc-cmp" type="button" :aria-pressed="inCmp" :title="inCmp ? 'Bỏ so sánh' : 'So sánh'" :aria-label="`So sánh ${p.name}`" @click="compare.toggle(p.id)">
+          <AppIcon name="cmp" :size="18" />
         </button>
         <button class="pc-add" type="button" :disabled="soldOut" title="Thêm vào giỏ" :aria-label="`Thêm ${p.name} vào giỏ hàng`" @click="cart.add(p.id)">
           <AppIcon name="cart" :size="18" />

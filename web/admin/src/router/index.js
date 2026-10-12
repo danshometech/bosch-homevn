@@ -15,6 +15,7 @@ const routes = [
       { path: 'san-pham/:id', name: 'product-edit', component: () => import('@/views/ProductEditView.vue'), props: true, meta: { title: 'Sửa sản phẩm' } },
       { path: 'danh-muc', name: 'categories', component: () => import('@/views/CategoriesView.vue'), meta: { title: 'Danh mục' } },
       { path: 'khoanh-khac', name: 'moments', component: () => import('@/views/MomentsView.vue'), meta: { title: 'Khoảnh khắc trang chủ' } },
+      { path: 'khoanh-khac/banner', name: 'hero-edit', component: () => import('@/views/HeroEditView.vue'), meta: { title: 'Banner đầu trang' } },
       { path: 'khoanh-khac/:id', name: 'moment-edit', component: () => import('@/views/MomentEditView.vue'), props: true, meta: { title: 'Sửa khoảnh khắc' } },
       { path: 'tin-tuc', name: 'news', component: () => import('@/views/NewsView.vue'), meta: { title: 'Tin tức' } },
       { path: 'tin-tuc/moi', name: 'news-new', component: () => import('@/views/NewsEditView.vue'), meta: { title: 'Viết bài' } },

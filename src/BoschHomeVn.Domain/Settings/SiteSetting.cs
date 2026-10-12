@@ -4,6 +4,9 @@ public sealed class SiteSetting
 {
     public const string ZaloUrl = "contact.zalo-url";
     public const string Hotline = "contact.hotline";
+    public const string HomeHero = "home.hero";
+
+    public const int MaxValueLength = 2000;
 
     private SiteSetting() { } // EF Core
 

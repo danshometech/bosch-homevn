@@ -47,3 +47,15 @@ public sealed record SaveMomentRequest(
     IReadOnlyList<string> ExtraProductIds);
 
 public sealed record LinkRequest([StringLength(200)] string Label, [StringLength(500)] string Url);
+
+// Banner đầu trang chủ — trả về HomeHeroResponse
+public sealed record SaveHomeHeroRequest(
+    [StringLength(5)] string Time,
+    [StringLength(60)] string? Kicker,
+    [StringLength(120)] string Title,
+    [StringLength(400)] string? Lead,
+    [StringLength(60)] string? CtaLabel,
+    [StringLength(200)] string? CtaUrl,
+    [StringLength(300)] string? ImageUrl,
+    [StringLength(50)] string? ImagePosition,
+    [StringLength(200)] string? ImageAlt);

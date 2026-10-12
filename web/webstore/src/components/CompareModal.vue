@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, onUnmounted } from 'vue'
-import { fmt } from '@/utils/format'
+import { fmt, pct, monthly, STOCK, specsOf } from '@/utils/format'
 import { toDetail } from '@/router/links'
 import { useCartStore } from '@/stores/cart'
 import { useCompareStore } from '@/stores/compare'
@@ -12,8 +12,25 @@ const cart = useCartStore()
 const compare = useCompareStore()
 
 const ps = computed(() => compare.products)
-const keys = computed(() => [...new Set(ps.value.flatMap(p => Object.keys(p.specs)))])
 const best = computed(() => Math.min(...ps.value.map(p => p.price)))
+const rated = computed(() => ps.value.some(p => p.rating != null))
+// Các dòng [tiêu đề, giá trị theo từng sản phẩm]: thông tin chung, rồi mọi thông số admin nhập của các sản phẩm
+// (mỗi tên thông số một dòng, sản phẩm thiếu thì "Không có"), cuối cùng màu / xuất xứ / bảo hành.
+// Dòng thông tin chung mà sản phẩm nào cũng trống thì ẩn
+const rows = computed(() => {
+  const list = ps.value
+  const specs = list.map(p => Object.fromEntries(specsOf(p)))
+  const own = list.flatMap(p => Object.keys(p.specs))
+  const keys = [...new Set([...own, ...specs.flatMap(s => Object.keys(s))])]
+  return [
+    ['Loại sản phẩm', list.map(p => p.sub)],
+    ['Mã sản phẩm', list.map(p => p.model)],
+    ['Series', list.map(p => p.series && `Serie ${p.series}`)],
+    ['Trả góp 0%', list.map(p => p.inst && `chỉ ${fmt(monthly(p.price, p.inst.displayMonths))}/tháng`)],
+    ['Tình trạng', list.map(p => STOCK[p.stockStatus]?.[0])],
+    ...keys.map(k => [k, specs.map(s => s[k])]),
+  ].filter(([, values]) => values.some(Boolean))
+})
 
 const close = () => (compare.open = false)
 const onKey = e => e.key === 'Escape' && close()
@@ -43,16 +60,17 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
                 <th>Giá</th>
                 <td v-for="p in ps" :key="p.id">
                   <b style="color:var(--accent)">{{ fmt(p.price) }}</b>
+                  <div v-if="p.old" class="muted" style="font-size:13px"><s>{{ fmt(p.old) }}</s> · -{{ pct(p) }}%</div>
                   <div v-if="p.price === best && ps.length > 1"><span class="tag ok pop" style="display:inline-block;margin-top:6px;animation-delay:200ms">Giá tốt nhất</span></div>
                 </td>
               </tr>
-              <tr>
+              <tr v-if="rated">
                 <th>Đánh giá</th>
                 <td v-for="p in ps" :key="p.id"><StarRating v-if="p.rating != null" :rating="p.rating" :count="p.reviews" /><template v-else>—</template></td>
               </tr>
-              <tr v-for="k in keys" :key="k">
-                <th>{{ k }}</th>
-                <td v-for="p in ps" :key="p.id">{{ p.specs[k] || '—' }}</td>
+              <tr v-for="[label, values] in rows" :key="label">
+                <th>{{ label }}</th>
+                <td v-for="(v, i) in values" :key="ps[i].id" :class="{ muted: !v }">{{ v || 'Không có' }}</td>
               </tr>
               <tr>
                 <th />

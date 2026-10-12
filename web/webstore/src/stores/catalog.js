@@ -17,7 +17,7 @@ function toCategory(c) {
 }
 
 // Sản phẩm theo dạng các component dùng: `cat` = id danh mục, `sub` = tên loại, `old` = giá gạch, `chips` = 3 thông số
-// nổi bật, `stock` = số lượng tồn (có thể không có), `isNew` / `isFlash` = nhãn "Mới" / flash sale (admin bật),
+// nổi bật, `stock` = số lượng tồn (có thể không có), `isNew` / `isBest` / `isFlash` = nhãn "Mới" / "Best seller" / flash sale (admin bật),
 // `inst` = trả góp 0% { months, displayMonths } hoặc null, `images` = ảnh chính + ảnh thêm, `video` = video giới thiệu.
 // `specs` đổi thành object, giữ đúng thứ tự dòng.
 const toProduct = p => ({
@@ -26,9 +26,11 @@ const toProduct = p => ({
   name: p.name,
   cat: p.categoryId,
   sub: p.typeName,
+  series: p.series,
   price: p.price,
   old: p.oldPrice,
   isNew: p.isNew,
+  isBest: p.isBestSeller,
   isFlash: p.isFlashSale,
   inst: p.installment,
   stock: p.stockQuantity,
@@ -83,11 +85,22 @@ export const useCatalogStore = defineStore('catalog', () => {
     return menuPending
   }
 
-  // Trang chủ: một lần gọi GET /api/home (khoảnh khắc kèm sản phẩm + tóm tắt flash sale), giữ lại cho lần quay lại
+  // Trang chủ: một lần gọi GET /api/home (banner, khoảnh khắc kèm sản phẩm, tóm tắt flash sale), giữ lại cho lần quay lại.
+  // `hero.title`: mỗi dòng một dòng chữ lớn; `hero.cta` = nút, null khi admin để trống
   function loadHome() {
     homePending ||= api('/home')
       .then(h => {
         home.value = {
+          hero: h.hero && {
+            time: h.hero.time,
+            kicker: h.hero.kicker,
+            lines: h.hero.title.split('\n'),
+            lead: h.hero.lead,
+            cta: h.hero.ctaLabel && h.hero.ctaUrl ? toLink({ label: h.hero.ctaLabel, url: h.hero.ctaUrl }) : null,
+            img: h.hero.imageUrl,
+            pos: h.hero.imagePosition,
+            alt: h.hero.imageAlt,
+          },
           moments: h.moments.map(m => ({
             id: m.id,
             time: m.time,
@@ -114,7 +127,7 @@ export const useCatalogStore = defineStore('catalog', () => {
       .catch(err => {
         console.error(err)
         failed.value = true
-        home.value = { moments: [], flash: null }
+        home.value = { hero: null, moments: [], flash: null }
         homePending = null
       })
     return homePending

@@ -17,7 +17,6 @@ defineProps({
     <template v-else-if="name === 'chevron'"><path d="M6 9l6 6 6-6" /></template>
     <template v-else-if="name === 'left'"><path d="M15 5l-7 7 7 7" /></template>
     <template v-else-if="name === 'right'"><path d="M9 5l7 7-7 7" /></template>
-    <template v-else-if="name === 'heart'"><path d="M12 20.5s-7.5-4.6-9.2-9.4C1.6 7.6 3.9 4.5 7.2 4.5c2 0 3.5 1.1 4.8 2.9 1.3-1.8 2.8-2.9 4.8-2.9 3.3 0 5.6 3.1 4.4 6.6-1.7 4.8-9.2 9.4-9.2 9.4z" /></template>
     <template v-else-if="name === 'star'"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" fill="currentColor" stroke="none" /></template>
     <template v-else-if="name === 'check'"><path d="M5 12.5l4.5 4.5L19 7" /></template>
     <template v-else-if="name === 'plus'"><path d="M12 5v14M5 12h14" /></template>

@@ -29,7 +29,7 @@ const blank = () => ({
   price: null, oldPrice: null, dealerPrice: null,
   stockStatus: 'InStock', stockQuantity: null, stockNote: null,
   color: null, origin: null, warranty: 'BSH - 3 năm',
-  isNew: false, isFlashSale: false, isPublished: true,
+  isNew: false, isBestSeller: false, isFlashSale: false, isPublished: true,
   imageUrl: null, galleryImages: [], videoUrl: null, videoPosterUrl: null, highlights: [], specs: [],
   allowInstallment: false, installmentMonths: [3, 6, 9, 12], installmentDisplayMonths: 12,
 })
@@ -219,7 +219,7 @@ function remove() {
           </div>
           <p class="muted" style="margin:12px 0 0;font-size:13px">
             Trên site: <b v-if="discount" style="color:#b91c1c">nhãn "Giảm {{ discount }}%"</b><template v-else>không có nhãn giảm giá</template>
-            <template v-if="form.isNew"> · nhãn "Mới"</template><template v-if="form.isFlashSale"> · Flash sale</template>
+            <template v-if="form.isNew"> · nhãn "Mới"</template><template v-if="form.isBestSeller"> · nhãn "Best seller"</template><template v-if="form.isFlashSale"> · Flash sale</template>
             <template v-if="form.allowInstallment"> · Trả góp 0%</template>
           </p>
         </section>
@@ -304,6 +304,7 @@ function remove() {
           <div class="rows" style="gap:12px">
             <label class="check"><ToggleSwitch v-model="form.isPublished" />Hiện trên site</label>
             <label class="check"><Checkbox v-model="form.isNew" binary />Gắn nhãn "Mới"</label>
+            <label class="check"><Checkbox v-model="form.isBestSeller" binary />Gắn nhãn "Best seller"</label>
             <label class="check"><Checkbox v-model="form.isFlashSale" binary />Flash sale</label>
           </div>
         </section>

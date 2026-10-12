@@ -30,6 +30,7 @@ internal static class CatalogMappings
             p.Origin,
             p.Warranty,
             p.IsNew,
+            p.IsBestSeller,
             p.IsFlashSale,
             p.Rating,
             p.ReviewCount,

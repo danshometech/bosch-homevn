@@ -2,7 +2,7 @@
 import { ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
 import { useCatalogStore } from '@/stores/catalog'
 import { useSettingsStore } from '@/stores/settings'
-import { DAWN, FLASH_AFTER, TONES, VIA, CAT_SHOTS } from '@/data/day'
+import { FLASH_AFTER, TONES, VIA, CAT_SHOTS } from '@/data/day'
 import { reducedMotion } from '@/utils/motion'
 import { toList, toFlash } from '@/router/links'
 import DayFlash from '@/components/DayFlash.vue'
@@ -10,12 +10,12 @@ import DayMoment from '@/components/DayMoment.vue'
 import DayRail from '@/components/DayRail.vue'
 import SceneShot from '@/components/SceneShot.vue'
 
-const [hh, mm] = DAWN.time.split(':')
 const catalog = useCatalogStore()
 const settings = useSettingsStore()
 // Dữ liệu trang chủ đã tải trước khi vào trang (router: GET /api/home) — chỉ gồm khoảnh khắc còn sản phẩm đang bán.
 // `flash`: { count, maxOff, subs } hoặc null khi không có sản phẩm flash sale.
-const { moments, flash } = catalog.home
+const { hero, moments, flash } = catalog.home
+const [hh, mm] = hero?.time.split(':') ?? []
 const last = moments.at(-1) ?? { tone: 'night' }
 // Đoạn kết là trang cuối của dải trượt (màn nhỏ): nút "Tiếp theo" của 23:15 trỏ tới nó
 const END = { time: '00:00', name: 'Ngày mai' }
@@ -208,15 +208,15 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section class="dawn" aria-labelledby="dawn-h">
-    <SceneShot tone="dawn" :src="DAWN.img" :alt="DAWN.alt" eager />
+  <section v-if="hero" class="dawn" aria-labelledby="dawn-h">
+    <SceneShot tone="dawn" :src="hero.img" :pos="hero.pos" :alt="hero.alt" eager />
     <div class="wrap dawn-in">
       <div>
-        <p class="dawn-time"><i class="live" /><b>{{ hh }}<span class="blink">:</span>{{ mm }}</b><span>A Day with Bosch</span></p>
-        <h1 id="dawn-h"><span>Ngày mới</span><span>bắt đầu từ đây.</span></h1>
-        <p class="dawn-lead">Một ngày trong căn nhà có Bosch — từ ly cà phê đầu tiên đến mẻ giặt cuối cùng trước giờ ngủ.</p>
+        <p class="dawn-time"><i class="live" /><b>{{ hh }}<span class="blink">:</span>{{ mm }}</b><span v-if="hero.kicker">{{ hero.kicker }}</span></p>
+        <h1 id="dawn-h"><span v-for="(line, i) in hero.lines" :key="i">{{ line }}</span></h1>
+        <p v-if="hero.lead" class="dawn-lead">{{ hero.lead }}</p>
         <div class="dawn-cta">
-          <RouterLink class="btn btn-light btn-lg" :to="toList('thiet-bi-bep')">Khám phá căn bếp <span aria-hidden="true">→</span></RouterLink>
+          <RouterLink v-if="hero.cta" class="btn btn-light btn-lg" :to="hero.cta.to">{{ hero.cta.label }} <span aria-hidden="true">→</span></RouterLink>
           <a v-if="moments.length" class="dawn-scroll" :href="'#' + moments[0].id" @click.prevent="go(moments[0].id)"><i />Cuộn để bắt đầu ngày</a>
         </div>
       </div>
@@ -259,7 +259,7 @@ onUnmounted(() => {
   </div>
   <div class="wrap after-day">
     <section class="sec">
-      <div class="sec-h"><div><h2>Chọn thiết bị cho một ngày của bạn</h2><p>Chính hãng Bosch · giao và lắp đặt miễn phí nội thành</p></div></div>
+      <div class="sec-h"><div><h2>Chọn thiết bị cho một ngày của bạn</h2><p>Chính hãng Bosch · miễn phí giao hàng nội thành</p></div></div>
       <div class="cats">
         <RouterLink v-for="c in catalog.cats" :key="c.id" class="cat" :to="toList(c.id)">
           <SceneShot v-if="CAT_SHOTS[c.id]" v-bind="CAT_SHOTS[c.id].shot" />

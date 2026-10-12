@@ -9,6 +9,7 @@ using BoschHomeVn.Application.Checkout.Admin;
 using BoschHomeVn.Application.Dashboard;
 using BoschHomeVn.Application.Home.Admin;
 using BoschHomeVn.Application.Home.GetHomePage;
+using BoschHomeVn.Application.Home.Hero;
 using BoschHomeVn.Application.News;
 using BoschHomeVn.Application.News.Admin;
 using BoschHomeVn.Application.Settings;
@@ -26,6 +27,7 @@ public static class DependencyInjection
         services.AddScoped<GetProductByIdHandler>();
         services.AddScoped<GetProductArticleHandler>();
         services.AddScoped<GetHomePageHandler>();
+        services.AddScoped<HomeHeroHandler>();
         services.AddScoped<NewsHandler>();
         services.AddScoped<SiteSettingsHandler>();
         services.AddScoped<CheckoutOptionsHandler>();

@@ -1,5 +1,6 @@
 using BoschHomeVn.Api.Mappings;
 using BoschHomeVn.Application.Home.GetHomePage;
+using BoschHomeVn.Application.Home.Hero;
 using BoschHomeVn.Contracts.Home;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,13 +10,17 @@ namespace BoschHomeVn.Api.Controllers;
 [Route("api/home")]
 public sealed class HomePageController : ControllerBase
 {
-    // Trang chủ chỉ gọi endpoint này: các khoảnh khắc "A Day with Bosch" kèm sản phẩm, và tóm tắt flash sale
+    // Trang chủ chỉ gọi endpoint này: banner đầu trang, các khoảnh khắc "A Day with Bosch" kèm sản phẩm, và tóm tắt flash sale
     [HttpGet]
-    public async Task<HomePageResponse> Get([FromServices] GetHomePageHandler handler, CancellationToken cancellationToken)
+    public async Task<HomePageResponse> Get(
+        [FromServices] GetHomePageHandler handler,
+        [FromServices] HomeHeroHandler heroes,
+        CancellationToken cancellationToken)
     {
         var page = await handler.Handle(cancellationToken);
+        var hero = await heroes.GetAsync(cancellationToken);
         var flash = page.FlashSale is { } f ? new FlashSaleResponse(f.Count, f.MaxDiscountPercent, f.TypeNames) : null;
-        return new HomePageResponse([.. page.Moments.Select(ToResponse)], flash);
+        return new HomePageResponse(hero?.ToResponse(), [.. page.Moments.Select(ToResponse)], flash);
     }
 
     private static HomeMomentResponse ToResponse(HomeMomentItem item)

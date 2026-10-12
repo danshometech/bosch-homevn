@@ -21,6 +21,7 @@ public sealed record SaveProductCommand(
     string? Origin,
     string? Warranty,
     bool IsNew,
+    bool IsBestSeller,
     bool IsFlashSale,
     bool IsPublished,
     string? ImageUrl,
@@ -161,6 +162,7 @@ public sealed class ProductAdminHandler(IAppDbContext db, IArticleSanitizer sani
         product.SetInstallment(c.AllowInstallment, c.InstallmentMonths, c.InstallmentDisplayMonths);
         product.SetDisplay(
             c.IsNew,
+            c.IsBestSeller,
             c.IsFlashSale,
             Clean(c.ImageUrl),
             c.Highlights.Select(h => h.Trim()).Where(h => h.Length > 0),

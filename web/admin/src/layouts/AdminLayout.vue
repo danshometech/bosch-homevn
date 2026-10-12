@@ -8,7 +8,7 @@ import { useAuthStore } from '@/stores/auth'
 const menu = [
   { label: 'Tổng quan', icon: 'pi pi-chart-bar', to: { name: 'dashboard' }, pages: ['dashboard'] },
   { label: 'Sản phẩm', icon: 'pi pi-box', to: { name: 'products' }, pages: ['products', 'product-new', 'product-edit'] },
-  { label: 'Khoảnh khắc trang chủ', icon: 'pi pi-clock', to: { name: 'moments' }, pages: ['moments', 'moment-edit'] },
+  { label: 'Khoảnh khắc trang chủ', icon: 'pi pi-clock', to: { name: 'moments' }, pages: ['moments', 'moment-edit', 'hero-edit'] },
   { label: 'Danh mục', icon: 'pi pi-sitemap', to: { name: 'categories' }, pages: ['categories'] },
   { label: 'Tin tức', icon: 'pi pi-book', to: { name: 'news' }, pages: ['news', 'news-new', 'news-edit'] },
   { label: 'Đơn hàng', icon: 'pi pi-shopping-cart', to: null },

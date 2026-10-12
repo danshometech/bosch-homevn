@@ -17,7 +17,7 @@ const payments = [
   ['zalopay', 'ZaloPay'],
   ['cod', 'Thanh toán khi nhận hàng (COD)'],
 ]
-const policies = ['Bảo hành chính hãng', 'Đổi trả 30 ngày', 'Trả góp 0%', 'Giao hàng & lắp đặt', 'Bảo mật thông tin']
+const policies = ['Bảo hành chính hãng', 'Đổi trả 30 ngày', 'Trả góp 0%', 'Miễn phí giao hàng', 'Bảo mật thông tin']
 const contacts = computed(() => [
   { text: 'Hotline: ' + settings.hotline, href: settings.tel },
   settings.zaloUrl && { text: 'Zalo OA: bosch-homevn', href: settings.zaloUrl },
@@ -56,7 +56,7 @@ const contacts = computed(() => [
         </div>
       </div>
       <div class="footer-b">
-        <span>© 2026 bosch-homevn.com · Đại lý phân phối được ủy quyền.</span>
+        <span>© 2026 bosch-homevn.com · Cửa hàng Online.</span>
         <span>MST 0123456789 · ĐKKD do Sở KH&amp;ĐT cấp</span>
       </div>
     </div>

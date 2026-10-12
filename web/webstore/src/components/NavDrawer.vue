@@ -4,11 +4,13 @@ import { useRoute } from 'vue-router'
 import { slugify } from '@/utils/format'
 import { useCatalogStore } from '@/stores/catalog'
 import { useSettingsStore } from '@/stores/settings'
+import { useCompareStore } from '@/stores/compare'
 import { toList, toGroup, toSub, toFlash, toNews } from '@/router/links'
 import { useDrawer } from '@/composables/useDrawer'
 import AppIcon from './AppIcon.vue'
 import AppLogo from './AppLogo.vue'
 const settings = useSettingsStore()
+const compare = useCompareStore()
 
 // Menu danh mục dạng ngăn kéo trượt từ trái, thay thanh menu ngang ở màn ≤1080 (nơi menu con không dùng được).
 // Danh mục mở ra xem nhóm / loại con, mỗi lúc một danh mục; mở ngăn kéo thì bung sẵn danh mục đang xem.
@@ -79,7 +81,7 @@ const isNews = () => route.name === 'news' || route.name === 'news-post'
           </nav>
           <div class="drawer-f">
             <a class="btn btn-primary btn-block" :href="settings.tel"><AppIcon name="phone" :size="18" />Gọi {{ settings.hotline }}</a>
-            <RouterLink class="btn btn-ghost btn-block" :to="{ name: 'wish' }"><AppIcon name="heart" :size="18" />Sản phẩm đã thích</RouterLink>
+            <button class="btn btn-ghost btn-block" type="button" @click="open = false; compare.view()"><AppIcon name="cmp" :size="18" />So sánh sản phẩm ({{ compare.ids.length }})</button>
           </div>
         </div>
       </div>

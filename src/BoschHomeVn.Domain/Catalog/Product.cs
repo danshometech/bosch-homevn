@@ -44,6 +44,7 @@ public sealed class Product : Entity<string>
     // Admin tắt thì sản phẩm không hiện trên site dù đã có giá bán
     public bool IsPublished { get; private set; }
     public bool IsNew { get; private set; }
+    public bool IsBestSeller { get; private set; }
     public bool IsFlashSale { get; private set; }
     public decimal? Rating { get; private set; }
     public int ReviewCount { get; private set; }
@@ -192,9 +193,10 @@ public sealed class Product : Entity<string>
         ReviewCount = reviewCount;
     }
 
-    public void SetDisplay(bool isNew, bool isFlashSale, string? imageUrl, IEnumerable<string> highlights, IEnumerable<ProductSpec> specs)
+    public void SetDisplay(bool isNew, bool isBestSeller, bool isFlashSale, string? imageUrl, IEnumerable<string> highlights, IEnumerable<ProductSpec> specs)
     {
         IsNew = isNew;
+        IsBestSeller = isBestSeller;
         IsFlashSale = isFlashSale;
         ImageUrl = imageUrl;
         Highlights = [.. highlights];

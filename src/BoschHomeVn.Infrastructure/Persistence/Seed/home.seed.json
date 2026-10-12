@@ -1,4 +1,15 @@
 {
+  "hero": {
+    "time": "06:32",
+    "kicker": "A Day with Bosch",
+    "title": "Ngày mới\nbắt đầu từ đây.",
+    "lead": "Một ngày trong căn nhà có Bosch — từ ly cà phê đầu tiên đến mẻ giặt cuối cùng trước giờ ngủ.",
+    "ctaLabel": "Khám phá căn bếp",
+    "ctaUrl": "/san-pham/thiet-bi-bep",
+    "imageUrl": "/images/scene-0732-bep.jpg",
+    "imagePosition": null,
+    "imageAlt": "Căn bếp với tủ lạnh, máy rửa bát và lò nướng Bosch"
+  },
   "moments": [
     {
       "id": "ca-phe",

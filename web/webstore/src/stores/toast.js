@@ -25,8 +25,6 @@ export const useToastStore = defineStore('toast', () => {
   }
   const show = (text, kind = 'info') => open({ kind, text })
   const added = (product, qty = 1) => open({ kind: 'cart', text: product?.name ?? 'Sản phẩm', product, qty })
-  // on: true = vừa thích, false = vừa bỏ thích (toast có nút hoàn tác)
-  const liked = (product, on) => open({ kind: 'wish', text: product?.name ?? 'Sản phẩm', product, on })
 
   function pause() {
     if (!current.value || paused.value) return
@@ -45,5 +43,5 @@ export const useToastStore = defineStore('toast', () => {
     paused.value = false
   }
 
-  return { current, paused, show, added, liked, pause, resume, hide }
+  return { current, paused, show, added, pause, resume, hide }
 })
