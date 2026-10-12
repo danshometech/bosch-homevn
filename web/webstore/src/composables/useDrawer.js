@@ -2,7 +2,7 @@ import { watch, nextTick, onUnmounted } from 'vue'
 
 const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])'
 
-// Ngăn kéo trượt từ cạnh (menu danh mục, bộ lọc): khi mở thì khóa cuộn trang, Esc để đóng, Tab chỉ chạy
+// Ngăn kéo trượt từ cạnh (menu danh mục, bộ lọc) và bảng so sánh: khi mở thì khóa cuộn trang, Esc để đóng, Tab chỉ chạy
 // trong ngăn kéo; khi đóng thì trả focus về nút đã mở nó.
 // `open` là ref đóng/mở, `panel` là ref phần tử ngăn kéo (phần tử có data-autofocus được focus đầu tiên).
 export function useDrawer(open, panel) {

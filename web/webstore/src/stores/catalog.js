@@ -164,13 +164,15 @@ export const useCatalogStore = defineStore('catalog', () => {
     }
   }
 
-  // Bảo đảm đã có dữ liệu các mã (giỏ hàng): chỉ gọi API cho mã chưa có, trả về những mã còn đang bán
-  async function ensure(ids) {
-    const missing = ids.filter(id => !cache.has(id))
-    for (let i = 0; i < missing.length; i += 50) {
-      remember(await api('/products', { ids: missing.slice(i, i + 50).join(',') }))
+  // Bảo đảm đã có dữ liệu các mã (giỏ hàng): chỉ gọi API cho mã chưa có (fresh: gọi lại hết để lấy giá mới nhất),
+  // trả về những mã còn đang bán
+  async function ensure(ids, { fresh = false } = {}) {
+    const need = fresh ? ids : ids.filter(id => !cache.has(id))
+    const got = new Set()
+    for (let i = 0; i < need.length; i += 50) {
+      for (const p of remember(await api('/products', { ids: need.slice(i, i + 50).join(',') }))) got.add(p.id)
     }
-    return ids.filter(id => cache.has(id))
+    return ids.filter(id => (need.includes(id) ? got.has(id) : cache.has(id)))
   }
 
   const prodOf = id => cache.get(id)

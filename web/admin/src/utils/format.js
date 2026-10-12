@@ -1,7 +1,16 @@
 // 18990000 → "18.990.000₫"; không có giá → "—"
 export const fmt = n => (n == null ? '—' : n.toLocaleString('vi-VN') + '₫')
 
-export const fmtDate = d => (d ? new Date(d).toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short' }) : '—')
+// Ngày giờ luôn theo giờ Việt Nam (shop ở VN; máy admin có thể đặt múi giờ khác) — khớp bộ lọc ngày và file Excel của server
+export const fmtDate = d => (d ? new Date(d).toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short', timeZone: 'Asia/Ho_Chi_Minh' }) : '—')
+
+// Ngày (bỏ giờ) cho bộ lọc theo ngày: Date → "2026-10-12", cộng / trừ ngày, hôm nay theo giờ Việt Nam
+export const isoDate = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+export const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n)
+export const startOfToday = () => {
+  const vn = new Date(Date.now() + 7 * 3600_000)
+  return new Date(vn.getUTCFullYear(), vn.getUTCMonth(), vn.getUTCDate())
+}
 
 // Bỏ dấu tiếng Việt để tìm "may rua bat" vẫn ra "Máy rửa bát"
 export const fold = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase()
@@ -12,6 +21,16 @@ export const STOCK = [
   { value: 'OutOfStock', label: 'Hết hàng', severity: 'danger' },
 ]
 export const stockOf = value => STOCK.find(s => s.value === value) || STOCK[0]
+
+// Trạng thái đơn hàng, theo thứ tự xử lý
+export const ORDER_STATUS = [
+  { value: 'New', label: 'Mới', severity: 'warn' },
+  { value: 'Confirmed', label: 'Đã xác nhận', severity: 'info' },
+  { value: 'Shipping', label: 'Đang giao', severity: 'contrast' },
+  { value: 'Completed', label: 'Hoàn tất', severity: 'success' },
+  { value: 'Cancelled', label: 'Đã hủy', severity: 'danger' },
+]
+export const orderStatusOf = value => ORDER_STATUS.find(s => s.value === value) || ORDER_STATUS[0]
 
 // % giảm hiện thành nhãn "Giảm X%" trên site — tính từ giá gạch (oldPrice) so với giá bán; không có thì null
 export const discountOf = p => (p.price != null && p.oldPrice > p.price ? Math.round((1 - p.price / p.oldPrice) * 100) : null)

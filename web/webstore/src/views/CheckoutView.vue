@@ -4,10 +4,11 @@ import Select from 'primevue/select'
 import { fmt, monthly } from '@/utils/format'
 import { replay } from '@/utils/motion'
 import { useCartStore } from '@/stores/cart'
-import { createOrder } from '@/services/orders'
+import { createOrder, getCaptchaKey } from '@/services/orders'
 import { getProvinces, getWards } from '@/services/address'
 import { getCheckoutOptions, savedCheckoutOptions } from '@/services/checkout'
 import AppIcon from '@/components/AppIcon.vue'
+import TurnstileBox from '@/components/TurnstileBox.vue'
 import TweenNumber from '@/components/TweenNumber.vue'
 
 const props = defineProps({ inst: { type: Boolean, default: false } })
@@ -40,7 +41,8 @@ function pickDefaults() {
 }
 let freshOpts = loadOptions()
 const retryOptions = () => (freshOpts = loadOptions())
-cart.sync().finally(() => {
+// Giá trong giỏ có thể là bản tải từ lúc xem sản phẩm → lấy lại giá mới nhất trước khi đặt
+cart.sync({ fresh: true }).finally(() => {
   months.value = cart.installShow
   ready.value = true
   pickDefaults()
@@ -113,6 +115,14 @@ const months = ref(cart.installShow)
 const err = ref({})
 const done = ref(null)
 const submitting = ref(false)
+// Đang làm gì sau khi bấm Đặt hàng: 'verify' (xác minh chống spam) → 'send' (gửi đơn)
+const phase = ref('send')
+// Lỗi khi gửi đơn (giá vừa đổi, hết hàng, mất mạng…) hiện ngay trên nút Đặt hàng
+const orderErr = ref('')
+// Chống spam: Cloudflare Turnstile chạy mỗi lần bấm Đặt hàng (captchaKey null = shop đang tắt)
+const captchaKey = ref(null)
+const captcha = ref(null)
+onMounted(() => getCaptchaKey().then(k => (captchaKey.value = k)).catch(e => console.error(e)))
 const ctrls = {}
 const sels = {}
 
@@ -144,6 +154,7 @@ function validate() {
   const e = {}
   if (!f.name.trim()) e.name = 'Vui lòng nhập họ tên'
   if (!/^0\d{9}$/.test(f.phone.replace(/\s/g, ''))) e.phone = 'Số điện thoại gồm 10 số, bắt đầu bằng 0'
+  if (f.email.trim() && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.trim())) e.email = 'Email không hợp lệ, vd. ten@gmail.com'
   if (addrFailed.value) {
     if (!f.area.trim()) e.area = 'Vui lòng nhập phường / xã và tỉnh / thành phố'
   } else {
@@ -161,12 +172,26 @@ function validate() {
 async function submit() {
   if (submitting.value || !ready.value) return
   submitting.value = true
+  orderErr.value = ''
   // Đặt theo phí mới nhất, không theo bản lưu lần trước
   await freshOpts
   if (!validate()) {
     submitting.value = false
     return
   }
+  let token = null
+  if (captchaKey.value) {
+    phase.value = 'verify'
+    try {
+      token = await captcha.value.getToken()
+    } catch (e) {
+      console.error(e)
+      orderErr.value = 'Chưa xác minh được bạn không phải robot, vui lòng bấm Đặt hàng lần nữa.'
+      submitting.value = false
+      return
+    }
+  }
+  phase.value = 'send'
   try {
     const order = await createOrder({
       customer: {
@@ -183,10 +208,18 @@ async function submit() {
       payment: pay.value,
       months: isInst.value ? months.value : null,
       total: grand.value,
-    })
-    done.value = { id: order.id, total: grand.value, name: f.name, phone: f.phone }
+    }, token)
+    done.value = { code: order.code, total: order.total, name: f.name, phone: f.phone }
     cart.clear()
     window.scrollTo(0, 0)
+  } catch (e) {
+    console.error(e)
+    orderErr.value = e.problem ? e.message : 'Không gửi được đơn hàng, vui lòng kiểm tra kết nối rồi thử lại.'
+    // Server từ chối (giá / phí vừa đổi, hết hàng…): tải lại giá và cách giao để khách thấy số mới rồi đặt lại
+    if (e.status === 400) {
+      await cart.sync({ fresh: true })
+      await (freshOpts = loadOptions())
+    }
   } finally {
     submitting.value = false
   }
@@ -200,7 +233,7 @@ async function submit() {
       <h1 class="rise" style="font-size:30px;animation-delay:220ms">Đặt hàng thành công</h1>
       <p class="muted rise" style="margin:10px 0 24px;animation-delay:300ms">Cảm ơn {{ done.name }}! Nhân viên sẽ gọi xác nhận qua số {{ done.phone }} trong 15 phút.</p>
       <div class="box rise" style="text-align:left;margin-bottom:24px;animation-delay:380ms">
-        <div class="sum-row"><span>Mã đơn hàng</span><b class="mono">{{ done.id }}</b></div>
+        <div class="sum-row"><span>Mã đơn hàng</span><b class="mono">{{ done.code }}</b></div>
         <div class="sum-row"><span>Tổng thanh toán</span><b class="tn">{{ fmt(done.total) }}</b></div>
         <div class="sum-row"><span>Bảo hành</span><span>Kích hoạt tự động khi giao hàng</span></div>
       </div>
@@ -412,9 +445,13 @@ async function submit() {
             <div v-for="w in [30, 40, 50]" :key="w" class="sum-row"><span class="sk sk-line" :style="{ width: w + '%' }" /><span class="sk sk-line" style="width:28%" /></div>
           </div>
         </div>
+        <TurnstileBox v-if="captchaKey" ref="captcha" :site-key="captchaKey" />
+        <Transition name="err">
+          <p v-if="orderErr" class="order-err" role="alert"><AppIcon name="info" :size="18" />{{ orderErr }}</p>
+        </Transition>
         <button class="btn btn-primary btn-block" style="margin-top:16px" :disabled="!ready || submitting || optsFailed" @click="submit">
           <AppIcon v-if="submitting" name="spinner" :size="18" class="spin" />
-          {{ submitting ? 'Đang gửi đơn…' : 'Đặt hàng' }}
+          {{ !submitting ? 'Đặt hàng' : phase === 'verify' ? 'Đang xác minh…' : 'Đang gửi đơn…' }}
         </button>
         <p class="muted" style="font-size:12px;margin-top:10px;text-align:center">Bằng việc đặt hàng, bạn đồng ý với điều khoản của bosch-homevn.com</p>
       </div>

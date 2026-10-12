@@ -26,6 +26,26 @@ export async function api(method, path, body) {
 const problemMessage = (p, status) =>
   (p?.errors ? Object.values(p.errors).flat().join(' ') : p?.detail || p?.title) || `Lỗi ${status}`
 
+// Tải file (vd. CSV) về máy qua fetch để còn báo lỗi / hết phiên; tên file lấy từ Content-Disposition
+export async function download(path, fallbackName) {
+  const res = await fetch('/api' + path)
+  if (res.status === 401) onUnauthorized()
+  if (!res.ok) {
+    let problem = null
+    try { problem = await res.json() } catch { /* không có body JSON */ }
+    throw Object.assign(new Error(problemMessage(problem, res.status)), { status: res.status })
+  }
+  const disposition = res.headers.get('Content-Disposition') || ''
+  const star = /filename\*=UTF-8''([^;]+)/i.exec(disposition)?.[1]
+  const name = star ? decodeURIComponent(star) : /filename="?([^";]+)"?/i.exec(disposition)?.[1] || fallbackName
+  const url = URL.createObjectURL(await res.blob())
+  const a = Object.assign(document.createElement('a'), { href: url, download: name })
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  setTimeout(() => URL.revokeObjectURL(url), 1000)
+}
+
 export const get = path => api('GET', path)
 export const post = (path, body) => api('POST', path, body)
 export const put = (path, body) => api('PUT', path, body)

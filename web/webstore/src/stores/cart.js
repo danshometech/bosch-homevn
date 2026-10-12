@@ -54,12 +54,12 @@ export const useCartStore = defineStore('cart', () => {
     items.value = {}
   }
   // Trang giỏ hàng / thanh toán gọi: tải thông tin các mã trong giỏ (GET /api/products?ids=…),
-  // mã không còn bán thì bỏ khỏi giỏ. Lỗi mạng thì giữ nguyên giỏ.
-  async function sync() {
+  // mã không còn bán thì bỏ khỏi giỏ. fresh: tải lại cả mã đã có để lấy giá mới nhất. Lỗi mạng thì giữ nguyên giỏ.
+  async function sync({ fresh = false } = {}) {
     const ids = Object.keys(items.value)
     if (!ids.length) return
     try {
-      const alive = new Set(await catalog.ensure(ids))
+      const alive = new Set(await catalog.ensure(ids, { fresh }))
       for (const id of ids) if (!alive.has(id)) delete items.value[id]
     } catch (err) {
       console.error(err)

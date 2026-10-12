@@ -9,6 +9,7 @@ builder.Services.AddHttpClient<StoreApiClient>(client =>
         client.Timeout = TimeSpan.FromSeconds(30);
     })
     .ConfigurePrimaryHttpMessageHandler(() => new SocketsHttpHandler { UseCookies = false });
+builder.Services.AddHttpClient<TurnstileVerifier>(client => client.Timeout = TimeSpan.FromSeconds(10));
 
 var app = builder.Build();
 

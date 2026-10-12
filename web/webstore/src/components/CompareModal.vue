@@ -1,6 +1,8 @@
 <script setup>
-import { computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { fmt, pct, monthly, STOCK, specsOf } from '@/utils/format'
+import { useDrawer } from '@/composables/useDrawer'
 import { toDetail } from '@/router/links'
 import { useCartStore } from '@/stores/cart'
 import { useCompareStore } from '@/stores/compare'
@@ -33,18 +35,19 @@ const rows = computed(() => {
 })
 
 const close = () => (compare.open = false)
-const onKey = e => e.key === 'Escape' && close()
-onMounted(() => window.addEventListener('keydown', onKey))
-onUnmounted(() => window.removeEventListener('keydown', onKey))
+// Mở bảng thì khóa cuộn trang phía sau, Esc để đóng, Tab chỉ chạy trong bảng
+const { open } = storeToRefs(compare)
+const panel = ref(null)
+useDrawer(open, panel)
 </script>
 
 <template>
   <Transition name="modal" :duration="{ enter: 260, leave: 180 }">
     <div v-if="compare.open && ps.length" class="modal-bg" @click="close">
-      <div class="modal" role="dialog" aria-modal="true" aria-label="So sánh sản phẩm" @click.stop>
+      <div ref="panel" class="modal" role="dialog" aria-modal="true" aria-label="So sánh sản phẩm" @click.stop>
         <div class="modal-h">
           <h2 style="font-size:22px">So sánh sản phẩm</h2>
-          <button class="btn btn-ghost btn-sm" @click="close">Đóng<AppIcon name="close" :size="14" /></button>
+          <button class="btn btn-ghost btn-sm" data-autofocus @click="close">Đóng<AppIcon name="close" :size="14" /></button>
         </div>
         <div style="overflow-x:auto">
           <table class="cmp-table">

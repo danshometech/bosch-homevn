@@ -1,6 +1,5 @@
 <script setup>
 import { ref, watch, onMounted, onUnmounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import { useCompareStore } from '@/stores/compare'
 import { useSettingsStore } from '@/stores/settings'
@@ -9,20 +8,11 @@ import AppIcon from './AppIcon.vue'
 import AppLogo from './AppLogo.vue'
 import MainNav from './MainNav.vue'
 import NavDrawer from './NavDrawer.vue'
+import SearchBox from './SearchBox.vue'
 const settings = useSettingsStore()
 
-const route = useRoute()
-const router = useRouter()
 const cart = useCartStore()
 const compare = useCompareStore()
-
-const q = ref('')
-watch(() => route.query.q, v => (q.value = v || ''), { immediate: true })
-
-function submit() {
-  const term = q.value.trim()
-  router.push({ name: 'list', query: term ? { q: term } : {} })
-}
 
 const navOpen = ref(false)
 
@@ -65,10 +55,7 @@ onUnmounted(() => {
         <AppIcon name="menu" :size="22" />
       </button>
       <AppLogo />
-      <form class="search" role="search" @submit.prevent="submit">
-        <input v-model="q" placeholder="Tìm bếp từ, máy rửa bát, máy giặt…" aria-label="Tìm sản phẩm">
-        <button type="submit">Tìm</button>
-      </form>
+      <SearchBox />
       <div class="h-actions">
         <RouterLink :to="{ name: 'cart' }" class="h-act" :aria-label="`Giỏ hàng, ${cart.count} sản phẩm`">
           <span ref="cartIcon" class="ic"><AppIcon name="cart" /></span>

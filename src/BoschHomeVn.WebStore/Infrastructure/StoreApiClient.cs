@@ -3,6 +3,7 @@ using BoschHomeVn.Contracts.Catalog;
 using BoschHomeVn.Contracts.Checkout;
 using BoschHomeVn.Contracts.Home;
 using BoschHomeVn.Contracts.News;
+using BoschHomeVn.Contracts.Orders;
 using BoschHomeVn.Contracts.Settings;
 using Microsoft.AspNetCore.Mvc;
 
@@ -68,6 +69,11 @@ public sealed class StoreApiClient(HttpClient http, ILogger<StoreApiClient> logg
 
     public Task<ActionResult<IReadOnlyList<AdministrativeUnitResponse>>> GetWardsAsync(int provinceCode, CancellationToken cancellationToken) =>
         GetAsync<IReadOnlyList<AdministrativeUnitResponse>>($"api/address/provinces/{provinceCode}/wards", cancellationToken);
+
+    // POST không tự gửi lại khi lỗi mạng (ApiCall chỉ thử lại GET) — tránh tạo trùng đơn
+    public Task<ActionResult<PlaceOrderResponse>> PlaceOrderAsync(PlaceOrderRequest request, CancellationToken cancellationToken) =>
+        ApiCall.SendAsync<PlaceOrderResponse>(
+            http, () => new HttpRequestMessage(HttpMethod.Post, "api/orders") { Content = JsonContent.Create(request) }, logger, cancellationToken);
 
     public Task<HttpResponseMessage?> SendMediaAsync(Func<HttpRequestMessage> create, CancellationToken cancellationToken) =>
         ApiCall.SendMediaAsync(http, create, logger, cancellationToken);

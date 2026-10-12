@@ -1,4 +1,9 @@
-// Chưa có backend: giả lập tạo đơn. Thay bằng lời gọi API thật (vd. POST /api/orders) khi có server.
-export async function createOrder(order) {
-  return { id: 'BH' + Math.floor(100000 + Math.random() * 900000), ...order }
-}
+import { api, post } from './api'
+
+// Site key của ô xác minh Cloudflare Turnstile; null = shop đang tắt chống spam
+export const getCaptchaKey = async () => (await api('/orders/captcha')).siteKey
+
+// POST /api/orders (kèm token Turnstile) — trả { code, total }. Server kiểm tra lại giá / tồn kho / cách giao,
+// sai thì ném Error kèm thông báo
+export const createOrder = (order, captchaToken) =>
+  post('/orders', order, captchaToken ? { 'X-Captcha-Token': captchaToken } : {})

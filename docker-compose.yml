@@ -29,6 +29,8 @@ services:
     restart: unless-stopped
     environment:
       Api__BaseUrl: http://api:8080/
+      Turnstile__SiteKey: ${TURNSTILE_SITE_KEY:?Thiếu TURNSTILE_SITE_KEY trong .env}
+      Turnstile__SecretKey: ${TURNSTILE_SECRET_KEY:?Thiếu TURNSTILE_SECRET_KEY trong .env}
     ports:
       - "${BIND_ADDRESS:-127.0.0.1}:${WEBSTORE_PORT:-8081}:8080"
     depends_on: [api]
