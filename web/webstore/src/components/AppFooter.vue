@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useCatalogStore } from '@/stores/catalog'
 import { useSettingsStore } from '@/stores/settings'
 import { toList } from '@/router/links'
+import AppIcon from './AppIcon.vue'
 import AppLogo from './AppLogo.vue'
 
 const catalog = useCatalogStore()
@@ -23,6 +24,10 @@ const contacts = computed(() => [
   settings.zaloUrl && { text: 'Zalo OA: bosch-homevn', href: settings.zaloUrl },
   { text: 'cskh@bosch-homevn.com' },
   { text: '8:00 – 21:00, cả CN' },
+].filter(Boolean))
+const socials = computed(() => [
+  settings.facebookUrl && { key: 'facebook', label: 'Chat tư vấn Facebook', href: settings.facebookUrl },
+  settings.tikTokUrl && { key: 'tiktok', label: 'Kênh TikTok', href: settings.tikTokUrl },
 ].filter(Boolean))
 </script>
 
@@ -53,6 +58,11 @@ const contacts = computed(() => [
               <template v-else>{{ x.text }}</template>
             </li>
           </ul>
+          <div v-if="socials.length" class="social">
+            <a v-for="s in socials" :key="s.key" :class="s.key" :href="s.href" target="_blank" rel="noopener" :aria-label="s.label" :title="s.label">
+              <AppIcon :name="s.key" :size="18" />
+            </a>
+          </div>
         </div>
       </div>
       <div class="footer-b">

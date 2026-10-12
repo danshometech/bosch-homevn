@@ -39,6 +39,12 @@ const toTop = () => window.scrollTo({ top: 0, behavior: reducedMotion() ? 'auto'
     <div class="fab-wrap">
       <Transition name="fab-menu" :duration="{ enter: 360, leave: 220 }">
         <ul v-if="open" id="fab-menu" class="fab-menu">
+          <li v-if="settings.tikTokUrl" style="--i:3">
+            <a class="fab-item" :href="settings.tikTokUrl" target="_blank" rel="noopener" @click="open = false"><span class="t">Kênh TikTok</span><span class="c tiktok"><AppIcon name="tiktok" :size="18" /></span></a>
+          </li>
+          <li v-if="settings.facebookUrl" style="--i:2">
+            <a class="fab-item" :href="settings.facebookUrl" target="_blank" rel="noopener" @click="open = false"><span class="t">Chat tư vấn Facebook</span><span class="c facebook"><AppIcon name="facebook" :size="18" /></span></a>
+          </li>
           <li v-if="settings.zaloUrl" style="--i:1">
             <a class="fab-item" :href="settings.zaloUrl" target="_blank" rel="noopener" @click="open = false"><span class="t">Chat tư vấn Zalo</span><span class="c zalo">Zalo</span></a>
           </li>

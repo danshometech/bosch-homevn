@@ -4,6 +4,8 @@ public sealed class SiteSetting
 {
     public const string ZaloUrl = "contact.zalo-url";
     public const string Hotline = "contact.hotline";
+    public const string FacebookUrl = "contact.facebook-url";
+    public const string TikTokUrl = "contact.tiktok-url";
     public const string HomeHero = "home.hero";
 
     public const int MaxValueLength = 2000;

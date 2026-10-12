@@ -270,7 +270,7 @@ function remove() {
         </section>
 
         <section class="box">
-          <h2>Thông số kỹ thuật</h2>
+          <h2>Thông số sản phẩm</h2>
           <div class="rows">
             <div v-for="(s, i) in form.specs" :key="i" class="row">
               <InputText v-model="s.name" placeholder="Tên (vd. Dung tích)" style="max-width:260px" maxlength="100" />
@@ -292,7 +292,7 @@ function remove() {
         </section>
 
         <section class="box">
-          <h2>Bài giới thiệu</h2>
+          <h2>Thông tin sản phẩm</h2>
           <RichEditor v-model="article" />
           <small class="muted">Hiện ở mục "Giới thiệu sản phẩm" trên trang chi tiết; để trống thì ẩn mục này. Ảnh chèn vào được tải lên tự động.</small>
         </section>

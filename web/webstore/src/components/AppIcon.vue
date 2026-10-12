@@ -24,6 +24,8 @@ defineProps({
     <template v-else-if="name === 'menu'"><path d="M4 7h16M4 12h16M4 17h16" /></template>
     <template v-else-if="name === 'filter'"><path d="M4 6h16M7 12h10M10 18h4" /></template>
     <template v-else-if="name === 'info'"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></template>
+    <template v-else-if="name === 'facebook'"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.33-.04-1.56-.14-2.86-.14C11.93 2 10 3.66 10 6.7v2.8H7v4h3V22h4z" fill="currentColor" stroke="none" /></template>
+    <template v-else-if="name === 'tiktok'"><path d="M16 8.25V15.5C16 19.09 13.09 22 9.5 22S3 19.09 3 15.5 5.91 9 9.5 9c.52 0 1.02.06 1.5.17v3.17A3.5 3.5 0 0 0 9.5 12C7.57 12 6 13.57 6 15.5S7.57 19 9.5 19 13 17.43 13 15.5V2h3c0 2.76 2.24 5 5 5v3c-1.89 0-3.63-.66-5-1.75z" fill="currentColor" stroke="none" /></template>
     <template v-else-if="name === 'spinner'"><circle cx="12" cy="12" r="9" stroke-width="2.4" stroke-dasharray="38 100" /></template>
   </svg>
 </template>

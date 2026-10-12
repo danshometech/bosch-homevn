@@ -467,6 +467,9 @@ p{text-wrap:pretty}
 .footer li{list-style:none;width:fit-content;margin-bottom:6px;padding-bottom:2px;color:var(--ink-2);background:linear-gradient(currentColor,currentColor) no-repeat 50% 100%/0 2px;transition:background-size 240ms var(--ease-out),color 150ms}
 .footer li:hover{color:var(--ink);font-weight:500;cursor:pointer;background-size:100% 2px}
 .footer-b{border-top:1px solid var(--line);margin-top:36px;padding-top:20px;display:flex;justify-content:space-between;color:var(--ink-3);font-size:12.5px;gap:16px;flex-wrap:wrap}
+.social{display:flex;gap:10px;margin-top:16px}
+.social a{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#fff;transition:transform var(--dur-fast) var(--ease-out),filter var(--dur-fast)}
+.social a:hover{transform:translateY(-2px);filter:brightness(1.1)}
 .pay{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .pay span{display:block;width:58px;height:36px;padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:#fff}
 .pay img{display:block;width:100%;height:100%;object-fit:contain}
@@ -490,6 +493,8 @@ p{text-wrap:pretty}
 .fab-item:hover{transform:translateX(-4px)}
 .fab-item .c{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700}
 .fab-item .c.zalo{background:oklch(0.55 0.17 255)}
+.fab-item .c.facebook,.social .facebook{background:#1877f2}
+.fab-item .c.tiktok,.social .tiktok{background:#000}
 .fab-item .c.hot{background:var(--accent)}
 .fab-menu-enter-active .fab-item,.fab-menu-leave-active .fab-item{transition:opacity 220ms var(--ease-out),transform 300ms var(--ease-out);transition-delay:calc(var(--i) * 50ms)}
 .fab-menu-enter-from .fab-item,.fab-menu-leave-to .fab-item{opacity:0;transform:translateY(12px) scale(.9)}
