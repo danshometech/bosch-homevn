@@ -41,7 +41,7 @@ docker compose up -d --build
 2. Chạy thử `bash deploy/backup.sh`, mở drive.google.com xem thư mục `bosch-homevn-backup`.
 3. Đặt lịch (`crontab -e`, user có quyền docker). Giờ theo múi giờ server — server UTC thì `0 20 * * *` = 3h sáng VN:
    ```
-   0 20 * * * bash /đường/dẫn/bosch-homevn/deploy/backup.sh >> /var/log/bosch-homevn-backup.log 2>&1
+   0 20 * * * bash $HOME/boschhome-vn/deploy/backup.sh >> $HOME/backup.log 2>&1
    ```
 4. Nên có: tạo check trên healthchecks.io (Period 1 day, Grace 2 hours), dán URL ping vào `BACKUP_PING_URL` — có
    email báo khi backup lỗi hoặc cron không chạy.

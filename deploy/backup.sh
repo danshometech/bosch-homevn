@@ -22,7 +22,9 @@ log() { echo "[$(date '+%F %T')] $*"; }
 
 opts=()
 rclone() {
-  docker run --rm -e RCLONE_DRIVE_USE_TRASH=false -v "$root/rclone:/config/rclone" "${opts[@]}" rclone/rclone:1.68.2 "$@"
+  docker run --rm -e RCLONE_DRIVE_USE_TRASH=false \
+    -e RCLONE_STATS=1m -e RCLONE_STATS_ONE_LINE=true -e RCLONE_STATS_LOG_LEVEL=NOTICE \
+    -v "$root/rclone:/config/rclone" "${opts[@]}" rclone/rclone:1.68.2 "$@"
 }
 
 if (($#)); then
@@ -31,6 +33,7 @@ if (($#)); then
   exit
 fi
 
+[[ -f $env_file ]] || { log "Không thấy $env_file (cần DB_CONNECTION như khi chạy docker compose)"; exit 1; }
 ping_url=$(env_get BACKUP_PING_URL)
 notify() { [[ -z $ping_url ]] || curl -fsS -m 10 --retry 3 -o /dev/null "$ping_url$1" || true; }
 
