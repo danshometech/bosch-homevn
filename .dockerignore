@@ -17,3 +17,5 @@ dist
 src/BoschHomeVn.WebStore/wwwroot
 src/BoschHomeVn.Admin/wwwroot
 src/BoschHomeVn.Api/App_Data
+rclone
+restore

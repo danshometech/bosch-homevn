@@ -34,6 +34,10 @@ src/BoschHomeVn.Api/App_Data/
 .env.*
 !.env.example
 
+# deploy/backup.sh: cấu hình rclone (token Google Drive) và thư mục restore ra
+rclone/
+restore/
+
 src/BoschHomeVn.WebStore/appsettings.Development.json
 
 # Prototype: bản "Save page as" của trình duyệt (trùng các file .jsx/.css ở prototype/, kèm React/Babel tải về)

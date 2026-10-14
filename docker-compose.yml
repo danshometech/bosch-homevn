@@ -2,7 +2,7 @@
 # PostgreSQL dùng container có sẵn trên server: Api tham gia network DB_NETWORK của container đó.
 # Reverse proxy có sẵn (nginx/Traefik/Caddy) trỏ tên miền site → WEBSTORE_PORT, tên miền admin → ADMIN_PORT (HTTPS).
 # Admin tải video tới 50 MB: proxy của tên miền admin phải cho request lớn (nginx: client_max_body_size 60m;).
-# Backup: volume appdata (ảnh / video tải lên, khóa đăng nhập) + database.
+# Backup: deploy/backup.sh (database + volume appdata + .env, xem README).
 # Container api cần ra được internet (HTTPS) để lấy danh mục tỉnh / phường cho trang thanh toán (VIETNAM_ADDRESS_API_URL).
 name: bosch-homevn
 
