@@ -39,6 +39,9 @@ const toTop = () => window.scrollTo({ top: 0, behavior: reducedMotion() ? 'auto'
     <div class="fab-wrap">
       <Transition name="fab-menu" :duration="{ enter: 360, leave: 220 }">
         <ul v-if="open" id="fab-menu" class="fab-menu">
+          <li v-if="settings.youTubeUrl" style="--i:4">
+            <a class="fab-item" :href="settings.youTubeUrl" target="_blank" rel="noopener" @click="open = false"><span class="t">Kênh YouTube</span><span class="c youtube"><AppIcon name="youtube" :size="18" /></span></a>
+          </li>
           <li v-if="settings.tikTokUrl" style="--i:3">
             <a class="fab-item" :href="settings.tikTokUrl" target="_blank" rel="noopener" @click="open = false"><span class="t">Kênh TikTok</span><span class="c tiktok"><AppIcon name="tiktok" :size="18" /></span></a>
           </li>
@@ -49,7 +52,7 @@ const toTop = () => window.scrollTo({ top: 0, behavior: reducedMotion() ? 'auto'
             <a class="fab-item" :href="settings.zaloUrl" target="_blank" rel="noopener" @click="open = false"><span class="t">Chat tư vấn Zalo</span><span class="c zalo">Zalo</span></a>
           </li>
           <li style="--i:0">
-            <a class="fab-item" :href="settings.tel" @click="open = false"><span class="t">Gọi {{ settings.hotline }}</span><span class="c hot"><AppIcon name="phone" :size="18" /></span></a>
+            <a class="fab-item" :href="settings.tel" @click="open = false"><span class="t">Hotline CSKH</span><span class="c hot"><AppIcon name="phone" :size="18" /></span></a>
           </li>
         </ul>
       </Transition>

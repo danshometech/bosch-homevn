@@ -18,7 +18,7 @@ public sealed class AdminSettingsController(SiteSettingsHandler handler) : Contr
     [HttpPut("contact")]
     public async Task<ContactSettingsResponse> SaveContact(SaveContactSettingsRequest request, CancellationToken cancellationToken) =>
         ToResponse(await handler.SaveContactAsync(
-            new ContactSettings(request.Hotline, request.ZaloUrl, request.FacebookUrl, request.TikTokUrl), cancellationToken));
+            new ContactSettings(request.Hotline, request.ZaloUrl, request.FacebookUrl, request.TikTokUrl, request.YouTubeUrl), cancellationToken));
 
-    private static ContactSettingsResponse ToResponse(ContactSettings s) => new(s.Hotline, s.ZaloUrl, s.FacebookUrl, s.TikTokUrl);
+    private static ContactSettingsResponse ToResponse(ContactSettings s) => new(s.Hotline, s.ZaloUrl, s.FacebookUrl, s.TikTokUrl, s.YouTubeUrl);
 }

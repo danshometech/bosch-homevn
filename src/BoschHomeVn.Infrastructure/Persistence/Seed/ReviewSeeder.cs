@@ -28,7 +28,7 @@ internal static class ReviewSeeder
         {
             foreach (var t in Targets(db).ToList())
             {
-                db.ProductReviews.AddRange(Build(t.ProductId, t.TypeId, now));
+                db.ProductReviews.AddRange(Build(t.ProductId, GroupOf(t.TypeId, t.Name), now));
             }
             db.SiteSettings.Add(new SiteSetting(MarkerKey, now.ToString("O", CultureInfo.InvariantCulture)));
         }
@@ -58,7 +58,7 @@ internal static class ReviewSeeder
         {
             foreach (var t in await Targets(db).ToListAsync(cancellationToken))
             {
-                db.ProductReviews.AddRange(Build(t.ProductId, t.TypeId, now));
+                db.ProductReviews.AddRange(Build(t.ProductId, GroupOf(t.TypeId, t.Name), now));
             }
             db.SiteSettings.Add(new SiteSetting(MarkerKey, now.ToString("O", CultureInfo.InvariantCulture)));
         }
@@ -74,12 +74,12 @@ internal static class ReviewSeeder
         await db.SaveChangesAsync(cancellationToken);
     }
 
-    private sealed record Target(string ProductId, string TypeId);
+    private sealed record Target(string ProductId, string TypeId, string Name);
 
     private sealed record Stat(string ProductId, int Count, int Sum);
 
     private static IQueryable<Target> Targets(AppDbContext db) =>
-        db.Products.OrderBy(p => p.Id).Select(p => new Target(p.Id, p.ProductTypeId));
+        db.Products.OrderBy(p => p.Id).Select(p => new Target(p.Id, p.ProductTypeId, p.Name));
 
     private static IQueryable<Stat> Stats(AppDbContext db) =>
         db.ProductReviews
@@ -96,10 +96,9 @@ internal static class ReviewSeeder
         }
     }
 
-    private static List<ProductReview> Build(string productId, string typeId, DateTime now)
+    private static List<ProductReview> Build(string productId, string group, DateTime now)
     {
         var rng = new Random(StableHash(productId));
-        var group = GroupOf(typeId);
         var praise = new Pool(Praise[group], rng);
         var minor = new Pool(Minor[group], rng);
         var service = new Pool(Service, rng);
@@ -165,7 +164,9 @@ internal static class ReviewSeeder
         return (int)(hash & 0x7FFFFFFF);
     }
 
-    private static string GroupOf(string typeId) => typeId switch
+    // Lò vi sóng nằm chung loại "Lò nướng & Lò vi sóng" vẫn lấy câu đánh giá của lò vi sóng
+    private static string GroupOf(string typeId, string name) =>
+        name.Normalize().Contains("vi sóng", StringComparison.OrdinalIgnoreCase) ? "lo-vi-song" : typeId switch
     {
         "bep-tu" or "bep-gas" or "lo-nuong" or "lo-vi-song" or "xoong-noi" or "may-hut-mui" or "may-rua-bat"
             or "may-pha-ca-phe" or "may-hut-bui" or "khoa-cua-van-tay" => typeId,

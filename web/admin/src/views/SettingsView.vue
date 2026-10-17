@@ -24,6 +24,12 @@ const LINKS = [
     placeholder: 'vd. https://www.tiktok.com/@boschhomevn hoặc @boschhomevn',
     hint: 'Link kênh hoặc tên kênh. Hiện icon TikTok ở nút liên hệ nổi và chân trang. Để trống thì ẩn.',
   },
+  {
+    key: 'youTubeUrl',
+    label: 'YouTube',
+    placeholder: 'vd. https://www.youtube.com/@boschhomevn hoặc @boschhomevn',
+    hint: 'Link kênh hoặc tên kênh. Hiện icon YouTube ở nút liên hệ nổi và chân trang. Để trống thì ẩn.',
+  },
 ]
 
 const toast = useToast()

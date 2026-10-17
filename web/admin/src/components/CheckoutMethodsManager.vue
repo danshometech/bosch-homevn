@@ -12,6 +12,7 @@ import Tag from 'primevue/tag'
 import Textarea from 'primevue/textarea'
 import ToggleSwitch from 'primevue/toggleswitch'
 import { get, post, put, del } from '@/services/api'
+import { useReorder } from '@/utils/reorder'
 
 const props = defineProps({ kind: { type: String, required: true } })
 const isShip = props.kind === 'shipping'
@@ -90,18 +91,11 @@ function remove(m) {
   })
 }
 
-async function move(i, d) {
-  const list = items.value
-  if (i + d < 0 || i + d >= list.length) return
-  const ids = list.map(x => x.id)
-  ;[ids[i], ids[i + d]] = [ids[i + d], ids[i]]
-  try {
-    await put(`${base}/order`, { ids })
-    await load()
-  } catch (err) {
-    fail('Không đổi được thứ tự', err)
-  }
-}
+const reorder = useReorder(err => {
+  fail('Không đổi được thứ tự', err)
+  return load()
+})
+const move = (id, d) => reorder(items.value, id, d, `${base}/order`)
 </script>
 
 <template>
@@ -134,9 +128,9 @@ async function move(i, d) {
         </template>
       </Column>
       <Column header="" style="width:200px">
-        <template #body="{ data, index }">
-          <Button icon="pi pi-arrow-up" text rounded aria-label="Lên" :disabled="index === 0" @click="move(index, -1)" />
-          <Button icon="pi pi-arrow-down" text rounded aria-label="Xuống" :disabled="index === items.length - 1" @click="move(index, 1)" />
+        <template #body="{ data }">
+          <Button icon="pi pi-arrow-up" text rounded aria-label="Lên" :disabled="data.id === items[0].id" @click="move(data.id, -1)" />
+          <Button icon="pi pi-arrow-down" text rounded aria-label="Xuống" :disabled="data.id === items.at(-1).id" @click="move(data.id, 1)" />
           <Button icon="pi pi-pencil" text rounded aria-label="Sửa" @click="open(data)" />
           <Button icon="pi pi-trash" text rounded severity="danger" aria-label="Xóa" @click="remove(data)" />
         </template>

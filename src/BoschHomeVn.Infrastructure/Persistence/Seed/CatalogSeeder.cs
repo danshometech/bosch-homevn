@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BoschHomeVn.Infrastructure.Persistence.Seed;
 
-// Seed 1 lần khi DB trống: danh mục + sản phẩm từ catalog.seed.json (sản phẩm từ data.xlsx, giá bán = giá nhập).
+// Seed 1 lần khi DB trống: danh mục + sản phẩm từ catalog.seed.json (sản phẩm từ data.xlsx).
 // Gọi qua UseSeeding/UseAsyncSeeding → chạy khi `dotnet ef database update` hoặc Database.Migrate().
 internal static class CatalogSeeder
 {
@@ -16,50 +16,51 @@ internal static class CatalogSeeder
         Converters = { new JsonStringEnumConverter() },
     };
 
-    public static void Seed(DbContext context)
+    // Trả về true khi vừa nạp sản phẩm (DB mới tạo)
+    public static bool Seed(DbContext context)
     {
         var db = (AppDbContext)context;
         var seed = Load();
-        var changed = false;
+        var needCategories = !db.Categories.Any();
+        var needProducts = !db.Products.Any();
 
-        if (!db.Categories.Any())
+        if (needCategories)
         {
             db.Categories.AddRange(BuildCategories(seed));
-            changed = true;
         }
-        if (!db.Products.Any())
+        if (needProducts)
         {
             db.Products.AddRange(BuildProducts(seed));
-            changed = true;
         }
 
-        if (changed)
+        if (needCategories || needProducts)
         {
             db.SaveChanges();
         }
+        return needProducts;
     }
 
-    public static async Task SeedAsync(DbContext context, CancellationToken cancellationToken)
+    public static async Task<bool> SeedAsync(DbContext context, CancellationToken cancellationToken)
     {
         var db = (AppDbContext)context;
         var seed = Load();
-        var changed = false;
+        var needCategories = !await db.Categories.AnyAsync(cancellationToken);
+        var needProducts = !await db.Products.AnyAsync(cancellationToken);
 
-        if (!await db.Categories.AnyAsync(cancellationToken))
+        if (needCategories)
         {
             db.Categories.AddRange(BuildCategories(seed));
-            changed = true;
         }
-        if (!await db.Products.AnyAsync(cancellationToken))
+        if (needProducts)
         {
             db.Products.AddRange(BuildProducts(seed));
-            changed = true;
         }
 
-        if (changed)
+        if (needCategories || needProducts)
         {
             await db.SaveChangesAsync(cancellationToken);
         }
+        return needProducts;
     }
 
     private static CatalogSeed Load()
@@ -90,8 +91,13 @@ internal static class CatalogSeeder
             product.SetDealerPrice(s.DealerPrice);
             product.SetStock(s.StockStatus, s.StockQuantity, s.StockNote);
             product.SetRating(s.Rating, s.ReviewCount);
-            product.SetDisplay(s.IsNew, false, s.IsFlashSale, s.ImageUrl, s.Highlights,
+            product.SetDisplay(s.IsNew, s.IsBestSeller, s.IsFlashSale, s.ImageUrl, s.Highlights,
                 s.Specs.Select(x => new ProductSpec(x.Name, x.Value)));
+            product.SetPublished(s.IsPublished ?? true);
+            product.SetSoldCount(s.SoldCount);
+            product.SetGallery(s.GalleryImages ?? []);
+            product.SetVideo(s.VideoUrl, s.VideoPosterUrl);
+            product.SetInstallment(s.AllowInstallment, s.InstallmentMonths ?? [], s.InstallmentDisplayMonths);
             return product;
         });
 
@@ -117,11 +123,20 @@ internal static class CatalogSeeder
         string? Warranty,
         bool IsNew,
         bool IsFlashSale,
+        bool IsBestSeller,
         decimal? Rating,
         int ReviewCount,
         string? ImageUrl,
         List<string> Highlights,
-        List<SpecSeed> Specs);
+        List<SpecSeed> Specs,
+        bool? IsPublished,
+        int SoldCount,
+        List<string>? GalleryImages,
+        string? VideoUrl,
+        string? VideoPosterUrl,
+        bool AllowInstallment,
+        List<int>? InstallmentMonths,
+        int? InstallmentDisplayMonths);
 
     private sealed record SpecSeed(string Name, string Value);
 }

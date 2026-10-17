@@ -8,64 +8,39 @@
         {
           "id": "bep-tu",
           "name": "Bếp từ",
-          "group": "Thiết bị đun nấu"
-        },
-        {
-          "id": "bep-gas",
-          "name": "Bếp gas",
-          "group": "Thiết bị đun nấu"
-        },
-        {
-          "id": "lo-nuong",
-          "name": "Lò nướng",
-          "group": "Thiết bị đun nấu"
-        },
-        {
-          "id": "lo-vi-song",
-          "name": "Lò vi sóng",
-          "group": "Thiết bị đun nấu"
-        },
-        {
-          "id": "xoong-noi",
-          "name": "Xoong nồi",
-          "group": "Thiết bị đun nấu"
-        },
-        {
-          "id": "may-hut-mui",
-          "name": "Máy hút mùi",
-          "group": "Thiết bị làm sạch"
+          "group": null
         },
         {
           "id": "may-rua-bat",
           "name": "Máy rửa bát",
-          "group": "Thiết bị làm sạch"
+          "group": null
+        },
+        {
+          "id": "lo-nuong",
+          "name": "Lò nướng & Lò vi sóng",
+          "group": null
+        },
+        {
+          "id": "xoong-noi",
+          "name": "Xoong nồi",
+          "group": null
+        },
+        {
+          "id": "may-hut-mui",
+          "name": "Máy hút mùi",
+          "group": null
         },
         {
           "id": "tu-lanh",
           "name": "Tủ lạnh",
-          "group": "Thiết bị bảo quản"
-        },
-        {
-          "id": "tu-bao-quan-ruou",
-          "name": "Tủ bảo quản rượu",
-          "group": "Thiết bị bảo quản"
-        },
-        {
-          "id": "chau-rua-chen-bat",
-          "name": "Chậu rửa chén bát",
-          "group": "Khu sơ chế"
-        },
-        {
-          "id": "voi-rua-bat",
-          "name": "Vòi rửa bát",
-          "group": "Khu sơ chế"
+          "group": null
         }
       ]
     },
     {
       "id": "gia-dung",
-      "name": "Gia dụng Bosch",
-      "shortName": "Gia dụng",
+      "name": "Máy giặt & Máy sấy",
+      "shortName": "máy giặt & máy sấy",
       "types": [
         {
           "id": "may-giat",
@@ -75,61 +50,6 @@
         {
           "id": "may-say-quan-ao",
           "name": "Máy sấy quần áo",
-          "group": null
-        },
-        {
-          "id": "may-pha-ca-phe",
-          "name": "Máy pha cà phê",
-          "group": null
-        },
-        {
-          "id": "may-hut-bui",
-          "name": "Máy hút bụi",
-          "group": null
-        },
-        {
-          "id": "may-ep-trai-cay",
-          "name": "Máy ép trái cây",
-          "group": null
-        },
-        {
-          "id": "may-xay-sinh-to",
-          "name": "Máy xay sinh tố",
-          "group": null
-        },
-        {
-          "id": "may-xay-cam-tay",
-          "name": "Máy xay cầm tay",
-          "group": null
-        },
-        {
-          "id": "may-tron",
-          "name": "Máy trộn",
-          "group": null
-        },
-        {
-          "id": "may-xay-thit",
-          "name": "Máy xay thịt",
-          "group": null
-        },
-        {
-          "id": "may-che-bien-thuc-pham-da-nang",
-          "name": "Máy chế biến thực phẩm đa năng",
-          "group": null
-        },
-        {
-          "id": "binh-sieu-toc",
-          "name": "Bình siêu tốc",
-          "group": null
-        },
-        {
-          "id": "may-nuong-banh-mi",
-          "name": "Máy nướng bánh mì",
-          "group": null
-        },
-        {
-          "id": "ban-la",
-          "name": "Bàn là",
           "group": null
         }
       ]
@@ -145,6 +65,12 @@
           "group": null
         }
       ]
+    },
+    {
+      "id": "gia-dung-bosh",
+      "name": "Gia Dụng Bosh",
+      "shortName": "gia dụng",
+      "types": []
     }
   ],
   "products": [
@@ -153,8 +79,8 @@
       "name": "Máy hút mùi Chữ T- Bosch, 90cm. DWB98IJ60I - Seri 4 - Màu Đen",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 7900000,
-      "oldPrice": null,
+      "price": 9900000,
+      "oldPrice": 11990000,
       "dealerPrice": 7900000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -164,19 +90,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dwb98ij60i.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "450x900x470 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Hút tăng cường"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "69 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1300m3/h & 4 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "WQB245B0SG",
       "name": "Máy sấy bơm nhiệt Bosch 9 kg WQB245B0SG - Seri 8",
       "type": "may-say-quan-ao",
       "series": 8,
-      "price": 25900000,
-      "oldPrice": null,
+      "price": 27200000,
+      "oldPrice": 34900000,
       "dealerPrice": 25900000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -186,19 +142,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-wqb245b0sg.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "842x598x613 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "Heat Pump, 9Kg"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "AutoDry, SensitiveDrying System, Hẹn giờ, Smart Dry, Iron Assist"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "600W & 14 chế độ (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "SMS8YCI01E",
-      "name": "Máy rửa chén độc lập Bosch SMS8YCI01E , Seri 8 Zeolith + Hé Cửa",
+      "name": "Máy rửa chén độc lập Bosch SMS8YCI01E, Seri 8 Zeolith + Hé Cửa",
       "type": "may-rua-bat",
       "series": 8,
-      "price": 25900000,
-      "oldPrice": null,
+      "price": 27900000,
+      "oldPrice": 40900000,
       "dealerPrice": 25900000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -208,19 +194,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-sms8yci01e.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "845x600x600 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Zeolith, Sấy tăng cường, Hé cửa, Aquasensor"
+        },
+        {
+          "name": "An toàn",
+          "value": "Aqua Stop, Child Lock"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect, Google, Alexa"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "14 bộ & 8 chương trình"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "SMS8ZDI86M",
-      "name": "Máy rửa chén độc lập Bosch SMS8ZDI86M , Seri 8 Zeolith",
+      "name": "Máy rửa chén độc lập Bosch SMS8ZDI86M, Seri 8 Zeolith",
       "type": "may-rua-bat",
       "series": 8,
-      "price": 25800000,
-      "oldPrice": null,
+      "price": 27800000,
+      "oldPrice": 40900000,
       "dealerPrice": 25800000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -230,19 +246,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-sms8zdi86m.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "845x600x600 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Zeolith, Trao đổi nhiệt, Aquasensor"
+        },
+        {
+          "name": "An toàn",
+          "value": "Aqua Stop, Child Lock"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect, Google, Alexa"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "13 bộ & 8 chương trình"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "SMS6ZCI00P",
       "name": "Máy rửa chén độc lập Bosch SMS6ZCI00P - Seri 6 Zeolith - SP MỚI 2025",
       "type": "may-rua-bat",
       "series": 6,
-      "price": 17700000,
-      "oldPrice": null,
+      "price": 18800000,
+      "oldPrice": 34990000,
       "dealerPrice": 17700000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -252,19 +298,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-sms6zci00p.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "845x600x600 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Zeolith, Bộ trao đổi nhiệt, Aquasensor"
+        },
+        {
+          "name": "An toàn",
+          "value": "Aqua Stop, Child Lock"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect, Google, Alexa"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "14 bộ & 8 chương trình"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "SMS4HTI16E",
       "name": "Máy Rửa Bát 13 Bộ Bosch SMS4HTI16E Serie 4 - Sấy tăng cường",
       "type": "may-rua-bat",
       "series": 4,
-      "price": 12200000,
-      "oldPrice": null,
+      "price": 13300000,
+      "oldPrice": 22900000,
       "dealerPrice": 12200000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -274,19 +350,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-sms4hti16e.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "845x600x600 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Trao đổi nhiệt, Aquasensor"
+        },
+        {
+          "name": "An toàn",
+          "value": "Aqua Stop, Child Lock"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect, Google, Alexa"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "13 bộ & 6 chương trình"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "SMS4ECI01P",
-      "name": "Máy rửa chén độc lập Bosch SMS4ECI01P , Seri 4 tự động hé cửa",
+      "name": "Máy rửa chén độc lập Bosch SMS4ECI01P, Seri 4 tự động hé cửa",
       "type": "may-rua-bat",
       "series": 4,
-      "price": 14500000,
-      "oldPrice": null,
+      "price": 16500000,
+      "oldPrice": 25900000,
       "dealerPrice": 14500000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -296,19 +402,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-sms4eci01p.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "845x600x600 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Nhiệt có sẵn, Sấy tăng cường, Hé cửa, Aquasensor"
+        },
+        {
+          "name": "An toàn",
+          "value": "Aqua Stop, Child Lock"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect, Google, Alexa"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "13 bộ & 6 chương trình"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "SMS4HMC25M",
-      "name": "Máy rửa chén độc lập Bosch SMS4HMC25M , Seri 4 Sấy trao đổi nhiệt",
+      "name": "Máy rửa chén độc lập Bosch SMS4HMC25M, Seri 4 Sấy trao đổi nhiệt",
       "type": "may-rua-bat",
       "series": 4,
-      "price": 13500000,
-      "oldPrice": null,
+      "price": 15500000,
+      "oldPrice": 25900000,
       "dealerPrice": 13500000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -318,19 +454,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-sms4hmc25m.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "845x600x600 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Trao đổi nhiệt, Sấy tăng cường, Aquasensor"
+        },
+        {
+          "name": "An toàn",
+          "value": "Aqua Stop, Child Lock"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect, Google, Alexa"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "14 bộ & 6 chương trình"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "SMI8ZDS81T",
       "name": "Máy rửa chén âm tủ Bosch SMI8ZDS81T - Seri 8 Zeolith, sấy tăng cường",
       "type": "may-rua-bat",
       "series": 8,
-      "price": 28200000,
-      "oldPrice": null,
+      "price": 29900000,
+      "oldPrice": 40900000,
       "dealerPrice": 28200000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -340,19 +506,53 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-smi8zds81t.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "815x598x573 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "815x600x550 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Zeolith, Trao đổi nhiệt, Aquasensor"
+        },
+        {
+          "name": "An toàn",
+          "value": "Aqua Stop, Child Lock"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect, Google, Alexa"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "13 bộ & 8 chương trình"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "SMV8ZDX86M",
       "name": "Máy rửa chén âm tủ Bosch SMV8ZDX86M, Seri 8 - Sấy Zeolith",
       "type": "may-rua-bat",
       "series": 8,
-      "price": 29300000,
-      "oldPrice": null,
+      "price": 30900000,
+      "oldPrice": 40900000,
       "dealerPrice": 29300000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -362,19 +562,53 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-smv8zdx86m.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "815x598x573 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "815x600x550 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Zeolith, Trao đổi nhiệt, Aquasensor"
+        },
+        {
+          "name": "An toàn",
+          "value": "Aqua Stop, Child Lock"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect, Google, Alexa"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "13 bộ & 8 chương trình"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "SMI6ZCS16E",
       "name": "Máy rửa chén âm tủ Bosch SMI6ZCS16E - Seri 6 Zeolith, sấy tăng cường",
       "type": "may-rua-bat",
       "series": 6,
-      "price": 21800000,
-      "oldPrice": null,
+      "price": 23200000,
+      "oldPrice": 34900000,
       "dealerPrice": 21800000,
       "stockStatus": "OutOfStock",
       "stockQuantity": null,
@@ -384,19 +618,53 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-smi6zcs16e.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "815x598x573 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "815x600x550 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Zeolith, Trao đổi nhiệt, Aquasensor"
+        },
+        {
+          "name": "An toàn",
+          "value": "Aqua Stop, Child Lock"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect, Google, Alexa"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "14 bộ & 8 chương trình"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "SMV6ZCX16E",
       "name": "Máy rửa chén âm tủ Bosch SMV6ZCX16E, Seri 6 - Sấy Zeolith",
       "type": "may-rua-bat",
       "series": 6,
-      "price": 21800000,
-      "oldPrice": null,
+      "price": 23200000,
+      "oldPrice": 34900000,
       "dealerPrice": 21800000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -406,19 +674,53 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-smv6zcx16e.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "815x598x550 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "815x600x550 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Zeolith, Trao đổi nhiệt, Aquasensor"
+        },
+        {
+          "name": "An toàn",
+          "value": "Aqua Stop, Child Lock"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect, Google, Alexa"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "14 bộ & 8 chương trình"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "SMV4HCX19E",
       "name": "Máy rửa chén âm tủ Bosch SMV4HCX19E - Seri 4 Sấy trao đổi nhiệt",
       "type": "may-rua-bat",
       "series": 4,
-      "price": 17100000,
-      "oldPrice": null,
+      "price": 19100000,
+      "oldPrice": 25900000,
       "dealerPrice": 17100000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -428,41 +730,105 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-smv4hcx19e.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "815x598x550 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "815x600x550 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Trao đổi nhiệt, Sấy tăng cường, Hé cửa, Aquasensor"
+        },
+        {
+          "name": "An toàn",
+          "value": "Aqua Stop"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect, Google, Alexa"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "14 bộ & 6 chương trình"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "PIB375FB1E",
       "name": "BẾP TỪ DOMINO BOSCH PIB375FB1E SERIE 6 2 VÙNG NẤU",
       "type": "bep-tu",
       "series": 6,
-      "price": 10200000,
-      "oldPrice": null,
+      "price": 12200000,
+      "oldPrice": 14900000,
       "dealerPrice": 10200000,
       "stockStatus": "InStock",
       "stockQuantity": null,
       "stockNote": null,
-      "color": "Inox bạc",
+      "color": "Đen",
       "origin": "Tây Ban Nha",
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-pib375fb1e.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "51x306x527 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "51x270x490 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "PowerBoost, QuickStart, Hẹn giờ"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off, Cảnh báo nhiệt dư"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "3700W & 2 vùng nấu"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "PXE875DC1E",
       "name": "Bếp từ âm Bosch 7400W PXE875DC1E Series 8 - CAO CẤP",
       "type": "bep-tu",
       "series": 8,
-      "price": 23900000,
-      "oldPrice": null,
+      "price": 25900000,
+      "oldPrice": 36900000,
       "dealerPrice": 23900000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -472,19 +838,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-pxe875dc1e.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "51x816x527 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "51x765x495 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "PowerBoost, QuickStart, Hẹn giờ, FlexInduction, MoveMode, PerfectFry"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off, Cảnh báo nhiệt dư"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "7400W & 4 vùng nấu"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "PUC61KAA5E",
-      "name": "Bếp từ 3 Vùng nấu Bosch PUC61KAA5E - Seri 2 -60cm Màu đen",
+      "name": "Bếp từ 3 Vùng nấu Bosch PUC61KAA5E - Seri 2 - 60cm Màu đen",
       "type": "bep-tu",
       "series": 2,
-      "price": 7100000,
-      "oldPrice": null,
+      "price": 8490000,
+      "oldPrice": 12900000,
       "dealerPrice": 7100000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -494,19 +890,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-puc61kaa5e.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "51x592x522 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "51x560x495 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "PowerBoost, QuickStart, Hẹn giờ, 9 mức nhiệt"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off, Cảnh báo nhiệt dư"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "4600W & 3 vùng nấu"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "PUC631BB5E",
       "name": "Bếp từ 3 Vùng nấu Bosch PUC631BB5E - Seri 4 - 60cm Màu đen",
       "type": "bep-tu",
       "series": 4,
-      "price": 8200000,
-      "oldPrice": null,
+      "price": 9250000,
+      "oldPrice": 12900000,
       "dealerPrice": 8200000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -516,19 +942,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-puc631bb5e.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "51x592x522 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "51x560x495 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "PowerBoost, QuickStart, Hẹn giờ, 17 mức nhiệt"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off, Cảnh báo nhiệt dư"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "4600W & 3 vùng nấu"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "PUJ61RBB5E",
       "name": "Bếp từ 3 Vùng nấu Bosch PUJ61RBB5E - Seri 4 - 60cm Màu đen",
       "type": "bep-tu",
       "series": 4,
-      "price": 8900000,
-      "oldPrice": null,
+      "price": 9100000,
+      "oldPrice": 13900000,
       "dealerPrice": 8900000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -538,19 +994,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-puj61rbb5e.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "51x592x522 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "51x560x495 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "PowerBoost, QuickStart, Hẹn giờ, 17 mức nhiệt"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off, Cảnh báo nhiệt dư"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "4600W & 3 vùng nấu"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "PUJ631BB5E",
       "name": "Bếp từ 3 Vùng nấu Bosch PUJ631BB5E - Seri 4 - 60cm Màu đen",
       "type": "bep-tu",
       "series": 4,
-      "price": 8900000,
-      "oldPrice": null,
+      "price": 10450000,
+      "oldPrice": 13900000,
       "dealerPrice": 8900000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -560,19 +1046,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-puj631bb5e.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "51x592x522 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "51x560x495 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "PowerBoost, QuickStart, Hẹn giờ, 17 mức nhiệt"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off, Cảnh báo nhiệt dư"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "4600W & 3 vùng nấu"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "PID775DC1E",
       "name": "Bếp từ 3 Vùng nấu Bosch PID775DC1E, seri 8 - 70 cm Màu đen - CAO CẤP",
       "type": "bep-tu",
       "series": 8,
-      "price": 13800000,
-      "oldPrice": null,
+      "price": 15100000,
+      "oldPrice": 22900000,
       "dealerPrice": 13800000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -582,19 +1098,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-pid775dc1e.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "51x710x527 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "51x560x495 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "PowerBoost, QuickStart, Hẹn giờ, PerfectFry, 17 mức nhiệt"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off, Cảnh báo nhiệt dư"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "7400W & 3 vùng nấu"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "PID675DC1E",
       "name": "Bếp từ 3 Vùng nấu Bosch PID675DC1E seri 8 - CAO CẤP",
       "type": "bep-tu",
       "series": 8,
-      "price": 13100000,
-      "oldPrice": null,
+      "price": 13900000,
+      "oldPrice": 21900000,
       "dealerPrice": 13100000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -604,19 +1150,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-pid675dc1e.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "51x606x527 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "51x560x495 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "PowerBoost, QuickStart, Hẹn giờ, PerfectFry, 17 mức nhiệt"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off, Cảnh báo nhiệt dư"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "7400W & 3 vùng nấu"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "PPI82560MS",
       "name": "Bếp từ âm Bosch 3500W PPI82560MS - Seri 6",
       "type": "bep-tu",
       "series": 6,
-      "price": 8800000,
-      "oldPrice": null,
+      "price": 9700000,
+      "oldPrice": 16900000,
       "dealerPrice": 8800000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -626,19 +1202,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-ppi82560ms.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "59x780x450 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "59x700x400 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "PowerBoost, QuickStart, Hẹn giờ, 9 mức nhiệt"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off, Cảnh báo nhiệt dư"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "3500W & 2 vùng nấu"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "PPI8256XVN",
       "name": "Bếp từ đôi âm Bosch PPI8256XVN, Seri 6 - 78 cm Màu đen, Có viền nhôm - Mới",
       "type": "bep-tu",
       "series": 6,
-      "price": 8900000,
-      "oldPrice": null,
+      "price": 10200000,
+      "oldPrice": 16900000,
       "dealerPrice": 8900000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -648,19 +1254,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-ppi8256xvn.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "59x780x450 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "59x700x400 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "PowerBoost, QuickStart, Hẹn giờ, 9 mức nhiệt"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off, Cảnh báo nhiệt dư"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "3500W & 2 vùng nấu"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DWA98IJ60I",
       "name": "Máy hút mùi Kính Cong- Bosch, 90cm. DWA98IJ60I - Seri 4 - Màu Đen",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 7100000,
-      "oldPrice": null,
+      "price": 9100000,
+      "oldPrice": 10990000,
       "dealerPrice": 7100000,
       "stockStatus": "OutOfStock",
       "stockQuantity": null,
@@ -670,19 +1306,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dwa98ij60i.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "420x900x420 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "EcoSilence Drive, Hút tăng cường"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "69 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1200m3/h & 4 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DWA68IJ60I",
       "name": "Máy hút mùi Kính Cong- Bosch, 90cm. DWA68IJ60I - Seri 4 - Màu Đen",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 6300000,
-      "oldPrice": null,
+      "price": 7100000,
+      "oldPrice": 9990000,
       "dealerPrice": 6300000,
       "stockStatus": "OutOfStock",
       "stockQuantity": null,
@@ -692,19 +1358,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dwa68ij60i.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "420x900x420 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Hút tăng cường"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "69 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1200m3/h & 4 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DWB68IJ60I",
       "name": "Máy hút mùi Chữ T- Bosch, 60cm. DWB68IJ60I - Seri 4 - Màu Đen",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 7000000,
-      "oldPrice": null,
+      "price": 8600000,
+      "oldPrice": 10990000,
       "dealerPrice": 7000000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -714,19 +1410,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dwb68ij60i.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "413x600x450 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Hút tăng cường"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "69 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1200m3/h & 4 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DWK98IJ60I",
       "name": "Máy hút mùi Kính Vát- Bosch, 90cm. DWK98IJ60I - Seri 4 - Màu Đen",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 9200000,
-      "oldPrice": null,
+      "price": 10200000,
+      "oldPrice": 13990000,
       "dealerPrice": 9200000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -736,19 +1462,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dwk98ij60i.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "358x900x820 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Hút tăng cường"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "69 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1200m3/h & 4 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DWK68IJ60I",
       "name": "Máy hút mùi Kính Vát- Bosch, 60cm. DWK68IJ60I - Seri 4 - Màu Đen",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 8400000,
-      "oldPrice": null,
+      "price": 9400000,
+      "oldPrice": 12990000,
       "dealerPrice": 8400000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -758,19 +1514,45 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dwk68ij60i.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "358x600x820 mm"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "69 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1250m3/h & 3 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DWK91LT60",
       "name": "Máy hút mùi Kính Vát- Bosch, 90cm. DWK91LT60- Seri 4 - Màu Đen",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 23900000,
-      "oldPrice": null,
+      "price": 24700000,
+      "oldPrice": 35900000,
       "dealerPrice": 23900000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -780,19 +1562,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dwk91lt60.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "447x890x895 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "EcoSilence Drive, Hút tăng cường, PerfectAir Sensor"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "51 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1600m3/h & 5 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DIB97IM50",
       "name": "Máy hút mùi Chữ T- Bosch, 90cm. DIB97IM50 - Seri 4",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 17900000,
-      "oldPrice": null,
+      "price": 19900000,
+      "oldPrice": 26900000,
       "dealerPrice": 17900000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -802,19 +1614,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dib97im50.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "600x898x695 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "EcoSilence Drive, Hút tăng cường"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "57 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1200m3/h & 4 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DHL755BM",
       "name": "Máy hút mùi âm tủ Bosch, 75cm. DHL755BM - Seri 4",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 8800000,
-      "oldPrice": null,
+      "price": 10800000,
+      "oldPrice": 12900000,
       "dealerPrice": 8800000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -824,19 +1666,53 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dhl755bm.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "380x730x215 mm"
+        },
+        {
+          "name": "Kích thước lắp đặt",
+          "value": "350x700x215 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Hút tăng cường"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "63 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1200m3/h & 4 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DFS097K51",
       "name": "MÁY HÚT MÙI ÂM TỦ BOSCH DFS097K51 SERIE 8",
       "type": "may-hut-mui",
       "series": 8,
-      "price": 16200000,
-      "oldPrice": null,
+      "price": 17200000,
+      "oldPrice": 23990000,
       "dealerPrice": 16200000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -846,19 +1722,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dfs097k51.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "290x898x350 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "EcoSilence Drive, Hút tăng cường, PerfectAir Sensor"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "53 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1600m3/h & 5 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DFS067K51",
       "name": "MÁY HÚT MÙI ÂM TỦ BOSCH DFS067K51 SERIE 8",
       "type": "may-hut-mui",
       "series": 8,
-      "price": 14300000,
-      "oldPrice": null,
+      "price": 15500000,
+      "oldPrice": 20990000,
       "dealerPrice": 14300000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -868,19 +1774,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dfs067k51.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "290x698x350 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "EcoSilence Drive, Hút tăng cường, PerfectAir Sensor"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "53 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1200m3/h & 5 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DFT63AC50",
       "name": "Máy hút mùi âm tủ Bosch DFT63AC50 - Seri 4",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 4700000,
-      "oldPrice": null,
+      "price": 5900000,
+      "oldPrice": 6900000,
       "dealerPrice": 4700000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -890,19 +1826,45 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dft63ac50.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "280x598x180 mm"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "68 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "800m3/h & 3 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DFT93AC50",
       "name": "Máy hút mùi âm tủ Bosch DFT93AC50 - Seri 4",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 5300000,
-      "oldPrice": null,
+      "price": 6100000,
+      "oldPrice": 7900000,
       "dealerPrice": 5300000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -912,19 +1874,45 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dft93ac50.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "280x898x180 mm"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "68 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "800m3/h & 3 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DFS067A51B",
       "name": "Máy hút mùi âm tủ Bosch DFS067A51B - Seri 4",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 9500000,
-      "oldPrice": null,
+      "price": 10400000,
+      "oldPrice": 13900000,
       "dealerPrice": 9500000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -934,19 +1922,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dfs067a51b.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "290x598x426 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "EcoSilence Drive, Hút tăng cường"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "53 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1200m3/h & 4 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DFS097A51B",
       "name": "Máy hút mùi âm tủ Bosch DFS097A51B - Seri 4",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 11200000,
-      "oldPrice": null,
+      "price": 12300000,
+      "oldPrice": 16900000,
       "dealerPrice": 11200000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -956,19 +1974,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dfs097a51b.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "290x898x426 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "EcoSilence Drive, Hút tăng cường"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "53 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1200m3/h & 4 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DFT63CA61B",
       "name": "Máy hút mùi âm tủ Bosch, 60cm. DFT63CA61B - Seri 2",
       "type": "may-hut-mui",
       "series": 2,
-      "price": 4500000,
-      "oldPrice": null,
+      "price": 5300000,
+      "oldPrice": 6900000,
       "dealerPrice": 4500000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -978,19 +2026,45 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dft63ca61b.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "300x598x175 mm"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "67 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "800m3/h & 3 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DFT93CA61B",
       "name": "Máy hút mùi âm tủ Bosch, 90cm. DFT93CA61B - Seri 2",
       "type": "may-hut-mui",
       "series": 2,
-      "price": 5400000,
-      "oldPrice": null,
+      "price": 6300000,
+      "oldPrice": 7900000,
       "dealerPrice": 5400000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1000,19 +2074,45 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dft93ca61b.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "300x898x175 mm"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "67 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "800m3/h & 3 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DWB97BK61T",
       "name": "Máy hút mùi Chữ T- Bosch, 90cm. DWB97BK61T - Seri 4",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 8400000,
-      "oldPrice": null,
+      "price": 8600000,
+      "oldPrice": 12990000,
       "dealerPrice": 8400000,
       "stockStatus": "OutOfStock",
       "stockQuantity": null,
@@ -1022,19 +2122,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dwb97bk61t.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "500x898x550 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Hút tăng cường"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "66 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "800m3/h & 4 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DWB67BK61T",
       "name": "Máy hút mùi Chữ T- Bosch, 60cm. DWB67BK61T - Seri 4",
       "type": "may-hut-mui",
       "series": 4,
-      "price": 7200000,
-      "oldPrice": null,
+      "price": 8300000,
+      "oldPrice": 10900000,
       "dealerPrice": 7200000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1044,19 +2174,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dwb67bk61t.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "500x598x550 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Hút tăng cường"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "66 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "800m3/h & 4 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "DWB98JQ50B",
       "name": "Máy hút mùi áp tường 90 cm DWB98JQ50B Series 6",
       "type": "may-hut-mui",
       "series": 6,
-      "price": 13700000,
-      "oldPrice": null,
+      "price": 15700000,
+      "oldPrice": 25680000,
       "dealerPrice": 13700000,
       "stockStatus": "OutOfStock",
       "stockQuantity": null,
@@ -1066,19 +2226,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-dwb98jq50b.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "500x898x610 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "EcoSilence Drive, Hút tăng cường, PerfectAir Sensor"
+        },
+        {
+          "name": "Độ ồn tối đa",
+          "value": "55 dB"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "1200m3/h & 5 chế độ"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "WQG24200SG",
       "name": "Máy sấy bơm nhiệt Bosch 9 kg WQG24200SG - Seri 6",
       "type": "may-say-quan-ao",
       "series": 6,
-      "price": 14900000,
-      "oldPrice": null,
+      "price": 15800000,
+      "oldPrice": 23900000,
       "dealerPrice": 14900000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1088,19 +2278,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-wqg24200sg.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "842x598x613 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "Heat Pump, 9Kg"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "AutoDry, SensitiveDrying System, Hẹn giờ"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "700W & 14 chế độ (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "WQG24570SG",
       "name": "Máy sấy bơm nhiệt Bosch 9 kg WQG24570SG - Seri 6",
       "type": "may-say-quan-ao",
       "series": 6,
-      "price": 16200000,
-      "oldPrice": null,
+      "price": 16900000,
+      "oldPrice": 25900000,
       "dealerPrice": 16200000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1110,19 +2330,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-wqg24570sg.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "842x598x613 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "Heat Pump, 9Kg"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "AutoDry, SensitiveDrying System, Hẹn giờ"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "800W & 14 chế độ (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "WQG25302SG",
       "name": "Máy sấy bơm nhiệt Bosch 10 kg WQG25302SG - Seri 6",
       "type": "may-say-quan-ao",
       "series": 6,
-      "price": 16800000,
-      "oldPrice": null,
+      "price": 18300000,
+      "oldPrice": 23900000,
       "dealerPrice": 16800000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1132,19 +2382,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-wqg25302sg.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "842x598x590 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "Heat Pump, 10Kg"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "AutoDry, SensitiveDrying System, Hẹn giờ"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "600W & 14 chế độ (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "WQG25303SG",
       "name": "Máy sấy bơm nhiệt Bosch 10 kg WQG25303SG - Seri 6",
       "type": "may-say-quan-ao",
       "series": 6,
-      "price": 17500000,
-      "oldPrice": null,
+      "price": 19350000,
+      "oldPrice": 24900000,
       "dealerPrice": 17500000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1154,19 +2434,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-wqg25303sg.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "842x598x590 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "Heat Pump, 10Kg"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "AutoDry, SensitiveDrying System, Hẹn giờ"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "600W & 14 chế độ (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "WGG24400SG",
-      "name": "Máy giặt cửa trước Bosch 9 kg WGG24400SG - - Seri 6 Màu Trắng",
+      "name": "Máy giặt cửa trước Bosch 9 kg WGG24400SG - Seri 6 Màu Trắng",
       "type": "may-giat",
       "series": 6,
-      "price": 9700000,
-      "oldPrice": null,
+      "price": 10800000,
+      "oldPrice": 12900000,
       "dealerPrice": 9700000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1174,21 +2484,51 @@
       "color": "Trắng",
       "origin": "Trung Quốc",
       "warranty": "BSH - 3 năm",
-      "isNew": false,
-      "isFlashSale": false,
+      "isNew": true,
+      "isFlashSale": true,
+      "isBestSeller": true,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-wgg24400sg.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "848x598x590 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "Lồng ngang, 9Kg, 1400 rpm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Child Lock, AntiVibration, ActiveWater Plus"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "2050W & 14 chế độ (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "WGG24401SG",
-      "name": "Máy giặt cửa trước Bosch 9 kg WGG24401SG - - Seri 6 Màu Xám",
+      "name": "Máy giặt cửa trước Bosch 9 kg WGG24401SG - Seri 6 Màu Xám",
       "type": "may-giat",
       "series": 6,
-      "price": 9800000,
-      "oldPrice": null,
+      "price": 10500000,
+      "oldPrice": 13400000,
       "dealerPrice": 9800000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1198,19 +2538,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-wgg24401sg.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "848x598x590 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "Lồng ngang, 9Kg, 1400 rpm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Child Lock, AntiVibration, ActiveWater Plus, ActiveOxygen Refresh"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "2050W & 14 chế độ (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "WGG25400SG",
       "name": "MÁY GIẶT CỬA TRƯỚC BOSCH WGG25400SG SERIES 6 10KG MÀU TRẮNG",
       "type": "may-giat",
       "series": 6,
-      "price": 10400000,
-      "oldPrice": null,
+      "price": 11700000,
+      "oldPrice": 13900000,
       "dealerPrice": 10400000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1220,19 +2590,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-wgg25400sg.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "848x598x590 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "Lồng ngang, 10Kg, 1400 rpm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Child Lock, AntiVibration, ActiveWater Plus, ActiveOxygen Refresh, AntiStain"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "2300W & 14 chế độ (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "WGG25401SG",
-      "name": "MÁY GIẶT BOSCH WGG25401SG SERIE 6 CỬA TRƯỚC 10KG MÀU XÁM",
+      "name": "MÁY GIẶT BOSCH WGG25401SG SERIE 6 CỬA TRƯỚC 10KG MÀU XÁM",
       "type": "may-giat",
       "series": 6,
-      "price": 10700000,
-      "oldPrice": null,
+      "price": 11450000,
+      "oldPrice": 14400000,
       "dealerPrice": 10700000,
       "stockStatus": "OutOfStock",
       "stockQuantity": null,
@@ -1242,19 +2642,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-wgg25401sg.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "848x598x590 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "Lồng ngang, 10Kg, 1400 rpm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Child Lock, AntiVibration, ActiveWater Plus, ActiveOxygen Refresh, AntiStain"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "2300W & 14 chế độ (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "WGB254A0SG",
       "name": "MÁY GIẶT BOSCH WGB254A0SG SERIE 8 CỬA TRƯỚC 10KG MÀU TRẮNG",
       "type": "may-giat",
       "series": 8,
-      "price": 24400000,
-      "oldPrice": null,
+      "price": 25800000,
+      "oldPrice": 31900000,
       "dealerPrice": 24400000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1264,19 +2694,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-wgb254a0sg.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "845x598x590 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "Lồng ngang, 10Kg, 1400 rpm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "i-DOS, Restart, AntiVibration, ActiveWater Plus, ActiveOxygen Refresh, AntiStain..."
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "2300W & 23 chế độ (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "KFN96AXEA",
-      "name": "TỦ LẠNH ĐỘC LẬP KIỂU PHÁP BOSCH KFN96AXEA SERIES 4 NGĂN ĐÁ DƯỚI 646 LÍT",
+      "name": "TỦ LẠNH ĐỘC LẬP KIỂU PHÁP BOSCH KFN96AXEA SERIES 4 NGĂN ĐÁ DƯỚI 528 LÍT",
       "type": "tu-lanh",
       "series": 4,
-      "price": 31300000,
-      "oldPrice": null,
+      "price": 32500000,
+      "oldPrice": 52900000,
       "dealerPrice": 31300000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1286,19 +2746,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-kfn96axea.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "1830x905x731 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "4 cánh Multi, 528L, chống bám vân tay"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "NoFrost, MultiAirflow, SuperCooling & SuperFreezing, VitaFresh"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "300kWh/Y. VarioInverter (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "KFN96APEAG",
-      "name": "TỦ LẠNH ĐỘC LẬP KIỂU PHÁP BOSCH KFN96APEAG SERIES 4 NGĂN ĐÁ DƯỚI 646 LÍT",
+      "name": "TỦ LẠNH ĐỘC LẬP KIỂU PHÁP BOSCH KFN96APEAG SERIES 4 NGĂN ĐÁ DƯỚI 593 LÍT",
       "type": "tu-lanh",
       "series": 4,
-      "price": 30200000,
-      "oldPrice": null,
+      "price": 31500000,
+      "oldPrice": 51900000,
       "dealerPrice": 30200000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1308,19 +2798,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-kfn96apeag.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "1830x905x731 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "4 cánh Multi, 593L, chống bám vân tay"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "NoFrost, MultiAirflow, SuperCooling & SuperFreezing, VitaFresh, FreshSensor"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "310kWh/Y. VarioInverter (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "KMC85LBEA",
       "name": "Tủ lạnh Side by side Bosch KMC85LBEA - Series 4 - 547L",
       "type": "tu-lanh",
       "series": 4,
-      "price": 27500000,
-      "oldPrice": null,
+      "price": 29500000,
+      "oldPrice": 38900000,
       "dealerPrice": 27500000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1330,19 +2850,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-kmc85lbea.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "1895x855x666 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "4 cánh Multi, 547L, cánh kính"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "NoFrost, MultiAirflow, SuperCooling & SuperFreezing, VitaFresh, Platinum AirFilter"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "305kWh/Y. Intelligent Inverter (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "KMC85LEEA",
       "name": "Tủ lạnh Side by side Bosch KMC85LEEA - Series 4 - 547L",
       "type": "tu-lanh",
       "series": 4,
-      "price": 27500000,
-      "oldPrice": null,
+      "price": 29500000,
+      "oldPrice": 38900000,
       "dealerPrice": 27500000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1352,19 +2902,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-kmc85leea.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "1895x855x666 mm"
+        },
+        {
+          "name": "Loại máy",
+          "value": "4 cánh Multi, 547L, cánh kính"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "NoFrost, MultiAirflow, SuperCooling & SuperFreezing, VitaFresh, Platinum AirFilter"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "305kWh/Y. Intelligent Inverter (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "FEL053MS1M",
-      "name": "LÒ VI SÓNG BOSCH FEL053MS1M ĐỘC LẬP SERIE 2",
-      "type": "lo-vi-song",
+      "name": "LÒ VI SÓNG BOSCH FEL053MS1M ĐỘC LẬP SERIE 2",
+      "type": "lo-nuong",
       "series": 2,
-      "price": 4400000,
-      "oldPrice": null,
+      "price": 5100000,
+      "oldPrice": 5900000,
       "dealerPrice": 4400000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1374,19 +2954,54 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-fel053ms1m.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "290x495x370 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "AutoPilot 8, HydroClean, Grill"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "8 chế độ & 800W"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [
+        3,
+        6,
+        9,
+        12
+      ],
+      "installmentDisplayMonths": 12
     },
     {
       "model": "BFL524MB2",
       "name": "LÒ VI SÓNG ÂM TỦ BOSCH BFL524MB2 SERI4",
-      "type": "lo-vi-song",
+      "type": "lo-nuong",
       "series": 4,
-      "price": 10700000,
-      "oldPrice": null,
+      "price": 11700000,
+      "oldPrice": 15900000,
       "dealerPrice": 10700000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1396,19 +3011,54 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-bfl524mb2.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "382x594x317 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "AutoPilot 8, HydroClean, Grill, Rã đông thông minh"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "7 chế độ & 800W"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [
+        3,
+        6,
+        9,
+        12
+      ],
+      "installmentDisplayMonths": 12
     },
     {
       "model": "BEL524MB2",
       "name": "LÒ VI SÓNG ÂM TỦ BOSCH BEL524MB2 SERI6 - 20L",
-      "type": "lo-vi-song",
+      "type": "lo-nuong",
       "series": 6,
-      "price": 11300000,
-      "oldPrice": null,
+      "price": 12300000,
+      "oldPrice": 16900000,
       "dealerPrice": 11300000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1418,19 +3068,54 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-bel524mb2.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "382x594x317 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "AutoPilot 8, HydroClean, Grill, Quartz Grill"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "8 chế độ & 800W"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [
+        3,
+        6,
+        9,
+        12
+      ],
+      "installmentDisplayMonths": 12
     },
     {
       "model": "BEL554MS0B",
       "name": "Lò Vi Sóng Âm Tủ Bosch Seri 6 BEL554MS0B",
-      "type": "lo-vi-song",
+      "type": "lo-nuong",
       "series": 6,
-      "price": 10100000,
-      "oldPrice": null,
+      "price": 11200000,
+      "oldPrice": 14990000,
       "dealerPrice": 10100000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1440,19 +3125,54 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-bel554ms0b.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "382x594x388 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "AutoPilot 8, HydroClean, Grill, Nướng 1200W, TouchControl"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "8 chế độ & 900W"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [
+        3,
+        6,
+        9,
+        12
+      ],
+      "installmentDisplayMonths": 12
     },
     {
       "model": "BEL554MB2",
       "name": "Lò Vi Sóng Âm Tủ Bosch Seri 6 BEL554MB2 - 25L",
-      "type": "lo-vi-song",
+      "type": "lo-nuong",
       "series": 6,
-      "price": 11300000,
-      "oldPrice": null,
+      "price": 12300000,
+      "oldPrice": 16900000,
       "dealerPrice": 11300000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1462,19 +3182,54 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-bel554mb2.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "382x594x388 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "AutoPilot 8, HydroClean, Grill, Quartz Grill, SoftOpen"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "8 chế độ & 900W"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [
+        3,
+        6,
+        9,
+        12
+      ],
+      "installmentDisplayMonths": 12
     },
     {
       "model": "BEL7321B1",
       "name": "Lò vi sóng âm tủ có chức năng nướng, BEL7321B1 - Series 8 màu đen",
-      "type": "lo-vi-song",
+      "type": "lo-nuong",
       "series": 8,
-      "price": 24100000,
-      "oldPrice": null,
+      "price": 25300000,
+      "oldPrice": 35900000,
       "dealerPrice": 24100000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1484,19 +3239,54 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-bel7321b1.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "382x594x318 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "AutoPilot 10, HydroClean, Grill, Quartz Grill, SmartOpen, Flatbed"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off, Automatic Switch-off"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "10 chế độ & 900W"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [
+        3,
+        6,
+        9,
+        12
+      ],
+      "installmentDisplayMonths": 12
     },
     {
       "model": "HBG536EB3",
       "name": "LÒ NƯỚNG ÂM TỦ BOSCH HBG536EB3 SERIE 6 71 LÍT",
       "type": "lo-nuong",
       "series": 6,
-      "price": 11900000,
-      "oldPrice": null,
+      "price": 12500000,
+      "oldPrice": 18900000,
       "dealerPrice": 11900000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1506,19 +3296,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-hbg536eb3.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "595x594x548 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "AutoPilot 10, 3D HotAir, Rapid Heating"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "9 chế độ & 3400W (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "HBG536ES3",
       "name": "Lò nướng âm tủ Series 6 HBG536ES3, kích thước 60 x 60 cm, chất liệu thép không gỉ",
       "type": "lo-nuong",
       "series": 6,
-      "price": 11900000,
-      "oldPrice": null,
+      "price": 12900000,
+      "oldPrice": 18900000,
       "dealerPrice": 11900000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1528,19 +3348,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-hbg536es3.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "595x594x548 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "AutoPilot 10, 3D HotAir, Hydrolytic, AirFry"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "7 chế độ & 3400W (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "HBG7361B1",
       "name": "Lò nướng Bosch HBG7361B1, Series 8 - Dung tích 71L",
       "type": "lo-nuong",
       "series": 8,
-      "price": 28400000,
-      "oldPrice": null,
+      "price": 30400000,
+      "oldPrice": 39900000,
       "dealerPrice": 28400000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1550,19 +3400,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-hbg7361b1.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "595x594x548 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Bosch Assist, 4D HotAir, Fast Pre-Heat, Hydrolytic, AirFry, Pizza"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off, Automatic Switch-off"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "14 chế độ & 3600W (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "HBG7341B1B",
       "name": "Lò nướng Bosch HBG7341B1B, Series 8 - Dung tích 71L",
       "type": "lo-nuong",
       "series": 8,
-      "price": 18900000,
-      "oldPrice": null,
+      "price": 20200000,
+      "oldPrice": 29900000,
       "dealerPrice": 18900000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1572,19 +3452,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-hbg7341b1b.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "595x594x548 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "Bosch Assist, 3D HotAir, Hydrolytic, AirFry, Pizza"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off, Automatic Switch-off"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Home Connect"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "14 chế độ & 3600W (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "HBF011BA1T",
       "name": "Lò nướng âm tủ Bosch HBF011BA1T 66L - series 2 màu đen",
       "type": "lo-nuong",
       "series": 2,
-      "price": 8700000,
-      "oldPrice": null,
+      "price": 9900000,
+      "oldPrice": 12990000,
       "dealerPrice": 8700000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1594,19 +3504,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-hbf011ba1t.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "595x594x548 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "3D HotAir, Hydrolytic"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "4 chế độ & 2850W (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "HBA514BB3",
       "name": "Lò nướng Bosch HBA514BB3 Series 4 60 x 60 cm màu đen",
       "type": "lo-nuong",
       "series": 4,
-      "price": 10500000,
-      "oldPrice": null,
+      "price": 11400000,
+      "oldPrice": 15900000,
       "dealerPrice": 10500000,
       "stockStatus": "LowStock",
       "stockQuantity": null,
@@ -1616,19 +3556,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-hba514bb3.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "595x594x548 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "3D HotAir, Hydrolytic"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "8 chế độ & 3400W (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "HBA514BS3",
       "name": "Lò nướng âm tủ Bosch HBA514BS3 Series 4 60 x 60 cm bằng thép không gỉ",
       "type": "lo-nuong",
       "series": 4,
-      "price": 10500000,
-      "oldPrice": null,
+      "price": 11400000,
+      "oldPrice": 15900000,
       "dealerPrice": 10500000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1638,19 +3608,49 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-hba514bs3.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "595x594x548 mm"
+        },
+        {
+          "name": "Công nghệ",
+          "value": "3D HotAir, Hydrolytic"
+        },
+        {
+          "name": "An toàn",
+          "value": "Child Lock, Safety Shut-Off"
+        },
+        {
+          "name": "Kết nối",
+          "value": "Không"
+        },
+        {
+          "name": "Công suất & chế độ",
+          "value": "8 chế độ & 3400W (A)"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     },
     {
       "model": "HEZ9SE030",
       "name": "Bộ xoong nồi Bosch HEZ9SE030",
       "type": "xoong-noi",
       "series": null,
-      "price": 2750000,
-      "oldPrice": null,
+      "price": 3550000,
+      "oldPrice": 4900000,
       "dealerPrice": 2750000,
       "stockStatus": "InStock",
       "stockQuantity": null,
@@ -1660,11 +3660,25 @@
       "warranty": "BSH - 3 năm",
       "isNew": false,
       "isFlashSale": false,
+      "isBestSeller": false,
       "rating": null,
       "reviewCount": 0,
       "imageUrl": "/media/products/sp-hez9se030.jpg",
       "highlights": [],
-      "specs": []
+      "specs": [
+        {
+          "name": "Kích thước",
+          "value": "440x335x260 mm"
+        }
+      ],
+      "isPublished": true,
+      "soldCount": 0,
+      "galleryImages": [],
+      "videoUrl": null,
+      "videoPosterUrl": null,
+      "allowInstallment": false,
+      "installmentMonths": [],
+      "installmentDisplayMonths": null
     }
   ]
 }

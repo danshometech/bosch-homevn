@@ -239,7 +239,7 @@ const step = d => (viewer.value.i = (viewer.value.i + d + viewer.value.photos.le
                   </button>
                 </div>
                 <div v-if="r.reply" class="rv-reply">
-                  <div class="rv-reply-h"><AppIcon name="chat" :size="15" /><b>Phản hồi từ cửa hàng</b><span v-if="r.repliedAt" class="muted">· {{ fmtDate(r.repliedAt) }}</span></div>
+                  <div class="rv-reply-h"><img class="rv-reply-logo" src="/images/bosch-logo.svg" alt="" width="433" height="97"><b>Bosch Home VN</b><span class="tag">Admin</span><span v-if="r.repliedAt" class="muted">· {{ fmtDate(r.repliedAt) }}</span></div>
                   <p>{{ r.reply }}</p>
                 </div>
               </div>

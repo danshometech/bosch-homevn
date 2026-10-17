@@ -27,6 +27,7 @@ const contacts = computed(() => [
 const socials = computed(() => [
   settings.facebookUrl && { key: 'facebook', label: 'Chat tư vấn Facebook', href: settings.facebookUrl },
   settings.tikTokUrl && { key: 'tiktok', label: 'Kênh TikTok', href: settings.tikTokUrl },
+  settings.youTubeUrl && { key: 'youtube', label: 'Kênh YouTube', href: settings.youTubeUrl },
 ].filter(Boolean))
 </script>
 

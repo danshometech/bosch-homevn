@@ -2,12 +2,13 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { api } from '@/services/api'
 
-// Cài đặt admin chỉnh (GET /api/settings/contact). zaloUrl / facebookUrl / tikTokUrl null = chưa cấu hình, ẩn nút tương ứng
+// Cài đặt admin chỉnh (GET /api/settings/contact). zaloUrl / facebookUrl / tikTokUrl / youTubeUrl null = chưa cấu hình, ẩn nút tương ứng
 export const useSettingsStore = defineStore('settings', () => {
   const hotline = ref('1900 6868')
   const zaloUrl = ref(null)
   const facebookUrl = ref(null)
   const tikTokUrl = ref(null)
+  const youTubeUrl = ref(null)
   const tel = computed(() => 'tel:' + hotline.value.replace(/[^\d+]/g, ''))
   let pending = null
 
@@ -18,6 +19,7 @@ export const useSettingsStore = defineStore('settings', () => {
         zaloUrl.value = s.zaloUrl || null
         facebookUrl.value = s.facebookUrl || null
         tikTokUrl.value = s.tikTokUrl || null
+        youTubeUrl.value = s.youTubeUrl || null
       })
       .catch(err => {
         console.error(err)
@@ -26,5 +28,5 @@ export const useSettingsStore = defineStore('settings', () => {
     return pending
   }
 
-  return { hotline, zaloUrl, facebookUrl, tikTokUrl, tel, load }
+  return { hotline, zaloUrl, facebookUrl, tikTokUrl, youTubeUrl, tel, load }
 })

@@ -159,7 +159,7 @@ function remove() {
           </div>
         </section>
         <section class="box">
-          <h2>Phản hồi của cửa hàng</h2>
+          <h2>Phản hồi</h2>
           <Textarea v-model="form.reply" rows="3" maxlength="1000" auto-resize fluid
                     placeholder="vd. Cảm ơn anh/chị đã tin chọn Bosch…" />
           <small class="muted">Hiện ngay dưới đánh giá trên site. Để trống nếu chưa trả lời.</small>

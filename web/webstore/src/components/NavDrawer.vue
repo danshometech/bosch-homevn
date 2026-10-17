@@ -80,7 +80,7 @@ const isNews = () => route.name === 'news' || route.name === 'news-post'
             <RouterLink class="dn-link" :class="{ on: isNews() }" :to="toNews()">Tin tức</RouterLink>
           </nav>
           <div class="drawer-f">
-            <a class="btn btn-primary btn-block" :href="settings.tel"><AppIcon name="phone" :size="18" />Gọi {{ settings.hotline }}</a>
+            <a class="btn btn-primary btn-block" :href="settings.tel"><AppIcon name="phone" :size="18" />Hotline CSKH</a>
             <button class="btn btn-ghost btn-block" type="button" @click="open = false; compare.view()"><AppIcon name="cmp" :size="18" />So sánh sản phẩm ({{ compare.ids.length }})</button>
           </div>
         </div>

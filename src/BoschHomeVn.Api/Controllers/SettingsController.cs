@@ -12,6 +12,6 @@ public sealed class SettingsController(SiteSettingsHandler handler) : Controller
     public async Task<ContactSettingsResponse> GetContact(CancellationToken cancellationToken)
     {
         var s = await handler.GetContactAsync(cancellationToken);
-        return new ContactSettingsResponse(s.Hotline, s.ZaloUrl, s.FacebookUrl, s.TikTokUrl);
+        return new ContactSettingsResponse(s.Hotline, s.ZaloUrl, s.FacebookUrl, s.TikTokUrl, s.YouTubeUrl);
     }
 }

@@ -6,15 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BoschHomeVn.Application.Settings;
 
-public sealed record ContactSettings(string Hotline, string? ZaloUrl, string? FacebookUrl, string? TikTokUrl);
+public sealed record ContactSettings(string Hotline, string? ZaloUrl, string? FacebookUrl, string? TikTokUrl, string? YouTubeUrl);
 
 public sealed partial class SiteSettingsHandler(IAppDbContext db)
 {
     public const string DefaultHotline = "1900 6868";
 
-    private static readonly string[] ContactKeys = [SiteSetting.Hotline, SiteSetting.ZaloUrl, SiteSetting.FacebookUrl, SiteSetting.TikTokUrl];
+    private static readonly string[] ContactKeys =
+        [SiteSetting.Hotline, SiteSetting.ZaloUrl, SiteSetting.FacebookUrl, SiteSetting.TikTokUrl, SiteSetting.YouTubeUrl];
     private static readonly string[] FacebookHosts = ["facebook.com", "www.facebook.com", "m.facebook.com", "web.facebook.com", "fb.com", "www.fb.com"];
     private static readonly string[] TikTokHosts = ["tiktok.com", "www.tiktok.com", "m.tiktok.com", "vt.tiktok.com", "vm.tiktok.com"];
+    private static readonly string[] YouTubeHosts = ["youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be"];
 
     public async Task<ContactSettings> GetContactAsync(CancellationToken cancellationToken)
     {
@@ -26,7 +28,8 @@ public sealed partial class SiteSettingsHandler(IAppDbContext db)
             values.GetValueOrDefault(SiteSetting.Hotline) ?? DefaultHotline,
             values.GetValueOrDefault(SiteSetting.ZaloUrl),
             values.GetValueOrDefault(SiteSetting.FacebookUrl),
-            values.GetValueOrDefault(SiteSetting.TikTokUrl));
+            values.GetValueOrDefault(SiteSetting.TikTokUrl),
+            values.GetValueOrDefault(SiteSetting.YouTubeUrl));
     }
 
     public async Task<ContactSettings> SaveContactAsync(ContactSettings settings, CancellationToken cancellationToken)
@@ -37,6 +40,8 @@ public sealed partial class SiteSettingsHandler(IAppDbContext db)
             "Nhập link fanpage Facebook hoặc tên trang, vd. https://www.facebook.com/boschhomevn hoặc boschhomevn."), cancellationToken);
         await SetAsync(SiteSetting.TikTokUrl, NormalizeSocial(settings.TikTokUrl, TikTokHosts, name => "https://www.tiktok.com/@" + name,
             "Nhập link kênh TikTok hoặc tên kênh, vd. https://www.tiktok.com/@boschhomevn hoặc @boschhomevn."), cancellationToken);
+        await SetAsync(SiteSetting.YouTubeUrl, NormalizeSocial(settings.YouTubeUrl, YouTubeHosts, name => "https://www.youtube.com/@" + name,
+            "Nhập link kênh YouTube hoặc tên kênh, vd. https://www.youtube.com/@boschhomevn hoặc @boschhomevn."), cancellationToken);
         await db.SaveChangesAsync(cancellationToken);
         return await GetContactAsync(cancellationToken);
     }

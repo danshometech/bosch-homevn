@@ -31,13 +31,19 @@ public static class DependencyInjection
             .UseNpgsql(connectionString)
             .UseSeeding((context, _) =>
             {
-                CatalogSeeder.Seed(context);
+                if (CatalogSeeder.Seed(context))
+                {
+                    ContentSeeder.Seed(context);
+                }
                 HomeSeeder.Seed(context);
                 ReviewSeeder.Seed(context, sampleReviews);
             })
             .UseAsyncSeeding(async (context, _, cancellationToken) =>
             {
-                await CatalogSeeder.SeedAsync(context, cancellationToken);
+                if (await CatalogSeeder.SeedAsync(context, cancellationToken))
+                {
+                    await ContentSeeder.SeedAsync(context, cancellationToken);
+                }
                 await HomeSeeder.SeedAsync(context, cancellationToken);
                 await ReviewSeeder.SeedAsync(context, sampleReviews, cancellationToken);
             }));

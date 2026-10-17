@@ -26,22 +26,13 @@ const cart = useCartStore()
 const compare = useCompareStore()
 const viewed = useViewedStore()
 
-const PERKS = [
-  ['GH', 'Miễn phí giao hàng', 'Nội thành Hà Nội, TP. HCM, Đà Nẵng'],
-  ['ĐT', 'Đổi trả trong 30 ngày', 'Đổi mới nếu lỗi do nhà sản xuất'],
-  ['VAT', 'Xuất hóa đơn VAT', 'Theo yêu cầu cho cá nhân & doanh nghiệp'],
-]
-
 const qty = ref(1)
 const qtyDir = ref(0)
 const qtyBox = ref(null)
 const added = ref(false)
 let timer
 
-// Hiện ngay bản đã có trong store (vd. vừa bấm từ thẻ sản phẩm), rồi lấy bản mới nhất qua GET /api/products/{id};
-// không có / chưa bán thì về trang chủ. "Sản phẩm tương tự": GET /api/products?category=…&take=5
 const p = ref(catalog.prodOf(props.id) || null)
-// Thư viện: ảnh chính + ảnh thêm (tối đa 5) và video (nếu có) ở cuối, thành các ô nhỏ dưới khung lớn; `shot` = mục đang xem
 const shot = ref(0)
 const media = computed(() => {
   if (!p.value) return []
@@ -49,7 +40,6 @@ const media = computed(() => {
   return p.value.video ? [...list, { src: p.value.video, video: true, poster: p.value.videoPoster }] : list
 })
 const current = computed(() => media.value[Math.min(shot.value, media.value.length - 1)] ?? null)
-// Hướng chuyển (1 = sang phải / tới, -1 = lùi) quyết định ảnh lớn trượt vào từ bên nào; 0 = không hiệu ứng (đổi sản phẩm)
 const dir = ref(0)
 function show(i) {
   if (i === shot.value) return
@@ -60,7 +50,6 @@ function slide(d) {
   dir.value = d
   shot.value = (shot.value + d + media.value.length) % media.value.length
 }
-// Vuốt ngang trên ảnh lớn (màn cảm ứng) để chuyển ảnh
 let touchX = null
 const onTouchStart = e => (touchX = e.touches[0].clientX)
 function onTouchEnd(e) {
@@ -69,13 +58,10 @@ function onTouchEnd(e) {
   touchX = null
   if (Math.abs(dx) > 40 && media.value.length > 1) slide(dx < 0 ? 1 : -1)
 }
-// Ô nhỏ chưa có hình (ảnh / ảnh bìa / khung hình video chưa tải xong) hiện khung skeleton
 const loadedThumbs = reactive(new Set())
 const related = ref([])
 const relLoading = ref(true)
 const failed = ref(false)
-// Tab "Thông số kỹ thuật" / "Thông tin sản phẩm" (bài giới thiệu, chỉ có khi admin đã soạn).
-// Bài dài / bảng thông số quá SPEC_MAX dòng thì thu gọn, bấm "Xem thêm" để mở hết
 const ARTICLE_MAX = 560
 const SPEC_MAX = 4
 const tab = ref('spec')
@@ -155,7 +141,12 @@ watch(() => props.id, async id => {
 }, { immediate: true })
 onUnmounted(() => clearTimeout(timer))
 
-const perks = computed(() => [['BH', `Bảo hành chính hãng ${warrantyOf(p.value)}`, 'Bảo hành điện tử, kích hoạt khi giao hàng'], ...PERKS])
+const perks = computed(() => [
+  ['BH', `Bảo hành chính hãng ${warrantyOf(p.value)}`, 'Bảo hành điện tử, kích hoạt khi giao hàng'],
+  ['GH', 'Miễn phí giao hàng', 'Nội thành Hà Nội, TP. HCM, Đà Nẵng'],
+  ['ĐT', 'Hỗ trợ tư vấn & lắp đặt', `Hotline ${settings.hotline} (7:30–22:00)`],
+  ['VAT', 'Xuất hóa đơn VAT', 'Theo yêu cầu cho cá nhân & doanh nghiệp'],
+])
 const c = computed(() => catalog.catOf(p.value.cat))
 const off = computed(() => pct(p.value))
 const soldOut = computed(() => p.value.stockStatus === 'OutOfStock')

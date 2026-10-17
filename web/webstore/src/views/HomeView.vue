@@ -226,7 +226,7 @@ onUnmounted(() => {
           <p class="consult-h">Cần tư vấn chọn thiết bị?</p>
           <p class="consult-p">Gửi kích thước căn bếp, chuyên viên sẽ gợi ý thiết bị Bosch phù hợp.</p>
           <a v-if="settings.zaloUrl" class="consult-btn zalo" :href="settings.zaloUrl" target="_blank" rel="noopener">Chat Zalo</a>
-          <a class="consult-btn call" :href="settings.tel">Gọi {{ settings.hotline }}</a>
+          <a class="consult-btn call" :href="settings.tel">Hotline CSKH</a>
         </div>
       </aside>
       <div class="day-flow">

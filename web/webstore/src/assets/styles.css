@@ -523,6 +523,7 @@ p{text-wrap:pretty}
 .fab-item .c.zalo{background:oklch(0.55 0.17 255)}
 .fab-item .c.facebook,.social .facebook{background:#1877f2}
 .fab-item .c.tiktok,.social .tiktok{background:#000}
+.fab-item .c.youtube,.social .youtube{background:#f00}
 .fab-item .c.hot{background:var(--accent)}
 .fab-menu-enter-active .fab-item,.fab-menu-leave-active .fab-item{transition:opacity 220ms var(--ease-out),transform 300ms var(--ease-out);transition-delay:calc(var(--i) * 50ms)}
 .fab-menu-enter-from .fab-item,.fab-menu-leave-to .fab-item{opacity:0;transform:translateY(12px) scale(.9)}
@@ -826,6 +827,7 @@ html.drawer-open{overflow:hidden}
 .rv-reply{margin-top:8px;max-width:760px;padding:14px 16px;border-radius:10px;background:var(--soft);display:flex;flex-direction:column;gap:6px}
 .rv-reply-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:13px;color:var(--ink-2)}
 .rv-reply-h b{color:var(--ink)}
+.rv-reply-logo{width:20px;height:20px;object-fit:cover;object-position:0 50%;flex-shrink:0}
 .rv-reply p{font-size:13.5px;line-height:1.6;color:var(--ink-2);white-space:pre-line;overflow-wrap:anywhere}
 .rv-empty{display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px 24px 8px;text-align:center}
 .rv-empty-ic{width:64px;height:64px;margin-bottom:4px;border-radius:50%;background:var(--soft);color:var(--star);display:grid;place-items:center}

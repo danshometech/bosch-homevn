@@ -9,6 +9,7 @@ import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import Textarea from 'primevue/textarea'
 import { get, post, put, del } from '@/services/api'
+import { useReorder } from '@/utils/reorder'
 
 const toast = useToast()
 const confirm = useConfirm()
@@ -64,18 +65,11 @@ function remove(c) {
   })
 }
 
-async function move(i, d) {
-  const list = categories.value
-  if (i + d < 0 || i + d >= list.length) return
-  const ids = list.map(x => x.id)
-  ;[ids[i], ids[i + d]] = [ids[i + d], ids[i]]
-  try {
-    await put('/admin/news/categories/order', { ids })
-    await load()
-  } catch (err) {
-    fail('Không đổi được thứ tự', err)
-  }
-}
+const reorder = useReorder(err => {
+  fail('Không đổi được thứ tự', err)
+  return load()
+})
+const move = (id, d) => reorder(categories.value, id, d, '/admin/news/categories/order')
 </script>
 
 <template>
@@ -98,9 +92,9 @@ async function move(i, d) {
         </template>
       </Column>
       <Column header="" style="width:200px">
-        <template #body="{ data, index }">
-          <Button icon="pi pi-arrow-up" text rounded aria-label="Lên" :disabled="index === 0" @click="move(index, -1)" />
-          <Button icon="pi pi-arrow-down" text rounded aria-label="Xuống" :disabled="index === categories.length - 1" @click="move(index, 1)" />
+        <template #body="{ data }">
+          <Button icon="pi pi-arrow-up" text rounded aria-label="Lên" :disabled="data.id === categories[0].id" @click="move(data.id, -1)" />
+          <Button icon="pi pi-arrow-down" text rounded aria-label="Xuống" :disabled="data.id === categories.at(-1).id" @click="move(data.id, 1)" />
           <Button icon="pi pi-pencil" text rounded aria-label="Sửa chuyên mục" @click="open(data)" />
           <Button icon="pi pi-trash" text rounded severity="danger" aria-label="Xóa chuyên mục" :disabled="data.postCount > 0"
                   :title="data.postCount ? 'Còn bài viết — chuyển hoặc xóa hết bài trước' : 'Xóa chuyên mục'" @click="remove(data)" />

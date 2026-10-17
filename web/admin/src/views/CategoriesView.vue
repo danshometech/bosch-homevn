@@ -9,6 +9,7 @@ import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import Select from 'primevue/select'
 import { get, post, put, del } from '@/services/api'
+import { useReorder } from '@/utils/reorder'
 
 const toast = useToast()
 const confirm = useConfirm()
@@ -72,17 +73,10 @@ function remove(kind, item) {
   })
 }
 
-async function move(list, i, d, url) {
-  if (i + d < 0 || i + d >= list.length) return
-  const ids = list.map(x => x.id)
-  ;[ids[i], ids[i + d]] = [ids[i + d], ids[i]]
-  try {
-    await put(url, { ids })
-    await load()
-  } catch (err) {
-    fail('Không đổi được thứ tự', err)
-  }
-}
+const move = useReorder(err => {
+  fail('Không đổi được thứ tự', err)
+  return load()
+})
 </script>
 
 <template>
@@ -99,8 +93,8 @@ async function move(list, i, d, url) {
     <div class="cat-h">
       <h2>{{ c.name }}<small>{{ c.shortName }} · {{ c.id }}</small></h2>
       <div class="actions">
-        <Button icon="pi pi-arrow-up" text rounded aria-label="Lên" :disabled="ci === 0" @click="move(categories, ci, -1, '/admin/categories/order')" />
-        <Button icon="pi pi-arrow-down" text rounded aria-label="Xuống" :disabled="ci === categories.length - 1" @click="move(categories, ci, 1, '/admin/categories/order')" />
+        <Button icon="pi pi-arrow-up" text rounded aria-label="Lên" :disabled="ci === 0" @click="move(categories, c.id, -1, '/admin/categories/order')" />
+        <Button icon="pi pi-arrow-down" text rounded aria-label="Xuống" :disabled="ci === categories.length - 1" @click="move(categories, c.id, 1, '/admin/categories/order')" />
         <Button icon="pi pi-pencil" text rounded aria-label="Sửa danh mục" @click="openCategory(c)" />
         <Button icon="pi pi-trash" text rounded severity="danger" aria-label="Xóa danh mục" :disabled="c.types.length > 0"
                 :title="c.types.length ? 'Còn loại sản phẩm — xóa hết loại trước' : 'Xóa danh mục'" @click="remove('category', c)" />
@@ -115,9 +109,9 @@ async function move(list, i, d, url) {
       </Column>
       <Column field="productCount" header="Sản phẩm" style="width:110px" />
       <Column header="" style="width:200px">
-        <template #body="{ data, index }">
-          <Button icon="pi pi-arrow-up" text rounded aria-label="Lên" :disabled="index === 0" @click="move(c.types, index, -1, `/admin/categories/${c.id}/types/order`)" />
-          <Button icon="pi pi-arrow-down" text rounded aria-label="Xuống" :disabled="index === c.types.length - 1" @click="move(c.types, index, 1, `/admin/categories/${c.id}/types/order`)" />
+        <template #body="{ data }">
+          <Button icon="pi pi-arrow-up" text rounded aria-label="Lên" :disabled="data.id === c.types[0].id" @click="move(c.types, data.id, -1, `/admin/categories/${c.id}/types/order`)" />
+          <Button icon="pi pi-arrow-down" text rounded aria-label="Xuống" :disabled="data.id === c.types.at(-1).id" @click="move(c.types, data.id, 1, `/admin/categories/${c.id}/types/order`)" />
           <Button icon="pi pi-pencil" text rounded aria-label="Sửa loại" @click="openType(c, data)" />
           <Button icon="pi pi-trash" text rounded severity="danger" aria-label="Xóa loại" :disabled="data.productCount > 0" @click="remove('type', data)" />
         </template>
