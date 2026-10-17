@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 # Backup database + ảnh / video + .env lên Google Drive, thư mục bosch-homevn-backup.
-#   bash deploy/backup.sh                 → backup (dump DB giữ 30 ngày; ảnh / video chỉ tải file mới)
-#   bash deploy/backup.sh <lệnh rclone>   → vd. config | copy gdrive:bosch-homevn-backup /restore (ra thư mục ./restore)
+# Mọi thứ của backup nằm trong thư mục riêng của server, ngoài thư mục source (xóa source để deploy lại không mất):
+#   ~/boschhome-rclone/rclone.conf   — đăng nhập Google Drive (cả thư mục mount vào rclone vì rclone tự ghi lại token)
+#   ~/boschhome-rclone/.env          — .env của docker compose (thư mục source chỉ để symlink tới file này)
+#   ~/boschhome-rclone/restore/      — nơi tải backup về khi khôi phục
+# Đổi chỗ bằng biến BOSCHHOME_CONFIG. Chép script này vào đó rồi chạy:
+#   bash ~/boschhome-rclone/backup.sh                 → backup (dump DB giữ 30 ngày; ảnh / video chỉ tải file mới)
+#   bash ~/boschhome-rclone/backup.sh <lệnh rclone>   → vd. config | copy gdrive:bosch-homevn-backup /restore
 set -euo pipefail
 
-root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
-env_file="$root/.env"
+config=${BOSCHHOME_CONFIG:-$HOME/boschhome-rclone}
+env_file="$config/.env"
 dest=gdrive:bosch-homevn-backup
 
 # Đọc 1 biến trong .env theo quy tắc của docker compose ($$ = $)
@@ -20,20 +25,24 @@ env_get() {
 
 log() { echo "[$(date '+%F %T')] $*"; }
 
+# Tạo trước để docker không tự tạo thư mục thuộc root
+mkdir -p "$config"
 opts=()
 rclone() {
   docker run --rm -e RCLONE_DRIVE_USE_TRASH=false \
     -e RCLONE_STATS=1m -e RCLONE_STATS_ONE_LINE=true -e RCLONE_STATS_LOG_LEVEL=NOTICE \
-    -v "$root/rclone:/config/rclone" "${opts[@]}" rclone/rclone:1.68.2 "$@"
+    -v "$config:/config/rclone" "${opts[@]}" rclone/rclone:1.68.2 "$@"
 }
 
 if (($#)); then
-  opts=(-it -v "$root/restore:/restore")
+  mkdir -p "$config/restore"
+  opts=(-it -v "$config/restore:/restore")
   rclone "$@"
   exit
 fi
 
 [[ -f $env_file ]] || { log "Không thấy $env_file (cần DB_CONNECTION như khi chạy docker compose)"; exit 1; }
+[[ -f $config/rclone.conf ]] || { log "Không thấy $config/rclone.conf — chạy: bash $0 config"; exit 1; }
 ping_url=$(env_get BACKUP_PING_URL)
 notify() { [[ -z $ping_url ]] || curl -fsS -m 10 --retry 3 -o /dev/null "$ping_url$1" || true; }
 

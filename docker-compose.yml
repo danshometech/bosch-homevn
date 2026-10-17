@@ -1,8 +1,9 @@
-# Chạy: cp .env.example .env (điền giá trị) → docker compose up -d --build
+# Chạy: .env thật để ở ~/boschhome-rclone/.env (ngoài thư mục source, xem README → Triển khai), symlink vào đây
+# (ln -sf ~/boschhome-rclone/.env .env) → docker compose up -d --build
 # PostgreSQL dùng container có sẵn trên server: Api tham gia network DB_NETWORK của container đó.
 # Reverse proxy có sẵn (nginx/Traefik/Caddy) trỏ tên miền site → WEBSTORE_PORT, tên miền admin → ADMIN_PORT (HTTPS).
 # Admin tải video tới 50 MB: proxy của tên miền admin phải cho request lớn (nginx: client_max_body_size 60m;).
-# Backup: deploy/backup.sh (database + volume appdata + .env, xem README).
+# Backup: deploy/backup.sh, chạy từ ~/boschhome-rclone (database + volume appdata + .env, xem README).
 # Container api cần ra được internet (HTTPS) để lấy danh mục tỉnh / phường cho trang thanh toán (VIETNAM_ADDRESS_API_URL).
 name: bosch-homevn
 
