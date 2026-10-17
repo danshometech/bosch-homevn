@@ -32,7 +32,8 @@ public sealed record SaveProductCommand(
     IReadOnlyList<ProductSpec> Specs,
     bool AllowInstallment,
     IReadOnlyList<int> InstallmentMonths,
-    int? InstallmentDisplayMonths);
+    int? InstallmentDisplayMonths,
+    int? SoldCount);
 
 public sealed class ProductAdminHandler(IAppDbContext db, IArticleSanitizer sanitizer)
 {
@@ -160,6 +161,11 @@ public sealed class ProductAdminHandler(IAppDbContext db, IArticleSanitizer sani
         }
         product.SetVideo(c.VideoUrl, c.VideoPosterUrl);
         product.SetInstallment(c.AllowInstallment, c.InstallmentMonths, c.InstallmentDisplayMonths);
+        // null (request cũ không gửi trường này) = giữ nguyên
+        if (c.SoldCount is { } sold)
+        {
+            product.SetSoldCount(sold);
+        }
         product.SetDisplay(
             c.IsNew,
             c.IsBestSeller,

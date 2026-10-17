@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { get, post } from '@/services/api'
 
-// Phiên đăng nhập trang quản trị (cookie HttpOnly do Api đặt — JS không đọc được, chỉ hỏi /auth/me)
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
   let checked = false

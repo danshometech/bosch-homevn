@@ -1,7 +1,4 @@
-// Gọi host BoschHomeVn.Admin qua đường dẫn tương đối /api (lúc dev Vite proxy sang host); controller của host gọi tiếp
-// BoschHomeVn.Api. Cùng origin nên cookie đăng nhập (HttpOnly) tự gửi kèm. Lỗi: ném Error, message lấy từ ProblemDetails.
 let onUnauthorized = () => {}
-// router đăng ký: hết phiên (401) thì về trang đăng nhập
 export const setUnauthorizedHandler = fn => (onUnauthorized = fn)
 
 export async function api(method, path, body) {
@@ -26,7 +23,6 @@ export async function api(method, path, body) {
 const problemMessage = (p, status) =>
   (p?.errors ? Object.values(p.errors).flat().join(' ') : p?.detail || p?.title) || `Lỗi ${status}`
 
-// Tải file (vd. CSV) về máy qua fetch để còn báo lỗi / hết phiên; tên file lấy từ Content-Disposition
 export async function download(path, fallbackName) {
   const res = await fetch('/api' + path)
   if (res.status === 401) onUnauthorized()
@@ -51,7 +47,6 @@ export const post = (path, body) => api('POST', path, body)
 export const put = (path, body) => api('PUT', path, body)
 export const del = path => api('DELETE', path)
 
-// Tải ảnh lên (folder: products | moments), trả về đường dẫn /media/...
 export async function uploadImage(file, folder) {
   const form = new FormData()
   form.append('file', file)
@@ -59,8 +54,6 @@ export async function uploadImage(file, folder) {
   return (await post('/admin/media', form)).url
 }
 
-// Tải video lên (MP4 / WebM ≤ 50 MB), trả về đường dẫn /media/videos/…. Dùng XMLHttpRequest để báo % qua onProgress
-// (fetch chưa có tiến độ upload).
 export function uploadVideo(file, onProgress) {
   return new Promise((resolve, reject) => {
     const form = new FormData()

@@ -5,7 +5,6 @@ import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import { uploadImage } from '@/services/api'
 
-// Danh sách ảnh: tải lên (chọn được nhiều ảnh), dán đường dẫn, đổi thứ tự, bỏ — tối đa `max` ảnh
 const urls = defineModel({ type: Array, default: () => [] })
 const props = defineProps({
   max: { type: Number, default: 4 },
@@ -19,7 +18,6 @@ const busy = ref(false)
 async function pick(e) {
   const files = [...e.target.files].slice(0, props.max - urls.value.length)
   e.target.value = ''
-  // Gom ảnh tải xong rồi thêm một lần: v-model chỉ cập nhật sau khi component cha render lại
   const added = []
   busy.value = true
   try {

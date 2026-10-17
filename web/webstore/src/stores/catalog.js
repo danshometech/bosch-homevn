@@ -17,8 +17,9 @@ function toCategory(c) {
 }
 
 // Sản phẩm theo dạng các component dùng: `cat` = id danh mục, `sub` = tên loại, `old` = giá gạch, `chips` = 3 thông số
-// nổi bật, `stock` = số lượng tồn (có thể không có), `isNew` / `isBest` / `isFlash` = nhãn "Mới" / "Best seller" / flash sale (admin bật),
-// `inst` = trả góp 0% { months, displayMonths } hoặc null, `images` = ảnh chính + ảnh thêm, `video` = video giới thiệu.
+// nổi bật, `stock` = số lượng tồn (có thể không có), `isNew` / `isBest` / `isFlash` = nhãn "Mới" / "Bán chạy" / flash sale (admin bật),
+// `inst` = trả góp 0% { months, displayMonths } hoặc null, `images` = ảnh chính + ảnh thêm, `video` = video giới thiệu,
+// `sold` = số đã bán (admin nhập, 0 = ẩn).
 // `specs` đổi thành object, giữ đúng thứ tự dòng.
 const toProduct = p => ({
   id: p.id,
@@ -38,6 +39,7 @@ const toProduct = p => ({
   stockNote: p.stockNote,
   rating: p.rating,
   reviews: p.reviewCount,
+  sold: p.soldCount ?? 0,
   img: p.imageUrl,
   images: [p.imageUrl, ...(p.galleryImages ?? [])].filter(Boolean),
   video: p.videoUrl ?? null,

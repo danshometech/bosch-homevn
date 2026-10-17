@@ -14,6 +14,8 @@ using BoschHomeVn.Application.News;
 using BoschHomeVn.Application.News.Admin;
 using BoschHomeVn.Application.Orders;
 using BoschHomeVn.Application.Orders.Admin;
+using BoschHomeVn.Application.Reviews;
+using BoschHomeVn.Application.Reviews.Admin;
 using BoschHomeVn.Application.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -34,6 +36,7 @@ public static class DependencyInjection
         services.AddScoped<SiteSettingsHandler>();
         services.AddScoped<CheckoutOptionsHandler>();
         services.AddScoped<PlaceOrderHandler>();
+        services.AddScoped<ReviewsHandler>();
 
         services.AddScoped<ProductAdminHandler>();
         services.AddScoped<CategoryAdminHandler>();
@@ -42,6 +45,7 @@ public static class DependencyInjection
         services.AddScoped<NewsAdminHandler>();
         services.AddScoped<CheckoutAdminHandler>();
         services.AddScoped<OrderAdminHandler>();
+        services.AddScoped<ReviewAdminHandler>();
 
         return services;
     }

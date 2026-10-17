@@ -133,6 +133,9 @@ namespace BoschHomeVn.Infrastructure.Persistence.Migrations
                     b.Property<int?>("Series")
                         .HasColumnType("integer");
 
+                    b.Property<int>("SoldCount")
+                        .HasColumnType("integer");
+
                     b.Property<string>("StockNote")
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
@@ -660,6 +663,94 @@ namespace BoschHomeVn.Infrastructure.Persistence.Migrations
                     b.ToTable("OrderItems", (string)null);
                 });
 
+            modelBuilder.Entity("BoschHomeVn.Domain.Reviews.ProductReview", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AuthorName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("AuthorPhone")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<int>("HelpfulCount")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsVerifiedPurchase")
+                        .HasColumnType("boolean");
+
+                    b.PrimitiveCollection<List<string>>("Photos")
+                        .IsRequired()
+                        .HasColumnType("text[]");
+
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("RepliedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Reply")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Status", "CreatedAt");
+
+                    b.HasIndex("ProductId", "Status", "CreatedAt");
+
+                    b.ToTable("ProductReviews", (string)null);
+                });
+
+            modelBuilder.Entity("BoschHomeVn.Domain.Reviews.ReviewVote", b =>
+                {
+                    b.Property<Guid>("ReviewId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("VisitorId")
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("ReviewId", "VisitorId");
+
+                    b.HasIndex("VisitorId");
+
+                    b.ToTable("ReviewVotes", (string)null);
+                });
+
             modelBuilder.Entity("BoschHomeVn.Domain.Settings.SiteSetting", b =>
                 {
                     b.Property<string>("Key")
@@ -937,6 +1028,24 @@ namespace BoschHomeVn.Infrastructure.Persistence.Migrations
                     b.HasOne("BoschHomeVn.Domain.Orders.Order", null)
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BoschHomeVn.Domain.Reviews.ProductReview", b =>
+                {
+                    b.HasOne("BoschHomeVn.Domain.Catalog.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BoschHomeVn.Domain.Reviews.ReviewVote", b =>
+                {
+                    b.HasOne("BoschHomeVn.Domain.Reviews.ProductReview", null)
+                        .WithMany()
+                        .HasForeignKey("ReviewId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

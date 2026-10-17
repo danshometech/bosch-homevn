@@ -48,6 +48,8 @@ public sealed class Product : Entity<string>
     public bool IsFlashSale { get; private set; }
     public decimal? Rating { get; private set; }
     public int ReviewCount { get; private set; }
+    // Số lượng đã bán hiện trên thẻ sản phẩm / trang chi tiết, admin nhập
+    public int SoldCount { get; private set; }
     public string? ImageUrl { get; private set; }
     // Ảnh thêm cho trang chi tiết, sau ảnh chính ImageUrl (trang chi tiết hiện tối đa 5 ảnh nhỏ)
     public List<string> GalleryImages { get; private set; } = [];
@@ -191,6 +193,16 @@ public sealed class Product : Entity<string>
 
         Rating = rating;
         ReviewCount = reviewCount;
+    }
+
+    public void SetSoldCount(int soldCount)
+    {
+        if (soldCount < 0)
+        {
+            throw new DomainException("Số lượng đã bán không được âm.");
+        }
+
+        SoldCount = soldCount;
     }
 
     public void SetDisplay(bool isNew, bool isBestSeller, bool isFlashSale, string? imageUrl, IEnumerable<string> highlights, IEnumerable<ProductSpec> specs)

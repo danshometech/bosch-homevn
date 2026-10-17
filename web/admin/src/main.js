@@ -9,7 +9,6 @@ import router from './router'
 import 'primeicons/primeicons.css'
 import './assets/admin.css'
 
-// Chữ mặc định của các component PrimeVue (hộp xác nhận, bảng trống…) bằng tiếng Việt
 const locale = {
   accept: 'Đồng ý',
   reject: 'Hủy',
@@ -21,7 +20,6 @@ const locale = {
   choose: 'Chọn',
   upload: 'Tải lên',
   cancel: 'Hủy',
-  // Lịch (DatePicker)
   dayNames: ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'],
   dayNamesShort: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
   dayNamesMin: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
@@ -34,7 +32,6 @@ const locale = {
   weekHeader: 'Tuần',
 }
 
-// Admin dùng PrimeVue 4 có theme (Aura) — bảng/form dựng sẵn, không tự viết CSS như site bán hàng
 createApp(App)
   .use(createPinia())
   .use(router)

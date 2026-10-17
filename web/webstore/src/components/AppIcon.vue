@@ -18,6 +18,8 @@ defineProps({
     <template v-else-if="name === 'left'"><path d="M15 5l-7 7 7 7" /></template>
     <template v-else-if="name === 'right'"><path d="M9 5l7 7-7 7" /></template>
     <template v-else-if="name === 'star'"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" fill="currentColor" stroke="none" /></template>
+    <template v-else-if="name === 'pen'"><path d="M4 20h4L19 9l-4-4L4 16v4z" /><path d="M13.5 6.5l4 4" /></template>
+    <template v-else-if="name === 'like'"><path d="M7 10v11H4a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h3z" /><path d="M7 10l4-7a2.5 2.5 0 0 1 2.5 2.5V9h5.2a2 2 0 0 1 2 2.3l-1.4 8A2 2 0 0 1 17.3 21H7" /></template>
     <template v-else-if="name === 'check'"><path d="M5 12.5l4.5 4.5L19 7" /></template>
     <template v-else-if="name === 'plus'"><path d="M12 5v14M5 12h14" /></template>
     <template v-else-if="name === 'close'"><path d="M6 6l12 12M18 6L6 18" /></template>

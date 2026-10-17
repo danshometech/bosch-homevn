@@ -5,7 +5,6 @@ import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import { uploadImage } from '@/services/api'
 
-// Ảnh: xem trước + tải lên (JPG/PNG/WebP ≤ 5 MB → /media/<folder>/…) hoặc dán đường dẫn ảnh có sẵn
 const url = defineModel({ type: String, default: null })
 const props = defineProps({
   folder: { type: String, default: 'products' },

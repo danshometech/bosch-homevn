@@ -7,13 +7,10 @@ import DateRangeField from './DateRangeField.vue'
 import { get, download } from '@/services/api'
 import { addDays, isoDate, startOfToday } from '@/utils/format'
 
-// Xuất file Excel các đơn đặt trong một khoảng ngày (giờ Việt Nam, mọi trạng thái), mỗi dòng sản phẩm một hàng.
-// Đếm trước số đơn trong khoảng đang chọn: không có đơn nào thì không cho xuất file rỗng
 const visible = defineModel('visible', { type: Boolean, default: false })
 const toast = useToast()
 const range = ref([addDays(startOfToday(), -29), startOfToday()])
 const busy = ref(false)
-// Số đơn trong khoảng: null = đang đếm, -1 = không đếm được (vẫn cho xuất)
 const count = ref(null)
 
 const ready = computed(() => !!range.value?.[0] && !!range.value?.[1])
@@ -51,7 +48,6 @@ async function run() {
 <template>
   <Dialog v-model:visible="visible" modal header="Xuất Excel đơn hàng" :style="{ width: 'min(480px, 94vw)' }">
     <div class="dialog-body">
-      <!-- autofocus vào đoạn mô tả: Dialog không tự focus nút X (vòng focus to) -->
       <p class="dialog-intro" tabindex="-1" autofocus>Xuất mọi đơn đặt trong khoảng ngày (theo giờ Việt Nam, tất cả trạng thái) ra file Excel (.xlsx), mỗi dòng sản phẩm một hàng.</p>
       <DateRangeField v-model="range" />
       <p v-if="ready && count !== -1" class="export-note" :class="{ empty: count === 0 }">

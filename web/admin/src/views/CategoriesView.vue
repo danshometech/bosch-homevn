@@ -29,7 +29,6 @@ onMounted(load)
 const fail = (summary, err) => toast.add({ severity: 'error', summary, detail: err.message, life: 5000 })
 const ok = summary => toast.add({ severity: 'success', summary, life: 2500 })
 
-// Hộp thoại thêm/sửa: kind 'category' | 'type'; id null = thêm mới
 const dialog = ref(null)
 const groupsOf = c => [...new Set(c.types.map(t => t.group).filter(Boolean))]
 const dialogGroups = computed(() => (dialog.value?.category ? groupsOf(dialog.value.category) : []))
@@ -73,7 +72,6 @@ function remove(kind, item) {
   })
 }
 
-// Đổi chỗ với mục liền trước/sau rồi lưu thứ tự mới
 async function move(list, i, d, url) {
   if (i + d < 0 || i + d >= list.length) return
   const ids = list.map(x => x.id)

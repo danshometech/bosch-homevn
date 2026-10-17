@@ -33,7 +33,6 @@ const PRICES = [
   { k: 'c', label: '10 – 20 triệu', min: 10e6, max: 20e6 },
   { k: 'd', label: 'Trên 20 triệu', min: 20e6, max: Infinity },
 ]
-const RATINGS = [[0, 'Tất cả'], [4.7, 'Từ 4.7 ★'], [4.8, 'Từ 4.8 ★']]
 const SORT_OPTS = [
   { value: 'pop', label: 'Phổ biến nhất' },
   { value: 'off', label: 'Giảm nhiều nhất' },
@@ -53,7 +52,6 @@ const SELECT_PT = {
 
 const kind = ref('') // '' = tất cả · 'g:<nhóm>' = cả nhóm · 's:<loại>' = một loại
 const price = ref('all')
-const minR = ref(0)
 const sort = ref('pop')
 
 // Màn ≤1080 (khớp CSS): bộ lọc là ngăn kéo trượt từ phải, mở bằng nút "Bộ lọc"
@@ -73,11 +71,10 @@ onMounted(() => {
 })
 onUnmounted(() => mq?.removeEventListener('change', onMedia))
 
-const activeCount = computed(() => (kind.value ? 1 : 0) + (price.value !== 'all' ? 1 : 0) + (minR.value ? 1 : 0))
+const activeCount = computed(() => (kind.value ? 1 : 0) + (price.value !== 'all' ? 1 : 0))
 function resetFilters() {
   kind.value = ''
   price.value = 'all'
-  minR.value = 0
 }
 // Nhóm đang mở trong cây lọc ({ 'g:<nhóm>': true }), mỗi lúc chỉ một nhóm: vào trang thì thu gọn hết,
 // chọn một dòng ngoài cùng thì chỉ mở dòng đó (nếu là nhóm) và đóng nhóm khác; chọn loại con thì giữ nguyên.
@@ -85,7 +82,6 @@ const expanded = ref({})
 watch([() => props.cat, () => props.nhom, () => props.loai, () => props.q, () => props.flash], () => {
   kind.value = ''
   price.value = 'all'
-  minR.value = 0
   expanded.value = {}
   open.value = false
 })
@@ -108,7 +104,7 @@ const sub = computed(() => catalog.subOf(props.cat, props.loai))
 // Trang loại: nhóm chứa loại đó (để hiện trên breadcrumb); trang nhóm: nhóm theo ?nhom=
 const group = computed(() => (sub.value ? catalog.groupOfSub(props.cat, sub.value) : catalog.groupOf(props.cat, props.nhom)))
 // Loại / nhóm trên URL (?loai= / ?nhom=) giới hạn phạm vi. Số sản phẩm mỗi loại (typeCounts) server trả kèm mỗi trang,
-// tính trên cả phạm vi đang xem (danh mục / từ khóa / flash sale), không tính bộ lọc giá / đánh giá
+// tính trên cả phạm vi đang xem (danh mục / từ khóa / flash sale), không tính bộ lọc giá
 const urlSubs = computed(() => (sub.value ? [sub.value] : group.value ? group.value.subs : null))
 const typeCounts = ref({})
 const counts = computed(() => urlSubs.value
@@ -179,7 +175,7 @@ const page = ref(props.page)
 const pages = computed(() => Math.ceil(total.value / PAGE_SIZE))
 watch(() => props.page, p => (page.value = p))
 // Đổi bộ lọc / sắp xếp thì về trang 1
-watch([kind, price, minR, sort], () => {
+watch([kind, price, sort], () => {
   if (page.value === 1) return
   page.value = 1
   router.replace({ query: { ...route.query, trang: undefined } })
@@ -198,7 +194,6 @@ async function load() {
       type: kindSubs.value ?? urlSubs.value,
       minPrice: r.min || null,
       maxPrice: Number.isFinite(r.max) ? r.max : null,
-      minRating: minR.value || null,
       sort: sort.value === 'pop' ? null : sort.value,
       page: page.value,
       pageSize: PAGE_SIZE,
@@ -221,7 +216,7 @@ async function load() {
   }
 }
 const key = list => (list ?? []).join('|')
-watch([() => props.cat, () => props.q, () => props.flash, () => key(urlSubs.value), () => key(kindSubs.value), price, minR, sort, page], load, { immediate: true })
+watch([() => props.cat, () => props.q, () => props.flash, () => key(urlSubs.value), () => key(kindSubs.value), price, sort, page], load, { immediate: true })
 const title = computed(() => props.flash ? 'Flash sale' : props.q ? `Kết quả cho "${props.q}"`
   : sub.value || group.value?.title || (c.value ? c.value.name : 'Tất cả sản phẩm'))
 </script>
@@ -277,10 +272,6 @@ const title = computed(() => props.flash ? 'Flash sale' : props.q ? `Kết quả
           <div class="f-g">
             <h6>Khoảng giá</h6>
             <label v-for="r in PRICES" :key="r.k" class="chk"><input v-model="price" type="radio" name="price" :value="r.k">{{ r.label }}</label>
-          </div>
-          <div class="f-g">
-            <h6>Đánh giá</h6>
-            <label v-for="[k, l] in RATINGS" :key="k" class="chk"><input v-model="minR" type="radio" name="rating" :value="k">{{ l }}</label>
           </div>
         </div>
         <div class="drawer-f filters-f">

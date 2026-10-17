@@ -5,7 +5,6 @@ import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import { get, put } from '@/services/api'
 
-// Các link liên hệ: để trống thì ẩn nút tương ứng trên site; "Mở thử" mở link đã lưu
 const LINKS = [
   {
     key: 'zaloUrl',

@@ -34,6 +34,7 @@ internal static class CatalogMappings
             p.IsFlashSale,
             p.Rating,
             p.ReviewCount,
+            p.SoldCount,
             p.ImageUrl,
             p.GalleryImages,
             p.VideoUrl,

@@ -9,7 +9,6 @@ import TabPanel from 'primevue/tabpanel'
 import NewsPostsList from '@/components/NewsPostsList.vue'
 import NewsCategoriesManager from '@/components/NewsCategoriesManager.vue'
 
-// Bài viết và chuyên mục chung một trang; tab giữ trên URL (?tab=chuyen-muc). lazy: mở tab nào mới tải tab đó
 const route = useRoute()
 const router = useRouter()
 const tab = computed({

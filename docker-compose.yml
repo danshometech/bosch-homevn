@@ -19,6 +19,7 @@ services:
       Admin__Email: ${ADMIN_EMAIL:?Thiếu ADMIN_EMAIL trong .env}
       Admin__Password: ${ADMIN_PASSWORD:?Thiếu ADMIN_PASSWORD trong .env}
       VietnamAddressApi__BaseUrl: ${VIETNAM_ADDRESS_API_URL:-https://provinces.open-api.vn/api/v2/}
+      Seed__SampleReviews: ${SAMPLE_REVIEWS:-false}
     volumes:
       - appdata:/app/App_Data
     networks: [app, db]

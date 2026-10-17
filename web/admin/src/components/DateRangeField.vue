@@ -4,8 +4,6 @@ import Button from 'primevue/button'
 import DatePicker from 'primevue/datepicker'
 import { addDays, startOfToday } from '@/utils/format'
 
-// Chọn khoảng ngày [từ, đến], tối đa MAX_DAYS ngày (tính cả hai đầu), không quá hôm nay. Chọn xong ngày đầu thì lịch chỉ
-// cho chọn ngày cuối trong vòng MAX_DAYS ngày quanh nó. v-model: [Date, Date] (đang chọn dở: [Date, null])
 const MAX_DAYS = 31
 const range = defineModel({ type: Array, default: () => [null, null] })
 const today = startOfToday()

@@ -5,7 +5,7 @@ namespace BoschHomeVn.Infrastructure.Media;
 
 internal sealed class LocalMediaStorage(string rootPath, string requestPath) : IMediaStorage
 {
-    private static readonly string[] Folders = ["products", "moments", "articles", "news"];
+    private static readonly string[] Folders = ["products", "moments", "articles", "news", "reviews"];
 
     public async Task<string> SaveImageAsync(Stream content, string folder, CancellationToken cancellationToken)
     {

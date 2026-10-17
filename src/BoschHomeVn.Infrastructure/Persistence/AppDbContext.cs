@@ -4,6 +4,7 @@ using BoschHomeVn.Domain.Checkout;
 using BoschHomeVn.Domain.Home;
 using BoschHomeVn.Domain.News;
 using BoschHomeVn.Domain.Orders;
+using BoschHomeVn.Domain.Reviews;
 using BoschHomeVn.Domain.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -25,6 +26,8 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : Ident
     public DbSet<ShippingMethod> ShippingMethods => Set<ShippingMethod>();
     public DbSet<PaymentMethod> PaymentMethods => Set<PaymentMethod>();
     public DbSet<Order> Orders => Set<Order>();
+    public DbSet<ProductReview> ProductReviews => Set<ProductReview>();
+    public DbSet<ReviewVote> ReviewVotes => Set<ReviewVote>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -25,17 +25,21 @@ public static class DependencyInjection
             throw new InvalidOperationException("Thiếu cấu hình ConnectionStrings:Default.");
         }
 
+        // Đánh giá mẫu cho dev / server demo (Seed:SampleReviews); tắt thì đánh giá mẫu đã tạo bị xóa — site thật để tắt
+        var sampleReviews = bool.TryParse(configuration["Seed:SampleReviews"], out var on) && on;
         services.AddDbContext<AppDbContext>(options => options
             .UseNpgsql(connectionString)
             .UseSeeding((context, _) =>
             {
                 CatalogSeeder.Seed(context);
                 HomeSeeder.Seed(context);
+                ReviewSeeder.Seed(context, sampleReviews);
             })
             .UseAsyncSeeding(async (context, _, cancellationToken) =>
             {
                 await CatalogSeeder.SeedAsync(context, cancellationToken);
                 await HomeSeeder.SeedAsync(context, cancellationToken);
+                await ReviewSeeder.SeedAsync(context, sampleReviews, cancellationToken);
             }));
         services.AddScoped<IAppDbContext>(sp => sp.GetRequiredService<AppDbContext>());
 

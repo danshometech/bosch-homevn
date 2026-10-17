@@ -23,7 +23,6 @@ async function submit() {
   busy.value = true
   try {
     await auth.login(userName.value.trim(), password.value, remember.value)
-    // chỉ quay lại đường dẫn nội bộ của trang quản trị
     const next = String(route.query.next || '')
     router.replace(next.startsWith('/') && !next.startsWith('//') ? next : { name: 'dashboard' })
   } catch (err) {

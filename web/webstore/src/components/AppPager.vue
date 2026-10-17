@@ -1,12 +1,21 @@
 <script setup>
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import AppIcon from '@/components/AppIcon.vue'
 
 // Phân trang theo ?trang= trên URL của trang hiện tại; null trong `items` = dấu …
-const props = defineProps({ page: { type: Number, required: true }, pages: { type: Number, required: true } })
+// local: không đụng URL, các số trang là nút bấm, đổi trang qua v-model:page (vd. đánh giá ở trang chi tiết)
+const props = defineProps({
+  page: { type: Number, required: true },
+  pages: { type: Number, required: true },
+  local: { type: Boolean, default: false },
+})
+const emit = defineEmits(['update:page'])
 const route = useRoute()
-const to = n => ({ query: { ...route.query, trang: n > 1 ? n : undefined } })
+const tag = computed(() => (props.local ? 'button' : RouterLink))
+const bind = n => (props.local
+  ? { type: 'button', onClick: () => emit('update:page', n) }
+  : { to: { query: { ...route.query, trang: n > 1 ? n : undefined } } })
 
 const items = computed(() => {
   const { page: p, pages: n } = props
@@ -23,13 +32,13 @@ const items = computed(() => {
 
 <template>
   <nav v-if="pages > 1" class="pager" aria-label="Phân trang">
-    <RouterLink v-if="page > 1" class="pg" :to="to(page - 1)" aria-label="Trang trước"><AppIcon name="chevron" :size="16" class="pg-prev" /></RouterLink>
+    <component :is="tag" v-if="page > 1" class="pg" v-bind="bind(page - 1)" aria-label="Trang trước"><AppIcon name="chevron" :size="16" class="pg-prev" /></component>
     <span v-else class="pg off" aria-hidden="true"><AppIcon name="chevron" :size="16" class="pg-prev" /></span>
     <template v-for="(x, i) in items" :key="x ?? 'gap' + i">
       <span v-if="x === null" class="pg-gap" aria-hidden="true">…</span>
-      <RouterLink v-else class="pg" :class="{ on: x === page }" :to="to(x)" :aria-label="`Trang ${x}`" :aria-current="x === page ? 'page' : undefined">{{ x }}</RouterLink>
+      <component :is="tag" v-else class="pg" :class="{ on: x === page }" v-bind="bind(x)" :aria-label="`Trang ${x}`" :aria-current="x === page ? 'page' : undefined">{{ x }}</component>
     </template>
-    <RouterLink v-if="page < pages" class="pg" :to="to(page + 1)" aria-label="Trang sau"><AppIcon name="chevron" :size="16" class="pg-next" /></RouterLink>
+    <component :is="tag" v-if="page < pages" class="pg" v-bind="bind(page + 1)" aria-label="Trang sau"><AppIcon name="chevron" :size="16" class="pg-next" /></component>
     <span v-else class="pg off" aria-hidden="true"><AppIcon name="chevron" :size="16" class="pg-next" /></span>
   </nav>
 </template>

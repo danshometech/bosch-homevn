@@ -22,6 +22,7 @@ public sealed record ProductResponse(
     bool IsFlashSale,
     decimal? Rating,
     int ReviewCount,
+    int SoldCount,
     string? ImageUrl,
     IReadOnlyList<string> GalleryImages,
     string? VideoUrl,

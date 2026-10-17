@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { fmt, pct, monthly, warrantyOf } from '@/utils/format'
+import { fmt, fmtSold, pct, monthly, warrantyOf } from '@/utils/format'
 import { toDetail } from '@/router/links'
 import { useCartStore } from '@/stores/cart'
 import { useCompareStore } from '@/stores/compare'
@@ -34,7 +34,7 @@ function buyNow() {
     <div v-if="off || p.isNew || p.isBest" class="pc-tags">
       <span v-if="off" class="pc-off">Giảm {{ off }}%</span>
       <span v-if="p.isNew" class="pc-off pc-new">Mới</span>
-      <span v-if="p.isBest" class="pc-off pc-best">Best seller</span>
+      <span v-if="p.isBest" class="pc-off pc-best">Bán chạy</span>
     </div>
     <span v-if="inst" class="pc-inst">Trả góp <b>0%</b></span>
     <div class="pc-img">
@@ -50,8 +50,9 @@ function buyNow() {
       <p class="pc-perk violet">Bảo hành chính hãng {{ warrantyOf(p) }}</p>
     </div>
     <p v-if="inst" class="pc-pay">Trả góp 0% - 0đ trả trước - chỉ <b>{{ fmt(monthly(p.price, inst.displayMonths)) }}</b>/tháng</p>
-    <div v-if="p.rating != null" class="pc-foot">
-      <span class="pc-rate" role="img" :aria-label="`${p.rating.toFixed(1)} trên 5 sao`"><AppIcon name="star" :size="16" />{{ p.rating.toFixed(1) }}</span>
+    <div v-if="p.rating != null || p.sold" class="pc-foot">
+      <span v-if="p.rating != null" class="pc-rate" role="img" :aria-label="`${p.rating.toFixed(1)} trên 5 sao`"><AppIcon name="star" :size="16" />{{ p.rating.toFixed(1) }}</span>
+      <span v-if="p.sold" class="pc-sold">Đã bán {{ fmtSold(p.sold) }}</span>
     </div>
     <div class="pc-actions">
       <div class="pc-actions-in">

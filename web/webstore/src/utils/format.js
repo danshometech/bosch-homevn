@@ -5,6 +5,15 @@ export const pct = p => (p.old > p.price ? Math.round((1 - p.price / p.old) * 10
 // Thời hạn bảo hành từ DB ("BSH - 3 năm" → "3 năm"); không có thì dùng mức chung 24 tháng
 export const warrantyOf = p => p.warranty?.replace(/^BSH\s*-\s*/i, '') || '24 tháng'
 export const monthly = (total, months) => Math.round(total / months / 1000) * 1000
+// Số đã bán làm tròn xuống (không nói quá số thật): 850 → "850", 1.290 → "1,2k", 12.900 → "12k",
+// 125.400 → "125k", 1.290.000 → "1,2tr", 12.500.000 → "12tr"
+export function fmtSold(n) {
+  const short = (size, unit) => {
+    const tenths = Math.floor(n / (size / 10))
+    return (tenths < 100 ? String(tenths / 10).replace('.', ',') : String(Math.floor(tenths / 10))) + unit
+  }
+  return n >= 1e6 ? short(1e6, 'tr') : n >= 1e3 ? short(1e3, 'k') : String(n)
+}
 
 // Tình trạng hàng: [nhãn, màu]
 export const STOCK = {

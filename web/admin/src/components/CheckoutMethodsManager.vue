@@ -13,7 +13,6 @@ import Textarea from 'primevue/textarea'
 import ToggleSwitch from 'primevue/toggleswitch'
 import { get, post, put, del } from '@/services/api'
 
-// kind: shipping (có phí) | payment (có cờ trả góp)
 const props = defineProps({ kind: { type: String, required: true } })
 const isShip = props.kind === 'shipping'
 const base = `/admin/checkout/${props.kind}`

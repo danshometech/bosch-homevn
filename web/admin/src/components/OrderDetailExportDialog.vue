@@ -11,8 +11,6 @@ import DateRangeField from './DateRangeField.vue'
 import { get, download } from '@/services/api'
 import { addDays, fmt, fmtDate, isoDate, orderStatusOf, startOfToday } from '@/utils/format'
 
-// Xuất chi tiết một đơn: chọn khoảng ngày → danh sách đơn trong khoảng đó → chọn một đơn → file Excel gồm thông tin đơn,
-// người nhận, giao hàng / thanh toán, sản phẩm và lịch sử xử lý
 const PAGE_SIZE = 8
 const visible = defineModel('visible', { type: Boolean, default: false })
 const toast = useToast()

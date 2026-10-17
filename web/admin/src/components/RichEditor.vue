@@ -19,7 +19,6 @@ import 'tinymce/plugins/wordcount'
 import 'tinymce-i18n/langs8/vi'
 import { uploadImage } from '@/services/api'
 
-// TinyMCE tự host (GPL); ảnh chèn / dán vào được tải lên /media/<folder>
 const html = defineModel({ type: String, default: '' })
 const props = defineProps({ folder: { type: String, default: 'articles' } })
 const el = ref(null)

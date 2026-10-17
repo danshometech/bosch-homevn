@@ -5,8 +5,6 @@ import Select from 'primevue/select'
 import Tag from 'primevue/tag'
 import { fmt, onSale } from '@/utils/format'
 
-// Danh sách sản phẩm có thứ tự (id): chọn thêm từ ô tìm, đổi chỗ lên/xuống, bỏ.
-// `exclude`: id đang dùng ở danh sách khác của cùng khoảnh khắc — một sản phẩm chỉ ở một chỗ.
 const ids = defineModel({ type: Array, required: true })
 const props = defineProps({
   products: { type: Array, required: true },

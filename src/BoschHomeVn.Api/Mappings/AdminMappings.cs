@@ -38,6 +38,7 @@ internal static class AdminMappings
             p.IsPublished,
             p.Rating,
             p.ReviewCount,
+            p.SoldCount,
             p.ImageUrl,
             p.GalleryImages,
             p.VideoUrl,
@@ -78,7 +79,8 @@ internal static class AdminMappings
             [.. (r.Specs ?? []).Select(s => new ProductSpec(s.Name ?? "", s.Value ?? ""))],
             r.AllowInstallment,
             r.InstallmentMonths ?? [],
-            r.InstallmentDisplayMonths);
+            r.InstallmentDisplayMonths,
+            r.SoldCount);
 
     public static IReadOnlyList<AdminCategoryResponse> ToResponse(this CategoryTree tree) =>
     [

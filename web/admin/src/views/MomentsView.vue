@@ -28,7 +28,6 @@ onMounted(async () => {
   }
 })
 
-// Trang chủ chỉ hiện khoảnh khắc có ít nhất một sản phẩm hàng chính đang bán
 const shown = m => m.productIds.some(id => products.value.get(id) && onSale(products.value.get(id)))
 </script>
 

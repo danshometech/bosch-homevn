@@ -3,6 +3,7 @@ using BoschHomeVn.Domain.Checkout;
 using BoschHomeVn.Domain.Home;
 using BoschHomeVn.Domain.News;
 using BoschHomeVn.Domain.Orders;
+using BoschHomeVn.Domain.Reviews;
 using BoschHomeVn.Domain.Settings;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,8 @@ public interface IAppDbContext
     DbSet<ShippingMethod> ShippingMethods { get; }
     DbSet<PaymentMethod> PaymentMethods { get; }
     DbSet<Order> Orders { get; }
+    DbSet<ProductReview> ProductReviews { get; }
+    DbSet<ReviewVote> ReviewVotes { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

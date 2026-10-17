@@ -45,8 +45,8 @@ onUnmounted(() => {
 <template>
   <div class="topbar">
     <div class="wrap">
-      <span>Cửa hàng Online <b>chính hãng Bosch</b> · Bảo hành toàn quốc</span>
-      <span class="hide-m">Hotline <b>{{ settings.hotline }}</b> · Miễn phí giao hàng nội thành</span>
+      <span>Cửa hàng Online <b>chính hãng Bosch</b> · Bảo hành toàn quốc · 1800 8167 </span>
+      <span class="hide-m">Hotline <b>{{ settings.hotline }}</b> · Hỗ trợ giao hàng và lắp đặt</span>
     </div>
   </div>
   <header ref="headerEl" class="header">

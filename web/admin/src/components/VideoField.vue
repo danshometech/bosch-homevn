@@ -5,8 +5,6 @@ import Button from 'primevue/button'
 import ProgressBar from 'primevue/progressbar'
 import { uploadImage, uploadVideo } from '@/services/api'
 
-// Video giới thiệu: tải file MP4 / WebM (≤ 50 MB) lên, xem trước, bỏ. Ảnh bìa (v-model:poster) là một khung hình của
-// video: tự chụp ở giây thứ 1 khi tải lên, hoặc chụp khung đang dừng trong ô xem trước
 const url = defineModel({ type: String, default: null })
 const poster = defineModel('poster', { type: String, default: null })
 const MAX = 50 * 1024 * 1024
@@ -14,10 +12,9 @@ const TYPES = ['video/mp4', 'video/webm']
 const toast = useToast()
 const input = ref(null)
 const preview = ref(null)
-const progress = ref(null) // % đang tải lên, null = không tải
+const progress = ref(null)
 const capturing = ref(false)
 
-// Vẽ khung hình hiện tại của <video> ra JPEG (rộng tối đa 1280px) rồi tải lên như ảnh sản phẩm
 async function uploadFrame(video) {
   const scale = Math.min(1, 1280 / video.videoWidth)
   const canvas = Object.assign(document.createElement('canvas'), {
@@ -29,7 +26,6 @@ async function uploadFrame(video) {
   return uploadImage(new File([blob], 'poster.jpg', { type: 'image/jpeg' }), 'products')
 }
 
-// Chụp khung hình ở giây thứ 1 (video ngắn hơn thì lấy 1/10 thời lượng) từ file vừa chọn, chưa cần tải video về
 async function frameFromFile(file) {
   const video = Object.assign(document.createElement('video'), { muted: true, playsInline: true, preload: 'auto' })
   video.src = URL.createObjectURL(file)
@@ -62,7 +58,7 @@ async function pick(e) {
   try {
     const [videoUrl, posterUrl] = await Promise.all([
       uploadVideo(file, p => (progress.value = p)),
-      frameFromFile(file).catch(() => null), // không chụp được ảnh bìa thì vẫn lưu video
+      frameFromFile(file).catch(() => null),
     ])
     url.value = videoUrl
     poster.value = posterUrl

@@ -1,10 +1,7 @@
-// 18990000 → "18.990.000₫"; không có giá → "—"
 export const fmt = n => (n == null ? '—' : n.toLocaleString('vi-VN') + '₫')
 
-// Ngày giờ luôn theo giờ Việt Nam (shop ở VN; máy admin có thể đặt múi giờ khác) — khớp bộ lọc ngày và file Excel của server
 export const fmtDate = d => (d ? new Date(d).toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short', timeZone: 'Asia/Ho_Chi_Minh' }) : '—')
 
-// Ngày (bỏ giờ) cho bộ lọc theo ngày: Date → "2026-10-12", cộng / trừ ngày, hôm nay theo giờ Việt Nam
 export const isoDate = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 export const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n)
 export const startOfToday = () => {
@@ -12,7 +9,6 @@ export const startOfToday = () => {
   return new Date(vn.getUTCFullYear(), vn.getUTCMonth(), vn.getUTCDate())
 }
 
-// Bỏ dấu tiếng Việt để tìm "may rua bat" vẫn ra "Máy rửa bát"
 export const fold = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase()
 
 export const STOCK = [
@@ -22,7 +18,6 @@ export const STOCK = [
 ]
 export const stockOf = value => STOCK.find(s => s.value === value) || STOCK[0]
 
-// Trạng thái đơn hàng, theo thứ tự xử lý
 export const ORDER_STATUS = [
   { value: 'New', label: 'Mới', severity: 'warn' },
   { value: 'Confirmed', label: 'Đã xác nhận', severity: 'info' },
@@ -32,13 +27,19 @@ export const ORDER_STATUS = [
 ]
 export const orderStatusOf = value => ORDER_STATUS.find(s => s.value === value) || ORDER_STATUS[0]
 
-// % giảm hiện thành nhãn "Giảm X%" trên site — tính từ giá gạch (oldPrice) so với giá bán; không có thì null
-export const discountOf = p => (p.price != null && p.oldPrice > p.price ? Math.round((1 - p.price / p.oldPrice) * 100) : null)
+export const REVIEW_STATUS = [
+  { value: 'Pending', label: 'Chờ duyệt', severity: 'warn' },
+  { value: 'Approved', label: 'Đang hiện', severity: 'success' },
+  { value: 'Hidden', label: 'Đã ẩn', severity: 'secondary' },
+]
+export const reviewStatusOf = value => REVIEW_STATUS.find(s => s.value === value) || REVIEW_STATUS[0]
+// Nguồn đánh giá: khách gửi trên site, admin nhập, hoặc dữ liệu mẫu (seed, chỉ có trên máy dev)
+export const reviewSourceOf = r => (r.createdBy === 'seed' ? 'Dữ liệu mẫu' : r.createdBy ? `Admin nhập (${r.createdBy})` : 'Khách gửi trên site')
 
-// Sản phẩm đang hiện trên site bán hàng: có giá bán và đang bật hiển thị
+export const discountOf =p => (p.price != null && p.oldPrice > p.price ? Math.round((1 - p.price / p.oldPrice) * 100) : null)
+
 export const onSale = p => p.price != null && p.isPublished
 
-// Tông màu nền theo giờ của khoảnh khắc trang chủ (màu thật ở web/webstore/src/data/day.js)
 export const TONES = {
   dawn: { label: 'Bình minh', color: 'oklch(0.95 0.022 75)' },
   morning: { label: 'Buổi sáng', color: 'oklch(0.965 0.032 92)' },
@@ -48,7 +49,6 @@ export const TONES = {
   night: { label: 'Ban đêm', color: 'oklch(0.2 0.03 265)' },
 }
 
-// Body gửi PUT/POST /api/admin/products từ một sản phẩm (dạng API trả về) — dùng cho sửa nhanh trên bảng
 export const toProductRequest = p => ({
   model: p.model,
   name: p.name,
@@ -76,8 +76,8 @@ export const toProductRequest = p => ({
   allowInstallment: p.allowInstallment,
   installmentMonths: p.installmentMonths,
   installmentDisplayMonths: p.installmentDisplayMonths,
+  soldCount: p.soldCount,
 })
 
-// Kỳ hạn trả góp admin chọn được cho sản phẩm
 export const INSTALLMENT_MONTHS = [3, 6, 9, 12, 18, 24, 36]
 export const monthly = (price, months) => Math.round(price / months / 1000) * 1000

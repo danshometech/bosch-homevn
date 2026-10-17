@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive, computed, watch, nextTick, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { fmt, pct, monthly, warrantyOf, STOCK, specsOf } from '@/utils/format'
+import { fmt, fmtSold, pct, monthly, warrantyOf, STOCK, specsOf } from '@/utils/format'
 import { replay } from '@/utils/motion'
 import { toList } from '@/router/links'
 import { setTitle } from '@/router'
@@ -16,6 +16,7 @@ import StarRating from '@/components/StarRating.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import ProductCardSkeleton from '@/components/ProductCardSkeleton.vue'
 import ProductDetailSkeleton from '@/components/ProductDetailSkeleton.vue'
+import ProductReviews from '@/components/ProductReviews.vue'
 const settings = useSettingsStore()
 
 const props = defineProps({ id: { type: String, required: true } })
@@ -26,7 +27,7 @@ const compare = useCompareStore()
 const viewed = useViewedStore()
 
 const PERKS = [
-  ['GH', 'Miễn phí giao hàng', 'Nội thành Hà Nội, TP. HCM, Đà Nẵng trong 24h'],
+  ['GH', 'Miễn phí giao hàng', 'Nội thành Hà Nội, TP. HCM, Đà Nẵng'],
   ['ĐT', 'Đổi trả trong 30 ngày', 'Đổi mới nếu lỗi do nhà sản xuất'],
   ['VAT', 'Xuất hóa đơn VAT', 'Theo yêu cầu cho cá nhân & doanh nghiệp'],
 ]
@@ -100,6 +101,7 @@ function toggleSpecs() {
   specOpen.value = !specOpen.value
   if (!specOpen.value) keepInView()
 }
+const toReviews = () => document.getElementById('danh-gia')?.scrollIntoView({ behavior: 'smooth' })
 watch([article, tab], () => nextTick(measureArticle))
 // "Sản phẩm đã xem": 4 sản phẩm xem gần nhất (trừ sản phẩm đang xem); hiện ngay bản có trong store rồi lấy phần
 // còn thiếu qua GET /api/products?ids=…, mã không còn bán thì bỏ khỏi danh sách
@@ -243,12 +245,13 @@ function buyInstallment() {
         <div style="display:flex;gap:6px">
           <span v-if="off" class="tag">-{{ off }}%</span>
           <span v-if="p.isNew" class="tag new">Mới</span>
-          <span v-if="p.isBest" class="tag best">Best seller</span>
+          <span v-if="p.isBest" class="tag best">Bán chạy</span>
           <span class="tag ok">Chính hãng</span>
         </div>
         <h1>{{ p.name }}</h1>
         <div class="pd-meta">
-          <StarRating v-if="p.rating != null" :rating="p.rating" :count="p.reviews" />
+          <a v-if="p.rating != null" class="pd-rate" href="#danh-gia" @click.prevent="toReviews"><StarRating :rating="p.rating" :count="p.reviews" /></a>
+          <span v-if="p.sold">Đã bán <b class="pd-sold">{{ fmtSold(p.sold) }}</b></span>
           <span>Mã: <span class="mono">{{ p.model }}</span></span>
           <span :style="{ color: stock.color, fontWeight: 600 }">● {{ stock.text }}</span>
         </div>
@@ -332,6 +335,7 @@ function buyInstallment() {
           </template>
         </div>
       </div>
+      <ProductReviews :key="p.id" :product="p" />
     </section>
 
     <section v-if="relLoading || related.length" style="padding-bottom:24px">

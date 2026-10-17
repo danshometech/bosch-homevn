@@ -27,6 +27,7 @@ public sealed record AdminProductResponse(
     bool IsPublished,
     decimal? Rating,
     int ReviewCount,
+    int SoldCount,
     string? ImageUrl,
     IReadOnlyList<string> GalleryImages,
     string? VideoUrl,
@@ -63,7 +64,8 @@ public sealed record SaveProductRequest(
     IReadOnlyList<ProductSpecRequest> Specs,
     bool AllowInstallment,
     IReadOnlyList<int>? InstallmentMonths,
-    int? InstallmentDisplayMonths);
+    int? InstallmentDisplayMonths,
+    [Range(0, 100_000_000)] int? SoldCount);
 
 public sealed record SaveProductArticleRequest([StringLength(200_000)] string? Html);
 

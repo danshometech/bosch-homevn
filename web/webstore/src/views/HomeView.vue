@@ -12,14 +12,10 @@ import SceneShot from '@/components/SceneShot.vue'
 
 const catalog = useCatalogStore()
 const settings = useSettingsStore()
-// Dữ liệu trang chủ đã tải trước khi vào trang (router: GET /api/home) — chỉ gồm khoảnh khắc còn sản phẩm đang bán.
-// `flash`: { count, maxOff, subs } hoặc null khi không có sản phẩm flash sale.
 const { hero, moments, flash } = catalog.home
 const [hh, mm] = hero?.time.split(':') ?? []
 const last = moments.at(-1) ?? { tone: 'night' }
-// Đoạn kết là trang cuối của dải trượt (màn nhỏ): nút "Tiếp theo" của 23:15 trỏ tới nó
 const END = { time: '00:00', name: 'Ngày mai' }
-// Sao trên bầu trời đoạn kết: [trái %, trên %, trễ nhịp lấp lánh (s), cỡ (px)]
 const STARS = [
   [8, 14, 0, 2], [18, 32, 1.2, 1.5], [27, 9, 2.4, 2], [36, 24, 0.6, 1.5], [47, 12, 3.1, 2.5], [58, 30, 1.8, 1.5],
   [66, 8, 0.3, 2], [74, 22, 2.7, 1.5], [88, 34, 1.1, 2], [92, 12, 3.6, 1.5], [12, 52, 2.2, 1.5], [84, 56, 0.9, 2],
@@ -30,14 +26,11 @@ const flashTone = (moments.find(m => m.id === FLASH_AFTER) || last).tone
 
 const trust = [
   ['✓', 'Chính hãng 100%', 'Tem & hóa đơn VAT'],
-  ['24', 'Bảo hành đến 24 tháng', 'Bảo hành điện tử'],
-  ['0%', 'Trả góp 0% lãi suất', 'Duyệt online 5 phút'],
-  ['30', 'Đổi trả 30 ngày', 'Lỗi do nhà sản xuất'],
+  ['24', 'Bảo hành đến 36 tháng', 'Bảo hành điện tử'],
+  ['0%', 'Hỗ trợ giao hàng và lắp đặt', 'Miễn phí giao hàng nội thành'],
+  ['30', 'Tư vấn chuyên nghiệp', 'Hỗ trợ chọn thiết bị phù hợp'],
 ]
 
-// Màu nền theo giờ: pha dần giữa hai khoảnh khắc liền nhau theo vị trí cuộn, lấy banner (ảnh) của khoảnh khắc
-// làm mốc: banner ló lên ở đáy màn hình thì bắt đầu pha, lên tới 40% màn hình thì xong. Mốc giờ bên trái
-// sáng lên và chữ đổi màu (sáng/tối) đúng lúc màu đã pha được một nửa.
 const smooth = t => t * t * (3 - 2 * t)
 const mix = (a, b, e) => (e <= 0 ? a : e >= 1 ? b : `color-mix(in oklab, ${b} ${(e * 100).toFixed(1)}%, ${a})`)
 function blend(from, to, e) {

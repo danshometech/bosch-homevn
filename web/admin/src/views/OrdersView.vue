@@ -13,7 +13,6 @@ import { get } from '@/services/api'
 import { fmt, fmtDate, ORDER_STATUS, orderStatusOf } from '@/utils/format'
 import { useOrderBadgeStore } from '@/stores/orders'
 
-// Lọc trạng thái / từ khóa / trang giữ trên URL (?status=New&q=…&page=2): mở chi tiết rồi quay lại vẫn đúng chỗ
 const PAGE_SIZE = 20
 const route = useRoute()
 const router = useRouter()
@@ -45,7 +44,6 @@ async function load() {
 }
 watch(() => route.query, load, { immediate: true })
 
-// Bỏ tham số rỗng; đổi bộ lọc thì về trang 1
 function setQuery(patch) {
   const query = Object.fromEntries(Object.entries({ ...route.query, page: undefined, ...patch }).filter(([, v]) => v))
   router.replace({ query })
@@ -56,7 +54,6 @@ watch(q, v => {
   typing = setTimeout(() => setQuery({ q: v.trim() }), 300)
 })
 
-// Xuất Excel: các đơn trong khoảng ngày / chi tiết một đơn — mỗi loại một hộp thoại
 const exportOpen = ref(false)
 const detailOpen = ref(false)
 

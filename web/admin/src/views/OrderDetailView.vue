@@ -17,7 +17,6 @@ const toast = useToast()
 const badge = useOrderBadgeStore()
 
 const order = ref(null)
-// Phần admin sửa: trạng thái, đã thu tiền, ghi chú (bắt buộc khi đổi trạng thái) — mỗi lần lưu thêm một dòng lịch sử
 const form = ref({ status: 'New', isPaid: false, note: '' })
 const noteErr = ref(false)
 const saving = ref(false)

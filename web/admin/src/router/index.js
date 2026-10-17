@@ -23,6 +23,9 @@ const routes = [
       { path: 'chuyen-muc-tin', redirect: { name: 'news', query: { tab: 'chuyen-muc' } } },
       { path: 'don-hang', name: 'orders', component: () => import('@/views/OrdersView.vue'), meta: { title: 'Đơn hàng' } },
       { path: 'don-hang/:code', name: 'order-detail', component: () => import('@/views/OrderDetailView.vue'), props: true, meta: { title: 'Chi tiết đơn hàng' } },
+      { path: 'danh-gia', name: 'reviews', component: () => import('@/views/ReviewsView.vue'), meta: { title: 'Đánh giá' } },
+      { path: 'danh-gia/moi', name: 'review-new', component: () => import('@/views/ReviewEditView.vue'), meta: { title: 'Thêm đánh giá' } },
+      { path: 'danh-gia/:id', name: 'review-edit', component: () => import('@/views/ReviewEditView.vue'), props: true, meta: { title: 'Sửa đánh giá' } },
       { path: 'giao-hang-thanh-toan', name: 'checkout', component: () => import('@/views/CheckoutSettingsView.vue'), meta: { title: 'Giao hàng & thanh toán' } },
       { path: 'lien-he', name: 'settings', component: () => import('@/views/SettingsView.vue'), meta: { title: 'Cập nhật liên hệ' } },
       { path: 'cai-dat', redirect: { name: 'settings' } },
@@ -33,7 +36,6 @@ const routes = [
 
 const router = createRouter({ history: createWebHistory(), routes })
 
-// Trang nào cũng cần đăng nhập, trừ trang đăng nhập
 router.beforeEach(async to => {
   const user = await useAuthStore().ensure()
   if (to.meta.public) return user && to.name === 'login' ? { name: 'dashboard' } : true
@@ -44,7 +46,6 @@ router.afterEach(to => {
   document.title = `${to.meta.title ? to.meta.title + ' — ' : ''}Quản trị bosch-homevn`
 })
 
-// API trả 401 giữa chừng (hết phiên): về trang đăng nhập, đăng nhập xong quay lại trang đang xem
 setUnauthorizedHandler(() => {
   useAuthStore().expire()
   const current = router.currentRoute.value

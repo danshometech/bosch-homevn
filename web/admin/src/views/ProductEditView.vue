@@ -18,7 +18,6 @@ import { fmt, STOCK, onSale, discountOf, INSTALLMENT_MONTHS, monthly } from '@/u
 
 const RichEditor = defineAsyncComponent(() => import('@/components/RichEditor.vue'))
 
-// Không có id = thêm mới
 const props = defineProps({ id: { type: String, default: null } })
 const router = useRouter()
 const toast = useToast()
@@ -27,7 +26,7 @@ const confirm = useConfirm()
 const blank = () => ({
   model: '', name: '', typeId: null, series: null,
   price: null, oldPrice: null, dealerPrice: null,
-  stockStatus: 'InStock', stockQuantity: null, stockNote: null,
+  stockStatus: 'InStock', stockQuantity: null, stockNote: null, soldCount: 0,
   color: null, origin: null, warranty: 'BSH - 3 năm',
   isNew: false, isBestSeller: false, isFlashSale: false, isPublished: true,
   imageUrl: null, galleryImages: [], videoUrl: null, videoPosterUrl: null, highlights: [], specs: [],
@@ -106,7 +105,12 @@ function moveSpec(i, d) {
 async function save() {
   saving.value = true
   try {
-    const body = { ...form.value, highlights: form.value.highlights.filter(h => h && h.trim()), installmentMonths: instMonths.value }
+    const body = {
+      ...form.value,
+      highlights: form.value.highlights.filter(h => h && h.trim()),
+      installmentMonths: instMonths.value,
+      soldCount: form.value.soldCount ?? 0,
+    }
     if (props.id) {
       form.value = toForm(await put(`/admin/products/${props.id}`, body))
       await saveArticle(props.id)
@@ -158,6 +162,8 @@ function remove() {
       </div>
       <div class="actions">
         <Tag v-if="id" :value="onSale(form) ? 'Đang bán trên site' : 'Không hiện trên site'" :severity="onSale(form) ? 'success' : 'secondary'" />
+        <Button v-if="id" :label="form.reviewCount ? `Đánh giá · ${form.rating} ★ (${form.reviewCount})` : 'Đánh giá'" icon="pi pi-star"
+                severity="secondary" outlined @click="router.push({ name: 'reviews', query: { product: id } })" />
         <Button v-if="id" label="Xóa" icon="pi pi-trash" severity="danger" outlined @click="remove" />
         <Button type="submit" label="Lưu" icon="pi pi-check" :loading="saving" :disabled="instMissing" />
       </div>
@@ -219,7 +225,7 @@ function remove() {
           </div>
           <p class="muted" style="margin:12px 0 0;font-size:13px">
             Trên site: <b v-if="discount" style="color:#b91c1c">nhãn "Giảm {{ discount }}%"</b><template v-else>không có nhãn giảm giá</template>
-            <template v-if="form.isNew"> · nhãn "Mới"</template><template v-if="form.isBestSeller"> · nhãn "Best seller"</template><template v-if="form.isFlashSale"> · Flash sale</template>
+            <template v-if="form.isNew"> · nhãn "Mới"</template><template v-if="form.isBestSeller"> · nhãn "Bán chạy"</template><template v-if="form.isFlashSale"> · Flash sale</template>
             <template v-if="form.allowInstallment"> · Trả góp 0%</template>
           </p>
         </section>
@@ -261,6 +267,11 @@ function remove() {
             <div class="field">
               <label for="qty">Số lượng tồn</label>
               <InputNumber v-model="form.stockQuantity" input-id="qty" :min="0" placeholder="Không theo dõi" />
+            </div>
+            <div class="field">
+              <label for="sold">Đã bán</label>
+              <InputNumber v-model="form.soldCount" input-id="sold" :min="0" :max="100000000" />
+              <small>Hiện "Đã bán …" trên thẻ sản phẩm và trang chi tiết; để 0 thì ẩn.</small>
             </div>
             <div class="field wide">
               <label for="note">Ghi chú hàng về</label>
@@ -304,7 +315,7 @@ function remove() {
           <div class="rows" style="gap:12px">
             <label class="check"><ToggleSwitch v-model="form.isPublished" />Hiện trên site</label>
             <label class="check"><Checkbox v-model="form.isNew" binary />Gắn nhãn "Mới"</label>
-            <label class="check"><Checkbox v-model="form.isBestSeller" binary />Gắn nhãn "Best seller"</label>
+            <label class="check"><Checkbox v-model="form.isBestSeller" binary />Gắn nhãn "Bán chạy"</label>
             <label class="check"><Checkbox v-model="form.isFlashSale" binary />Flash sale</label>
           </div>
         </section>

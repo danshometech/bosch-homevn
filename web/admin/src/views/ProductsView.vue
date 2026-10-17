@@ -38,7 +38,6 @@ const MATCH = {
 const products = ref([])
 const categories = ref([])
 const loading = ref(true)
-// bộ lọc giữ trên URL (?q=&cat=&status=) để quay lại từ trang sửa vẫn còn
 const q = ref(String(route.query.q || ''))
 const cat = ref(route.query.cat ? String(route.query.cat) : null)
 const status = ref(route.query.status ? String(route.query.status) : null)
@@ -64,7 +63,6 @@ const rows = computed(() => {
     && (!term || fold(p.name).includes(term) || fold(p.model).includes(term) || fold(p.typeName).includes(term)))
 })
 
-// Bật/tắt hiển thị, trả góp ngay trên bảng
 const TOGGLED = {
   isPublished: ['Đã hiện trên site', 'Đã ẩn khỏi site'],
   allowInstallment: ['Đã bật trả góp', 'Đã tắt trả góp'],

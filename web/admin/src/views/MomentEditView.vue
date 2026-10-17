@@ -18,7 +18,6 @@ const toast = useToast()
 const form = ref(null)
 const products = ref([])
 const saving = ref(false)
-// Ảnh bối cảnh (ảnh chụp căn phòng) hoặc ảnh tĩnh sản phẩm đặt trên mảng tường
 const sceneKind = ref('image')
 
 watch(() => props.id, async id => {
@@ -34,7 +33,6 @@ watch(() => props.id, async id => {
 }, { immediate: true })
 
 const toneOptions = computed(() => (form.value?.tones || []).map(t => ({ value: t, label: TONES[t]?.label ?? t })))
-// Số liệu trên ảnh lấy từ thông số của một sản phẩm trong khoảnh khắc
 const factProducts = computed(() => products.value
   .filter(p => form.value.productIds.includes(p.id) || form.value.extraProductIds.includes(p.id))
   .map(p => ({ value: p.id, label: `${p.model} — ${p.name}` })))

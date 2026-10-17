@@ -14,16 +14,20 @@ export async function api(path, params) {
 }
 
 // POST JSON. Lỗi: Error có `status`, `message` lấy từ ProblemDetails của server (thông báo tiếng Việt) nếu có
-export async function post(path, body, headers = {}) {
+export const post = (path, body, headers = {}) => send('POST', path, body, headers)
+
+// Gửi JSON hoặc FormData (ảnh) bằng method bất kỳ, lỗi như post
+export async function send(method, path, body, headers = {}) {
+  const form = body instanceof FormData
   const res = await fetch('/api' + path, {
-    method: 'POST',
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json', ...headers },
-    body: JSON.stringify(body),
+    method,
+    headers: { Accept: 'application/json', ...(body !== undefined && !form ? { 'Content-Type': 'application/json' } : {}), ...headers },
+    body: body === undefined || form ? body : JSON.stringify(body),
   })
   if (!res.ok) {
     let p = null
     try { p = await res.json() } catch { /* không có body JSON */ }
-    const message = (p?.errors ? Object.values(p.errors).flat().join(' ') : p?.detail || p?.title) || `POST /api${path} → ${res.status}`
+    const message = (p?.errors ? Object.values(p.errors).flat().join(' ') : p?.detail || p?.title) || `${method} /api${path} → ${res.status}`
     throw Object.assign(new Error(message), { status: res.status, problem: !!p })
   }
   return res.json()
